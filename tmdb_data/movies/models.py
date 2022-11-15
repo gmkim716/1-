@@ -16,6 +16,6 @@ class Movie(models.Model):
     overview = models.TextField()
     poster_path = models.CharField(max_length=200)
     youtube_key = models.CharField(max_length=100)
-    genres = models.ManyToManyField(Genre)      # Genre랑 연결
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    actors = models.ManyToManyField(Actor)      # Actor랑 연결
+    genres = models.ManyToManyField(Genre)                          # Genre랑 연결
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL)   
+    actors = models.ManyToManyField(Actor)                          # Actor랑 연결
