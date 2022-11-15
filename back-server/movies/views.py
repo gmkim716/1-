@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http.response import JsonResponse 		# JsonResponse 불러오기
-from .models import Movies
+from .models import Movie
 from django.http import HttpResponse
 import requests
 

@@ -225,6 +225,13 @@
 },
 {
     "model": "movies.actor",
+    "pk": 1019,
+    "fields": {
+        "name": "Mads Mikkelsen"
+    }
+},
+{
+    "model": "movies.actor",
     "pk": 1241,
     "fields": {
         "name": "John Turturro"
@@ -484,13 +491,6 @@
 },
 {
     "model": "movies.actor",
-    "pk": 8179,
-    "fields": {
-        "name": "Edward Finlay"
-    }
-},
-{
-    "model": "movies.actor",
     "pk": 8691,
     "fields": {
         "name": "Zoe Saldaña"
@@ -501,6 +501,13 @@
     "pk": 8944,
     "fields": {
         "name": "Jamie Lee Curtis"
+    }
+},
+{
+    "model": "movies.actor",
+    "pk": 9642,
+    "fields": {
+        "name": "Jude Law"
     }
 },
 {
@@ -841,6 +848,13 @@
 },
 {
     "model": "movies.actor",
+    "pk": 37632,
+    "fields": {
+        "name": "Eddie Redmayne"
+    }
+},
+{
+    "model": "movies.actor",
     "pk": 38673,
     "fields": {
         "name": "Channing Tatum"
@@ -963,6 +977,13 @@
     "pk": 58643,
     "fields": {
         "name": "Linda Emond"
+    }
+},
+{
+    "model": "movies.actor",
+    "pk": 58873,
+    "fields": {
+        "name": "Dan Fogler"
     }
 },
 {
@@ -1429,6 +1450,13 @@
 },
 {
     "model": "movies.actor",
+    "pk": 132157,
+    "fields": {
+        "name": "Ezra Miller"
+    }
+},
+{
+    "model": "movies.actor",
     "pk": 135651,
     "fields": {
         "name": "Michael B. Jordan"
@@ -1649,13 +1677,6 @@
     "pk": 550843,
     "fields": {
         "name": "Elizabeth Olsen"
-    }
-},
-{
-    "model": "movies.actor",
-    "pk": 557713,
-    "fields": {
-        "name": "María Abadi"
     }
 },
 {
@@ -2276,13 +2297,6 @@
 },
 {
     "model": "movies.actor",
-    "pk": 1454355,
-    "fields": {
-        "name": "Ed Morrone"
-    }
-},
-{
-    "model": "movies.actor",
     "pk": 1462267,
     "fields": {
         "name": "Yuina Kuroshima"
@@ -2409,13 +2423,6 @@
 },
 {
     "model": "movies.actor",
-    "pk": 1569175,
-    "fields": {
-        "name": "Dave Baez"
-    }
-},
-{
-    "model": "movies.actor",
     "pk": 1609925,
     "fields": {
         "name": "Julián Valcárcel"
@@ -2433,13 +2440,6 @@
     "pk": 1622199,
     "fields": {
         "name": "George Young"
-    }
-},
-{
-    "model": "movies.actor",
-    "pk": 1629790,
-    "fields": {
-        "name": "Fiorela Duranda"
     }
 },
 {
@@ -2633,13 +2633,6 @@
 },
 {
     "model": "movies.actor",
-    "pk": 1811021,
-    "fields": {
-        "name": "Marco de la O"
-    }
-},
-{
-    "model": "movies.actor",
     "pk": 1817397,
     "fields": {
         "name": "Sydney Craven"
@@ -2671,13 +2664,6 @@
     "pk": 1842860,
     "fields": {
         "name": "Whitney Peak"
-    }
-},
-{
-    "model": "movies.actor",
-    "pk": 1854123,
-    "fields": {
-        "name": "Chloe Brooks"
     }
 },
 {
@@ -2832,13 +2818,6 @@
     "pk": 2073065,
     "fields": {
         "name": "Martin Munro"
-    }
-},
-{
-    "model": "movies.actor",
-    "pk": 2077778,
-    "fields": {
-        "name": "Anita Leeman Torres"
     }
 },
 {
@@ -3007,13 +2986,6 @@
     "pk": 2480289,
     "fields": {
         "name": "Caylin Turner"
-    }
-},
-{
-    "model": "movies.actor",
-    "pk": 2482584,
-    "fields": {
-        "name": "Melisa Garat"
     }
 },
 {
@@ -3196,13 +3168,6 @@
     "pk": 2992685,
     "fields": {
         "name": "Mollie Hindle"
-    }
-},
-{
-    "model": "movies.actor",
-    "pk": 3032131,
-    "fields": {
-        "name": "Ruby Vizcarra"
     }
 },
 {
@@ -3627,6 +3592,33 @@
 },
 {
     "model": "movies.movie",
+    "pk": 338953,
+    "fields": {
+        "title": "신비한 동물들과 덤블도어의 비밀",
+        "release_date": "2022-04-06",
+        "popularity": 432.803,
+        "vote_count": 2952,
+        "vote_average": 6.8,
+        "overview": "1930년대, 제2차 세계대전에 마법사들이 개입하게 되면서 강력한 어둠의 마법사 그린델왈드의 힘이 급속도로 커진다. 덤블도어는 뉴트 스캐맨더에게 위대한 마법사 가문 후손, 마법학교의 유능한 교사, 머글 등으로 이루어진 팀에게 임무를 맡긴다. 이에 뉴트와 친구들은 머글과의 전쟁을 선포한 그린델왈드와 추종자들, 그의 위험한 신비한 동물들에 맞서 세상을 구할 거대한 전쟁에 나선다. 한편 전쟁의 위기가 최고조로 달한 상황 속에서 덤블도어는 더 이상 방관자로 머물 수 없는 순간을 맞이하고, 서서히 숨겨진 비밀이 드러나는데...",
+        "poster_path": "/uvQbXjMgC5weQepx4jLJJ60H3N0.jpg",
+        "youtube_key": "7oIM33zm0v8",
+        "genres": [
+            12,
+            14,
+            28
+        ],
+        "like_users": [],
+        "actors": [
+            1019,
+            9642,
+            37632,
+            58873,
+            132157
+        ]
+    }
+},
+{
+    "model": "movies.movie",
     "pk": 354912,
     "fields": {
         "title": "코코",
@@ -3906,7 +3898,7 @@
         "vote_average": 7.6,
         "overview": "국왕이자 블랙 팬서인 티찰라의 죽음 이후 수많은 강대국으로부터 위협을 받게 된 와칸다. 라몬다, 슈리 그리고 나키아, 오코예, 음바쿠는 각자 사명감을 갖고 와칸다를 지키기 위해 외로운 싸움을 이어간다. 한편, 비브라늄의 패권을 둘러싼 미스터리한 음모와 함께 깊은 해저에서 모습을 드러낸 최강의 적 네이머와 탈로칸의 전사들은 와칸다를 향해 무차별 공격을 퍼붓기 시작하는데…",
         "poster_path": "/3PCRWLeqp5y20k6XVzcamZR3BWF.jpg",
-        "youtube_key": "Sa13L_4gfAQ",
+        "youtube_key": "kyMMq8Kz-8I",
         "genres": [
             12,
             28,
@@ -4310,7 +4302,7 @@
         "vote_count": 897,
         "vote_average": 6.9,
         "overview": "1950년대 미국 캘리포니아를 배경으로 유토피아 커뮤니티 내의 의심스러운 사건이 발생하는 것을 알게 된 주부가 남편의 충격적 비밀을 알게 되면서 벌어지는 심리 스릴러 영화",
-        "poster_path": "/9BXYLjXtSipBp2GfAlsri4i8hPC.jpg",
+        "poster_path": "/60hrKYVq6Y1QRJeHNbYo3tHDcUd.jpg",
         "youtube_key": "bBYZjqLAafs",
         "genres": [
             53,
@@ -4584,7 +4576,7 @@
         "vote_average": 7.5,
         "overview": "운이 없기로 유명한 킬러 레이디버그는 초고속 열차에 탑승해 의문의 서류 가방을 가져오라는 미션을 받는다. 생각보다 쉽게 미션을 클리어한 후 열차에서 내리려는 그를 가로막는 것이 있었으니,  그것은 바로 전세계에서 몰려든 초특급 킬러들. 열차에서 내릴 수 없다면 목숨을 걸고 가방을 지켜야만 한다. 과연 레이디버그는 무사히 열차에서 내려 미션을 완수할 수 있을까?",
         "poster_path": "/msh4N8dxHk4FeEPZ8VBqHQFQYjI.jpg",
-        "youtube_key": "u8HVU3wWVbM",
+        "youtube_key": "EbX9lEha6V4",
         "genres": [
             28,
             35,
@@ -4816,7 +4808,7 @@
     "pk": 766507,
     "fields": {
         "title": "프레이",
-        "release_date": "2022-08-05",
+        "release_date": "2022-08-02",
         "popularity": 1014.811,
         "vote_count": 4585,
         "vote_average": 7.9,
@@ -4849,7 +4841,7 @@
         "vote_average": 7.3,
         "overview": "절친 소피와 아가사는 어느 날 신비한 존재에 의해 마법 학교로 휩쓸려 간다. 이 학교는 미래의 동화 속 영웅과 악당을 키워내는 곳. 운명을 알 길 없는 이곳에서 두 친구의 우정은 계속될 수 있을까.",
         "poster_path": "/xr3oGJYQWLunuw7L5myo4VT8DBz.jpg",
-        "youtube_key": "aOWFNAmMplU",
+        "youtube_key": "W__uSFQGrco",
         "genres": [
             14,
             18,
@@ -4999,33 +4991,6 @@
 },
 {
     "model": "movies.movie",
-    "pk": 812488,
-    "fields": {
-        "title": "Mete miedo",
-        "release_date": "2022-09-02",
-        "popularity": 522.12,
-        "vote_count": 20,
-        "vote_average": 6.4,
-        "overview": "",
-        "poster_path": "/tMJnQ3loIIIjkX5pVxv5foMJeaz.jpg",
-        "youtube_key": "D0yAbeR-6d4",
-        "genres": [
-            14,
-            27,
-            53
-        ],
-        "like_users": [],
-        "actors": [
-            557713,
-            1629790,
-            1811021,
-            2482584,
-            3032131
-        ]
-    }
-},
-{
-    "model": "movies.movie",
     "pk": 820067,
     "fields": {
         "title": "극장판 5등분의 신부",
@@ -5062,7 +5027,7 @@
         "vote_average": 7.8,
         "overview": "탐정이 된 후 첫 번째 사건을 수임한 에놀라. 하지만 실종된 소녀의 미스터리를 풀기 위해서는 친구들의 도움이 필요하다. 어쩌면 오빠 셜록의 도움까지도.",
         "poster_path": "/S6fDnntDjduIWuLW2GcqFasobD.jpg",
-        "youtube_key": "L8yPTJ3asO8",
+        "youtube_key": "Hefyw8HT6I0",
         "genres": [
             12,
             80,
@@ -5983,31 +5948,6 @@
 },
 {
     "model": "movies.movie",
-    "pk": 982317,
-    "fields": {
-        "title": "11th Hour Cleaning",
-        "release_date": "2022-07-05",
-        "popularity": 503.745,
-        "vote_count": 14,
-        "vote_average": 5.5,
-        "overview": "",
-        "poster_path": "/kkWEQx1qJfdOkCvXQTIOQDrMaa1.jpg",
-        "youtube_key": "QVF-QzS4SpY",
-        "genres": [
-            27
-        ],
-        "like_users": [],
-        "actors": [
-            8179,
-            1454355,
-            1569175,
-            1854123,
-            2077778
-        ]
-    }
-},
-{
-    "model": "movies.movie",
     "pk": 985939,
     "fields": {
         "title": "폴: 600미터",
@@ -6128,6 +6068,25 @@
         "actors": [
             2021651
         ]
+    }
+},
+{
+    "model": "movies.movie",
+    "pk": 1040603,
+    "fields": {
+        "title": "오르가즘 주식회사: 쾌락을 판 어느 회사의 진실",
+        "release_date": "2022-11-05",
+        "popularity": 597.726,
+        "vote_count": 17,
+        "vote_average": 6.0,
+        "overview": "섹슈얼 웰니스를 표방한 신생 회사. 이들이 내세운 ‘오르가즘 명상’ 방법이 유명해지면서 추종자들이 늘어간다. 하지만 곧 멤버들로부터 충격적인 고발이 쏟아지기 시작한다.",
+        "poster_path": "/yqI3XQ1nmvxFpBus1BescRrRBAj.jpg",
+        "youtube_key": "11DiQzSLfmo",
+        "genres": [
+            99
+        ],
+        "like_users": [],
+        "actors": []
     }
 }
 ]
