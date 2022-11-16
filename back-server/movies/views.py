@@ -7,19 +7,23 @@ import requests
 from django.shortcuts import get_list_or_404
 from rest_framework.response import Response
 from .serializer import MovieListSerializer
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 
 TMDB_API_KEY = "1894a2923867c8d04cf110591f18e4c0"
 
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def movie_list(request):
-	movies = get_list_or_404(Movie)
-	print('movies')
-	print(movies)
-	serializer = MovieListSerializer(movies, many=True)
-	print('serializer')
-	print(serializer)
-	return Response(serializer.data)
+	if request.method == 'GET':
+		movies = get_list_or_404(Movie)
+		print('movies')
+		print(movies)
+		serializer = MovieListSerializer(movies, many=True)
+		print('serializer')
+		print(serializer)
+		return Response(serializer.data)
 
 
 

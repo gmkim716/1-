@@ -1,7 +1,11 @@
 <template>
   <div>
     <h4>Popular List</h4>
-    <PopularListItem/>
+    <PopularListItem
+      v-for="movie in popularMovies"
+      :key="movie.id"
+      :movie="movie"
+    />
   </div>
 </template>
 
@@ -11,6 +15,11 @@ export default {
   name: 'PopularList',
   components: {
     PopularListItem,
+  },
+  computed: {
+    popularMovies() {
+      return this.$store.getters.popularMovies
+    }
   }
 }
 </script>

@@ -1,12 +1,15 @@
 <template>
   <div>
-    <h4>PopularListItem</h4>
+    {{ movie.title }}
   </div>
 </template>
 
 <script>
 export default {
-
+  name: 'PopularListItem',
+  props: {
+    movie:Object,
+  }
 }
 </script>
 

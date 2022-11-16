@@ -25,7 +25,15 @@ export default {
     PopularList,
     WeatherList,
     CustomList,
-  }  
+  },
+  created(){
+    this.getMovies()
+  },
+  methods: {
+    getMovies() {
+      this.$store.dispatch('getMovies'                  )
+    }
+  },
 }
 </script>
 
