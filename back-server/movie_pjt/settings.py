@@ -32,8 +32,22 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'movies',               # movies 앱 등록 
+    'accounts',             # accounts 앱 등록
     'rest_framework',           # rest_framework 등록
     'corsheaders',          # CORS
+
+
+    # dj_rest_auth
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+
+    # registration
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,6 +70,18 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
 ]
+
+## 패스워드 체인지 관련 추가 내용
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES' : [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES' : [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
+
+
 
 ROOT_URLCONF = 'movie_pjt.urls'
 
@@ -131,3 +157,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.User'
