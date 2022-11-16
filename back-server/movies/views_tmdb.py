@@ -8,11 +8,12 @@ $ mkdir movies/fixtures
 $ python -Xutf8 manage.py dumpdata movies --indent 4 > ./movies/fixtures/movies.json
 '''
 
-
 API_KEY = '1894a2923867c8d04cf110591f18e4c0'                # TMDB key
 GENRE_URL = 'https://api.themoviedb.org/3/genre/movie/list'
 POPULAR_MOVIE_URL = 'https://api.themoviedb.org/3/movie/popular'
 
+
+# TMDB 장르 json 데이터 반환
 def tmdb_genres():
     response = requests.get(            # 해당 URL로부터 params로 요청을 보내 json 데이터를 얻어오기
         GENRE_URL,
@@ -31,6 +32,7 @@ def tmdb_genres():
     return JsonResponse(response)       # json 데이터를 반환
 
 
+# 유투브 키 가져오기
 def get_youtube_key(movie_dict):    
     movie_id = movie_dict.get('id')
     response = requests.get(           # 해당 URL로부터 params로 요청을 보내 json 데이터를 얻어오기             
@@ -43,6 +45,7 @@ def get_youtube_key(movie_dict):
         if video.get('site') == 'YouTube':          # site 속성이 YouTube인 경우
             return video.get('key')                 # key를 반환
     return 'nothing'                  # 해당이 없는 경우 
+
 
 def get_actors(movie):
     movie_id = movie.id
@@ -65,6 +68,7 @@ def get_actors(movie):
         movie.actors.add(actor_id)          # artors에 추가    
         if movie.actors.count() == 5:       # 5명의 배우 정보만 저장
             break
+
 
 def movie_data(page=1):
     response = requests.get(
@@ -100,7 +104,7 @@ def movie_data(page=1):
         print('>>>', movie.title, '==>', movie.youtube_key)    
 
 
-def tmdb_data(request):
+def tmdb_data(requests):
     Genre.objects.all().delete()
     Actor.objects.all().delete()
     Movie.objects.all().delete()

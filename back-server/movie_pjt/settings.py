@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'movies',               # movies 앱 등록 
+    'rest_framework',           # rest_framework 등록
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

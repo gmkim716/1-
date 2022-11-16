@@ -1,11 +1,28 @@
 from django.shortcuts import render
+from rest_framework.decorators import api_view
 from django.http.response import JsonResponse 		# JsonResponse 불러오기
 from .models import Movie
 from django.http import HttpResponse
 import requests
+from django.shortcuts import get_list_or_404
+from rest_framework.response import Response
+from .serializer import MovieListSerializer
 
 
 TMDB_API_KEY = "1894a2923867c8d04cf110591f18e4c0"
+
+@api_view(['GET', 'POST'])
+def movie_list(request):
+	movies = get_list_or_404(Movie)
+	print('movies')
+	print(movies)
+	serializer = MovieListSerializer(movies, many=True)
+	print('serializer')
+	print(serializer)
+	return Response(serializer.data)
+
+
+
 
 # Create your views here.
 def index(request):
