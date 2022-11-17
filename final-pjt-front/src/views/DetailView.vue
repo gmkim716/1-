@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Detail</h1>
-    <!-- {{ movie }} -->
     <p>{{ movie }}</p>
     <p>영화id: {{ movie.id }}</p>
     <p>영화 제목: {{ movie.title }}</p>

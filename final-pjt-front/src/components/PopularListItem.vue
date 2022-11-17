@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="goDetail(movie.id)">
     {{ movie.title }}
   </div>
 </template>
@@ -9,7 +9,8 @@ export default {
   name: 'PopularListItem',
   props: {
     movie:Object,
-  }
+  },
+  m
 }
 </script>
 
