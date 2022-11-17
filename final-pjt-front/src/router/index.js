@@ -46,7 +46,7 @@ const routes = [
     path: '/login',
     name: 'LoginView',
     component: LoginView
-  }
+  },
 ]
 
 const router = new VueRouter({

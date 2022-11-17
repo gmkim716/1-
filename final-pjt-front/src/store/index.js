@@ -10,12 +10,17 @@ export default new Vuex.Store({
   
   state: {
     popularMovie: [],
+    latestMovies: [],
+    ratedMovies: [],
     token: null,
     user: null,
 
   },
   getters: {
-    popularMovies: (state) => state.popularMovie,
+    // test용으로 slice()적용해 놓음
+    popularMovies: (state) => state.popularMovie.slice(0,6),
+    latestMovies: (state) => state.latestMovies.slice(0,6),
+    ratedMovies: (state) => state.ratedMovies.slice(0,6),
     isLogin(state) {
       return state.token ? true : false
     },
@@ -24,9 +29,13 @@ export default new Vuex.Store({
 
   },
   mutations: {
-    GET_POPULAR_MOVIES(state, movies) {
-      state.popularMovie = movies
+    // 영화 관련 정보
+    GET_POPULAR_MOVIES(state, p_movies) {
+      state.popularMovie = p_movies
     },
+    GET_LATEST_MOVIES: (state, l_movies) => state.latestMovies = l_movies,
+    GET_RATED_MOVIES: (state, r_movies) => state.ratedMovies = r_movies,
+    // 유저 관련 정보
     SET_TOKEN: (state, token) => state.token = token,
     SET_USER: (state, user) => {
       state.user = user 
@@ -40,14 +49,25 @@ export default new Vuex.Store({
         url: 'http://127.0.0.1:8000/movies/api/v1/'
       })
         .then(res => {
-          // console.log(res.data)
-          // 인기순
+          console.log(res.data)
+          // 인기순 (내림차순)
           const popular = res.data.sort(function(a, b) {
             return a.popularity > b.popularity ? -1 : a.popularity < b.popularity ? 1 : 0;
           })
-          console.log(popular)
+          console.log('popular', popular)
           commit('GET_POPULAR_MOVIES', popular)
-          // 최신, 평점... 세분화해서 보내기
+          // // // 최신순 (내림차순)
+          // const latest = res.data.sort(function(a, b) {
+          //   return a.release_date > b.release_date ? -1 : a.release_date < b.release_date ? 1 : 0;
+          // })
+          // console.log('latest', latest)
+          // commit('GET_LATEST_MOVIES', latest)
+          // 평점순 (내림차순)
+          const rated = res.data.sort(function(a, b) {
+            return a.vote_avarage > b.vote_avarage ? -1 : a.vote_avarage < b.vote_avarage ? 1 : 0;
+          })
+          console.log('rated', rated)
+          commit('GET_RATED_MOVIES', rated)
         })
         .catch(err => console.log(err))
     },

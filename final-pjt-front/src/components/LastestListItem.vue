@@ -1,13 +1,15 @@
 <template>
   <div>
-    <h4>Lastest List Item</h4>
+    {{ movie.title }}
   </div>
 </template>
 
 <script>
 export default {
   name: 'LastestListItem',
-
+  props: {
+    movie:Object,
+  }
 }
 </script>
 

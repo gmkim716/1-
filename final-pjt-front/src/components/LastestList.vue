@@ -1,7 +1,11 @@
 <template>
   <div>
     <h4>Lastest List</h4>
-    <LastestListItem/>
+    <LastestListItem
+      v-for="movie in latestMovies"
+      :key="movie.id"
+      :movie="movie"
+    />
   </div>
 </template>
 
@@ -12,7 +16,12 @@ export default {
   name: 'LastestList',
   components: {
     LastestListItem,
-  }
+  },
+  computed: {
+    latestMovies() {
+      return this.$store.getters.latestMovies
+    }
+  },
   
 }
 </script>
