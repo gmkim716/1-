@@ -41,7 +41,9 @@ export default new Vuex.Store({
     },
     authHead: (state) => ({ Authorization: `Token ${state.token}`}),
     user: (state) => state.user,
-    movie: (state) => state.movieDetail
+    movie: (state) => state.movieDetail,
+    isLiked: (state) => state.isLiked,
+    likeCount: (state) => state.likeCount,
   },
   mutations: {
     // 영화 관련 정보
@@ -51,17 +53,15 @@ export default new Vuex.Store({
     GET_LATEST_MOVIES: (state, l_movies) => state.latestMovies = l_movies,
     GET_RATED_MOVIES: (state, r_movies) => state.ratedMovies = r_movies,
     GET_WEATHER_MOVIES: (state, w_movies) => state.weatherMovies = w_movies,
-    MOVIE_INFO: (state, theMovie) => {
-      console.log(theMovie)
+    MOVIE_INFO: (state, {theMovie, like}) => {
       state.movieDetail = theMovie
       state.likeCount = theMovie.like_users.length
-      if (theMovie.like_users.includes(state.user.pk)) {
-        state.isLiked = true
-      } else {
-        state.isLiked = false
-      }
+      state.isLiked = like
     },
-    // LIKE_MOVIE: (state, likeInfo) => 
+    LIKE_MOVIE: (state, likeInfo) => {
+      state.isLiked = likeInfo.is_liked
+      state.likeCount = likeInfo.movie_like_count
+    },
     // 유저 관련 정보
     SET_TOKEN: (state, token) => state.token = token,
     SET_USER: (state, user) => {
@@ -202,7 +202,7 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
-    movieInfo({ commit }, movie_id) {
+    movieInfo({ commit, state }, movie_id) {
       axios({
         url: `${API_URL}/movies/api/v1/`
       })
@@ -210,8 +210,17 @@ export default new Vuex.Store({
           const theMovie = res.data.find((movie) => {
             return movie.id === movie_id
           })
+          const likeInfo = function() {
+            if (!state.user) {
+              return false
+            } else if (theMovie.like_users.includes(state.user.pk)) {
+              return true
+            } else {
+              return false
+            }}
+            const like = likeInfo()
           // console.log(theMovie)
-          commit('MOVIE_INFO', theMovie)
+          commit('MOVIE_INFO', {theMovie, like})
         })
         .catch(err => console.log(err))
     }

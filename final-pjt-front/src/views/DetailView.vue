@@ -13,7 +13,8 @@
     <p>장르: {{ movie?.genres }}</p>
     <p>개요: {{ movie?.overview }}</p>
     <p>출연 배우: {{ movie?.actors }}</p>
-    <button @click="likeMovie">좋아요</button>
+    <button v-if="!isLiked" @click="likeMovie">좋아요</button>
+    <button v-if="isLiked" @click="likeMovie">좋아요 취소</button>
     <router-link :to="{name: 'HomeView'}">뒤로가기</router-link>
   </div>
 </template>
@@ -25,6 +26,10 @@ export default {
   computed: {
     movie() {
       return this.$store.getters.movie
+    },
+    isLiked(){
+      console.log(this.$store.getters.isLiked)
+      return this.$store.getters.isLiked
     }
   },
   methods: {
