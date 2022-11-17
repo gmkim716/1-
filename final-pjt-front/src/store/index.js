@@ -6,6 +6,12 @@ Vue.use(Vuex)
 
 const API_URL = 'http://127.0.0.1:8000'
 
+const date = new Date()
+const year = date.getFullYear()
+const month = date.getMonth() + 1
+const day = date.getDate()
+const today = year +'-'+ month +'-'+ day
+
 export default new Vuex.Store({
   
   state: {
@@ -50,21 +56,27 @@ export default new Vuex.Store({
       })
         .then(res => {
           console.log(res.data)
+          const copy1 = res.data.slice()
           // 인기순 (내림차순)
-          const popular = res.data.sort(function(a, b) {
+          const popular = copy1.sort(function(a, b) {
             return a.popularity > b.popularity ? -1 : a.popularity < b.popularity ? 1 : 0;
           })
           console.log('popular', popular)
           commit('GET_POPULAR_MOVIES', popular)
-          // // // 최신순 (내림차순)
-          // const latest = res.data.sort(function(a, b) {
-          //   return a.release_date > b.release_date ? -1 : a.release_date < b.release_date ? 1 : 0;
-          // })
-          // console.log('latest', latest)
-          // commit('GET_LATEST_MOVIES', latest)
+          // 최신순 (내림차순)
+          const copy2 = res.data.slice()
+          const allLatest = copy2.sort(function(a, b) {
+            return a.release_date > b.release_date ? -1 : a.release_date < b.release_date ? 1 : 0;
+          })
+          const latest = allLatest.filter((movie) => {
+            return movie.release_date <= today
+          })
+          console.log('latest', latest)
+          commit('GET_LATEST_MOVIES', latest)
           // 평점순 (내림차순)
-          const rated = res.data.sort(function(a, b) {
-            return a.vote_avarage > b.vote_avarage ? -1 : a.vote_avarage < b.vote_avarage ? 1 : 0;
+          const copy3 = res.data.slice()
+          const rated = copy3.sort(function(a, b) {
+            return a.vote_average > b.vote_average ? -1 : a.vote_average < b.vote_average ? 1 : 0;
           })
           console.log('rated', rated)
           commit('GET_RATED_MOVIES', rated)
