@@ -10,7 +10,7 @@ export default {
   props: {
     movie:Object,
   },
-  m
+  
 }
 </script>
 

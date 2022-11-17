@@ -15,9 +15,10 @@ const today = year +'-'+ month +'-'+ day
 export default new Vuex.Store({
   
   state: {
-    popularMovie: [],   // 전체 영화처럼 생각해도 됨. 
+    popularMovie: [],
     latestMovies: [],
     ratedMovies: [],
+    weatherMovies: [],
     token: null,
     user: null,
 
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     popularMovies: (state) => state.popularMovie.slice(0,6),
     latestMovies: (state) => state.latestMovies.slice(0,6),
     ratedMovies: (state) => state.ratedMovies.slice(0,6),
+    weatherMovies: (state) => state.weatherMovies.slice(0,6),
     isLogin(state) {
       return state.token ? true : false
     },
@@ -41,13 +43,13 @@ export default new Vuex.Store({
     },
     GET_LATEST_MOVIES: (state, l_movies) => state.latestMovies = l_movies,
     GET_RATED_MOVIES: (state, r_movies) => state.ratedMovies = r_movies,
+    GET_WEATHER_MOVIES: (state, w_movies) => state.weatherMovies = w_movies,
     // 유저 관련 정보
     SET_TOKEN: (state, token) => state.token = token,
     SET_USER: (state, user) => {
       state.user = user 
       console.log(state.user, user)
     },
-
   },
   actions: {
     getMovies({ commit }) {
@@ -78,8 +80,35 @@ export default new Vuex.Store({
           const rated = copy3.sort(function(a, b) {
             return a.vote_average > b.vote_average ? -1 : a.vote_average < b.vote_average ? 1 : 0;
           })
-          console.log('rated', rated)
           commit('GET_RATED_MOVIES', rated)
+          // 계절별 추천
+          const copy4 = res.data.slice()
+          if ([3, 4, 5].includes(month)) {
+            const result = copy4.filter((movie) => {
+              return movie.genres.some(genre => [10749, 18, 35, 10402].includes(genre)) || movie.title.includes('봄')
+            })
+            console.log('weather', result)
+            commit('GET_WEATHER_MOVIES', result)
+          } else if ([6, 7, 8].includes(month)) {
+            const result = copy4.filter((movie) => {
+              return movie.genres.some(genre => [12, 14, 28, 35, 27, 53, 80, 9648].includes(genre)) || movie.title.includes('여름')
+            })
+            console.log('weather', result)
+            commit('GET_WEATHER_MOVIES', result)
+          } else if ([9, 10, 11].includes(month)) {
+            const result = copy4.filter((movie) => {
+              return movie.genres.some(genre => [10402, 18, 10749].includes(genre)) || movie.title.includes('가을')
+            })
+            commit('GET_WEATHER_MOVIES', result)
+            console.log('weather', result)
+          } else if ([12, 1, 2].includes(month)) {
+            const result = copy4.filter((movie) => {
+              return movie.genres.some(genre => [10751, 12, 14].includes(genre)) || movie.title.includes('겨울')
+            })
+            console.log('weather', result)
+            commit('GET_WEATHER_MOVIES', result)
+          }
+          
         })
         .catch(err => console.log(err))
     },

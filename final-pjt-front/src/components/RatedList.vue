@@ -17,7 +17,7 @@ export default {
   components: {
     RatedListItem
   },
-    computed: {
+  computed: {
     ratedMovies() {
       return this.$store.getters.ratedMovies
     }
