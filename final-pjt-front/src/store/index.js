@@ -160,19 +160,19 @@ export default new Vuex.Store({
           alert(JSON.stringify(err.response.data))
         })
     },
-    // logout({ commit, getters }) {
-    //   axios({
-    //     url: `${API_URL}/accounts/logout/`,
-    //     method: 'post',
-    //     headers: getters.authHead,
-    //   })
-    //     .then(res => {
-    //       console.log(res)
-    //       commit('SET_TOKEN', null)
-    //       commit('SET_USER', null)
-    //     })
-    //     .catch(err => console.log(err))
-    // },
+    logout({ commit, getters }) {
+      axios({
+        url: `${API_URL}/accounts/logout/`,
+        method: 'post',
+        headers: getters.authHead,
+      })
+        .then(res => {
+          console.log(res)
+          commit('SET_TOKEN', null)
+          commit('SET_USER', null)
+        })
+        .catch(err => console.log(err))
+    },
     getUserInfo({ commit, getters }) {
       axios({
         url: `${API_URL}/accounts/user/`,

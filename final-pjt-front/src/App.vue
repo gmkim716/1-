@@ -6,13 +6,30 @@
       <router-link :to="{ name: 'PopularMovieView' }">Popular</router-link> |
       <router-link :to="{ name: 'RecommendView' }">Recommend</router-link> |
       <router-link :to="{ name: 'UserLikeView' }">User Like</router-link> |
-      <router-link :to="{ name: 'SignupView' }">Signup</router-link> |
-      <router-link :to="{ name: 'LoginView' }">Login</router-link> |
-
+      <span v-if="!isLogin">
+        <router-link :to="{ name: 'SignupView' }">Signup</router-link> |
+        <router-link :to="{ name: 'LoginView' }">Login</router-link> |
+      </span>
+      <span v-if="isLogin">
+        <button @click="logout">Logout</button>
+      </span>
     </nav>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    isLogin() { return this.$store.getters.isLogin }
+  },
+  methods: {
+    logout(){
+      this.$store.dispatch('logout')
+    }
+  }
+}
+</script>
 
 <style>
 #app {
