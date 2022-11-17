@@ -15,7 +15,7 @@ const today = year +'-'+ month +'-'+ day
 export default new Vuex.Store({
   
   state: {
-    popularMovie: [],
+    popularMovie: [],   // 전체 영화처럼 생각해도 됨. 
     latestMovies: [],
     ratedMovies: [],
     token: null,
