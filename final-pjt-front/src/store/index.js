@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from '@/router/index'
+import createPersistedState from 'vuex-persistedstate'
+
 Vue.use(Vuex)
 
 const API_URL = 'http://127.0.0.1:8000'
@@ -13,12 +15,15 @@ const day = date.getDate()
 const today = year +'-'+ month +'-'+ day
 
 export default new Vuex.Store({
-  
+  plugins: [
+    createPersistedState(),
+  ],
   state: {
     popularMovie: [],
     latestMovies: [],
     ratedMovies: [],
     weatherMovies: [],
+    movieDetail: null,
     token: null,
     user: null,
 
@@ -34,7 +39,7 @@ export default new Vuex.Store({
     },
     authHead: (state) => ({ Authorization: `Token ${state.token}`}),
     user: (state) => state.user,
-
+    movie: (state) => state.movieDetail
   },
   mutations: {
     // 영화 관련 정보
@@ -44,6 +49,7 @@ export default new Vuex.Store({
     GET_LATEST_MOVIES: (state, l_movies) => state.latestMovies = l_movies,
     GET_RATED_MOVIES: (state, r_movies) => state.ratedMovies = r_movies,
     GET_WEATHER_MOVIES: (state, w_movies) => state.weatherMovies = w_movies,
+    MOVIE_INFO: (state, theMovie) => state.movieDetail = theMovie,
     // 유저 관련 정보
     SET_TOKEN: (state, token) => state.token = token,
     SET_USER: (state, user) => {
@@ -54,7 +60,7 @@ export default new Vuex.Store({
   actions: {
     getMovies({ commit }) {
       axios({
-        url: 'http://127.0.0.1:8000/movies/api/v1/'
+        url: `${API_URL}/movies/api/v1/`
       })
         .then(res => {
           console.log(res.data)
@@ -112,9 +118,16 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
+    // likeMovie({ commit,getters }, movie_id) {
+    //   axios({
+    //     method: 'post',
+    //     url: `${API_URL}/${movie_id}/like`,
+                
+    //   })
+    //   commit
+    // },
     signup({ commit, dispatch }, payload) {
       // console.log(payload)
-
       axios({
         url: `${API_URL}/accounts/signup/`,
         method: 'post',
@@ -167,12 +180,25 @@ export default new Vuex.Store({
         headers: getters.authHead,
       })
         .then(res => {
-          console.log('안녕')
           console.log(res.data)
           commit('SET_USER', res.data)
         })
         .catch(err => console.log(err))
     },
+    movieInfo({ commit }, movie_id) {
+      axios({
+        url: `${API_URL}/movies/api/v1/`
+      })
+        .then(res => {
+          const theMovie = res.data.find((movie) => {
+            return movie.id === movie_id
+          })
+          // console.log(theMovie)
+          commit('MOVIE_INFO', theMovie)
+        })
+        .catch(err => console.log(err))
+    }
+
 
   },
   modules: {

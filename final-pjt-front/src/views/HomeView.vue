@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     getMovies() {
-      this.$store.dispatch('getMovies'                  )
+      this.$store.dispatch('getMovies')
     }
   },
 }
