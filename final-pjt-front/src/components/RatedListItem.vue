@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="goDetail(movie.id)">
     {{ movie.title }}
   </div>
   
@@ -10,6 +10,11 @@ export default {
   name: 'RatedListItem',
   props: {
     movie:Object
+  },
+  methods: {
+    goDetail(id) {
+      this.$router.push({ name: 'detail', params: {id} })
+    }
   }
 }
 </script>

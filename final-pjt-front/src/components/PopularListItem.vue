@@ -10,6 +10,11 @@ export default {
   props: {
     movie:Object,
   },
+  methods: {
+    goDetail(id) {
+      this.$router.push({ name: 'detail', params: {id} })
+    }
+  },
   
 }
 </script>
