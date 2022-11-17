@@ -7,8 +7,6 @@ class Genre(models.Model):
 class Actor(models.Model):
     name = models.CharField(max_length=50)          # 배우 명 
 	
-
-# Create your models here.
 class Movie(models.Model):
 	title = models.CharField(max_length=100)		# 제목
 	release_date = models.DateField()			    # 개봉일
@@ -27,3 +25,4 @@ class Comments(models.Model):
 	comment = models.TextField()		# 리뷰 내용
 	movie = models.ForeignKey(Movie, on_delete=models.CASCADE)		# 영화
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)	# 리뷰 작성자 
+  
