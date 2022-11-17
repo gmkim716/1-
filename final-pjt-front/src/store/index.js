@@ -24,6 +24,8 @@ export default new Vuex.Store({
     ratedMovies: [],
     weatherMovies: [],
     movieDetail: null,
+    isLiked: null,
+    likeCount: null,
     token: null,
     user: null,
 
@@ -49,12 +51,22 @@ export default new Vuex.Store({
     GET_LATEST_MOVIES: (state, l_movies) => state.latestMovies = l_movies,
     GET_RATED_MOVIES: (state, r_movies) => state.ratedMovies = r_movies,
     GET_WEATHER_MOVIES: (state, w_movies) => state.weatherMovies = w_movies,
-    MOVIE_INFO: (state, theMovie) => state.movieDetail = theMovie,
+    MOVIE_INFO: (state, theMovie) => {
+      console.log(theMovie)
+      state.movieDetail = theMovie
+      state.likeCount = theMovie.like_users.length
+      if (theMovie.like_users.includes(state.user.pk)) {
+        state.isLiked = true
+      } else {
+        state.isLiked = false
+      }
+    },
+    // LIKE_MOVIE: (state, likeInfo) => 
     // 유저 관련 정보
     SET_TOKEN: (state, token) => state.token = token,
     SET_USER: (state, user) => {
       state.user = user 
-      console.log(state.user, user)
+      // console.log(state.user, user)
     },
   },
   actions: {
@@ -63,7 +75,7 @@ export default new Vuex.Store({
         url: `${API_URL}/movies/api/v1/`
       })
         .then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           const copy1 = res.data.slice()
           // 인기순 (내림차순)
           const popular = copy1.sort(function(a, b) {
@@ -118,14 +130,19 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
-    // likeMovie({ commit,getters }, movie_id) {
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/${movie_id}/like`,
-                
-    //   })
-    //   commit
-    // },
+    likeMovie({ commit, getters }, movie) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/${movie.id}/like`,
+        data:{},
+        headers: getters.authHead,
+      })
+        .then(res => {
+          console.log('이건가',res.data)
+          commit('LIKE_MOVIE', res.data)
+        })
+      commit
+    },
     signup({ commit, dispatch }, payload) {
       // console.log(payload)
       axios({
@@ -134,7 +151,7 @@ export default new Vuex.Store({
         data: {...payload}
       })
         .then((res) => {
-          console.log(res.data.key)
+          // console.log(res.data.key)
           commit('SET_TOKEN', res.data.key)
           dispatch('getUserInfo')
           router.push('/')
@@ -151,7 +168,7 @@ export default new Vuex.Store({
         data: {...payload}
       })
         .then((res) => {
-          console.log(res.data.key)
+          // console.log(res.data.key)
           commit('SET_TOKEN', res.data.key)
           dispatch('getUserInfo')
           router.push('/')
@@ -180,7 +197,7 @@ export default new Vuex.Store({
         headers: getters.authHead,
       })
         .then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           commit('SET_USER', res.data)
         })
         .catch(err => console.log(err))

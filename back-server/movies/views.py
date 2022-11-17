@@ -59,7 +59,7 @@ def get_popular(request):
 
 	return render(request, 'movies/popular.html', context)
 
-
+@api_view(['POST',])
 def like(request, movie_pk):
 	if request.user.is_authenticated:	# 요청한 유저가 권한이 있을 때 (로그인 되어 있을 때)
 		movie = Movie.objects.get(pk=movie_pk)		# 영화 객체 선택
@@ -81,4 +81,4 @@ def like(request, movie_pk):
 			'is_liked':is_liked,
 			'movie_like_count': movie.like_users.count(),
 		}
-		return Response(context)	
+		return Response(context)

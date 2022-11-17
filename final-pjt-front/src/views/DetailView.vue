@@ -13,7 +13,7 @@
     <p>장르: {{ movie?.genres }}</p>
     <p>개요: {{ movie?.overview }}</p>
     <p>출연 배우: {{ movie?.actors }}</p>
-    <!-- <button @click="likeMovie">좋아요</button> -->
+    <button @click="likeMovie">좋아요</button>
     <router-link :to="{name: 'HomeView'}">뒤로가기</router-link>
   </div>
 </template>
@@ -23,22 +23,17 @@ export default {
   name: 'DetailView',
 
   computed: {
-
     movie() {
       return this.$store.getters.movie
     }
   },
   methods: {
-    // setMovieId(movie_id) {
-    //   this.$store.commit('SET_MOVIE_ID', movie_id)
-    // },
     movieInfo(movie_id){
       this.$store.dispatch('movieInfo', movie_id)
     },
-    // likeMovie() {
-    //   console.log(this.movie)
-    //   this.$store.dispatch('likeMovie', this.movie)
-    // },
+    likeMovie() {
+      this.$store.dispatch('likeMovie', this.movie)
+    },
   },
   created() {
     this.movieInfo(Number(this.$route.params.id))
