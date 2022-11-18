@@ -11,7 +11,8 @@
         <router-link :to="{ name: 'LoginView' }">Login</router-link> |
       </span>
       <span v-if="isLogin">
-        <router-link :to="{ name: 'ProfileView', params: { userId } }">Profile</router-link> |
+        <!-- <router-link :to="{ name: 'ProfileView', params: { pk } }">Profile</router-link> | -->
+        <button @click="profile">Profile</button>
         <button @click="logout">Logout</button>
       </span>
     </nav>
@@ -21,18 +22,23 @@
 
 <script>
 export default {
+  data() {
+    return {
+      pk : 0
+    }
+  },
   computed: {
     isLogin() { return this.$store.getters.isLogin },
-    userId() {return Number(this.$store.getters.user.pk)}
   },
   methods: {
     logout(){
       this.$store.dispatch('logout')
     },
+    profile(){
+      const pk = this.$store.getters.user.pk
+      this.$router.push({ name: 'ProfileView', params: { pk } })
+    }
   },
-  upd() {
-    this.getUserId()
-  }
 }
 </script>
 
