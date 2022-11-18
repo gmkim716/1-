@@ -8,8 +8,10 @@ import UserLikeView from '@/views/UserLikeView'
 import SignupView from '@/views/SignupView'
 import LoginView from '@/views/LoginView'
 import DetailView from '@/views/DetailView'
+import ProfileView from '@/views/ProfileView'
 
 Vue.use(VueRouter)
+
 
 const routes = [
   {
@@ -45,7 +47,13 @@ const routes = [
   {
     path: '/login',
     name: 'LoginView',
-    component: LoginView
+    component: LoginView,
+  },
+  {
+    path: '/profile/:userId',
+    name: 'ProfileView',
+    component: ProfileView,
+
   },
   {
     path: '/:id',

@@ -138,10 +138,8 @@ export default new Vuex.Store({
         headers: getters.authHead,
       })
         .then(res => {
-          console.log('이건가',res.data)
           commit('LIKE_MOVIE', res.data)
         })
-      commit
     },
     signup({ commit, dispatch }, payload) {
       // console.log(payload)

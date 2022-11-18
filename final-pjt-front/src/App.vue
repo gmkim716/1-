@@ -11,6 +11,7 @@
         <router-link :to="{ name: 'LoginView' }">Login</router-link> |
       </span>
       <span v-if="isLogin">
+        <router-link :to="{ name: 'ProfileView', params: { userId } }">Profile</router-link> |
         <button @click="logout">Logout</button>
       </span>
     </nav>
@@ -21,12 +22,16 @@
 <script>
 export default {
   computed: {
-    isLogin() { return this.$store.getters.isLogin }
+    isLogin() { return this.$store.getters.isLogin },
+    userId() {return Number(this.$store.getters.user.pk)}
   },
   methods: {
     logout(){
       this.$store.dispatch('logout')
-    }
+    },
+  },
+  upd() {
+    this.getUserId()
   }
 }
 </script>

@@ -37,7 +37,12 @@ export default {
       this.$store.dispatch('movieInfo', movie_id)
     },
     likeMovie() {
-      this.$store.dispatch('likeMovie', this.movie)
+      if (this.$store.getters.isLogin) {
+        this.$store.dispatch('likeMovie', this.movie)
+      } else {
+        this.$router.push('/login')
+      }
+      
     },
   },
   created() {
