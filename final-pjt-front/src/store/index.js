@@ -72,7 +72,7 @@ export default new Vuex.Store({
   actions: {
     getMovies({ commit }) {
       axios({
-        url: `${API_URL}/movies/api/v1/`
+        url: `${API_URL}/movies/`
       })
         .then(res => {
           // console.log(res.data)
