@@ -24,6 +24,7 @@ export default new Vuex.Store({
     ratedMovies: [],
     weatherMovies: [],
     movieDetail: null,
+    // movieReview: null,
     isLiked: null,
     likeCount: null,
     token: null,
@@ -44,6 +45,7 @@ export default new Vuex.Store({
     movie: (state) => state.movieDetail,
     isLiked: (state) => state.isLiked,
     likeCount: (state) => state.likeCount,
+    // movieReview: (state) => state.movieReview,
   },
   mutations: {
     // 영화 관련 정보
@@ -67,6 +69,8 @@ export default new Vuex.Store({
       state.isLiked = likeInfo.is_liked
       state.likeCount = likeInfo.movie_like_count
     },
+    // review정보
+    // SET_REVIEW: (state, review) => state.movieReview = review,
     // 유저 관련 정보
     SET_TOKEN: (state, token) => state.token = token,
     SET_USER: (state, user) => {
@@ -219,20 +223,31 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
-    getReviews({ commit }) {
+    // getReviews({ commit }, moviePk) {
+    //   axios({
+    //     url: `${API_URL}/movies/${moviePk}/review/`
+    //   })
+    //     .then( res => {
+    //       console.log(2, res.data)
+    //       commit
+    //     })
+    // },
+    createReview({ commit, getters }, payload) {
       axios({
-        url: `${API_URL}/review/`
+        method: 'post',
+        url: `${API_URL}/movies/${payload.pk}/reviews/`,
+        data:{ 
+          rating: payload.rating,
+          content: payload.content  
+        },
+        headers: getters.authHead,
       })
-        .then( res => {
-          console.log(res)
+        .then(res => {
+          console.log(1,res.data)
           commit
+          // commit('SET_REVIEW', res.data)
         })
-    },
-  //   createReview({ getters }, payload) {
-  //     axios({
-  //       url: ''
-  //     })
-  //   }
+    }
 
   },
   modules: {

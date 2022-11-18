@@ -23,6 +23,7 @@ class Movie(models.Model):
  
 class Review(models.Model):
 	content = models.TextField()		# 리뷰 내용
+	rating = models.IntegerField()
 	movie = models.ForeignKey(Movie, on_delete=models.CASCADE)		# 영화
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)	# 리뷰 작성자 
   

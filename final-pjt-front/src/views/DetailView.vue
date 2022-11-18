@@ -2,7 +2,7 @@
   <div>
     <h1>Detail</h1>
     <p>{{ movie }}</p>
-    <!-- <ReviewList/> -->
+    
     <p>영화id: {{ movie?.id }}</p>
     <p>영화 제목: {{ movie?.title }}</p>
     <p>개봉일: {{ movie?.release_date }}</p>
@@ -16,19 +16,23 @@
     <p>출연 배우: {{ movie?.actors }}</p>
     <button v-if="!isLiked" @click="likeMovie">좋아요</button>
     <button v-if="isLiked" @click="likeMovie">좋아요 취소</button>
+    <ReviewForm/>
+    <ReviewList/>
     <router-link :to="{name: 'HomeView'}">뒤로가기</router-link>
   </div>
 </template>
 
 
 <script>
-// import ReviewList from '@/components/ReviewList'
+import ReviewList from '@/components/ReviewList'
+import ReviewForm from '@/components/ReviewForm';
 
 export default {
   name: 'DetailView',
-  // components: {
-  //   ReviewList
-  // },
+  components: {
+    ReviewList,
+    ReviewForm
+  },
   computed: {
     movie() {
       return this.$store.getters.movie

@@ -1,21 +1,27 @@
 <template>
     <div>
-        <ReviewForm/>
-        <h1>ReviewList</h1>
+        <hr>
+        <ReviewListItem
+            v-for="review in reviews"
+            :key="review.id"
+            :review="review"
+        />
     </div>
 </template>
 
 
 <script>
-import ReviewForm from '@/components/ReviewForm';
+import ReviewListItem from '@/components/ReviewListItem'
+
 export default {
-    name: 'ReviewList',
     components: {
-        ReviewForm,
+        ReviewListItem,
     },
-    created() {
-        this.$store.dispatch('getReviews')
-    }
+    computed: {
+        reviews() {
+            return this.$store.getters.movie.review_set
+        }
+    },
 }
 </script>
 
