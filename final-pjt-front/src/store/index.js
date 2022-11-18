@@ -53,10 +53,15 @@ export default new Vuex.Store({
     GET_LATEST_MOVIES: (state, l_movies) => state.latestMovies = l_movies,
     GET_RATED_MOVIES: (state, r_movies) => state.ratedMovies = r_movies,
     GET_WEATHER_MOVIES: (state, w_movies) => state.weatherMovies = w_movies,
-    MOVIE_INFO: (state, {theMovie, like}) => {
-      state.movieDetail = theMovie
-      state.likeCount = theMovie.like_users.length
-      state.isLiked = like
+    GET_MOVIE_DETAIL: (state, movieInfo) => {
+      state.movieDetail = movieInfo
+      // 여기서부터 좋아요 누를시에 추가하기
+      state.likeCount = movieInfo.like_users_count
+      if (movieInfo.like_users.includes(state.user.pk)) {
+        state.isLiked = true
+      } else {
+        state.isLiked = false
+      }
     },
     LIKE_MOVIE: (state, likeInfo) => {
       state.isLiked = likeInfo.is_liked
@@ -72,7 +77,9 @@ export default new Vuex.Store({
   actions: {
     getMovies({ commit }) {
       axios({
-        url: `${API_URL}/movies/`
+        method: 'get',
+        url: `${API_URL}/movies/`,
+
       })
         .then(res => {
           // console.log(res.data)
@@ -130,15 +137,17 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
-    likeMovie({ commit, getters }, movie) {
+    likeMovie({ commit, dispatch, getters }, movie) {
       axios({
         method: 'post',
-        url: `${API_URL}/movies/${movie.id}/like`,
+        url: `${API_URL}/movies/like/${movie.id}/`,
         data:{},
         headers: getters.authHead,
       })
-        .then(res => {
-          commit('LIKE_MOVIE', res.data)
+        .then((res) => {
+          console.log(res)
+          dispatch('getMovieDetail', res.data)
+          commit
         })
     },
     signup({ commit, dispatch }, payload) {
@@ -200,29 +209,30 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
-    movieInfo({ commit, state }, movie_id) {
+    getMovieDetail({ commit }, movieId) {
       axios({
-        url: `${API_URL}/movies/api/v1/`
+        method: 'get',
+        url: `${API_URL}/movies/detail/${movieId}/`
       })
         .then(res => {
-          const theMovie = res.data.find((movie) => {
-            return movie.id === movie_id
-          })
-          const likeInfo = function() {
-            if (!state.user) {
-              return false
-            } else if (theMovie.like_users.includes(state.user.pk)) {
-              return true
-            } else {
-              return false
-            }}
-            const like = likeInfo()
-          // console.log(theMovie)
-          commit('MOVIE_INFO', {theMovie, like})
+          commit('GET_MOVIE_DETAIL', res.data)
         })
         .catch(err => console.log(err))
-    }
-
+    },
+    getReviews({ commit }) {
+      axios({
+        url: `${API_URL}/review/`
+      })
+        .then( res => {
+          console.log(res)
+          commit
+        })
+    },
+  //   createReview({ getters }, payload) {
+  //     axios({
+  //       url: ''
+  //     })
+  //   }
 
   },
   modules: {

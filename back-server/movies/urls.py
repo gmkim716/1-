@@ -1,12 +1,11 @@
 from django.urls import path
 from . import views, views_tmdb
 
-app_name='movies'
 urlpatterns = [
-    # path('', views.index, name='index'),
-    # path('popular/', views.get_popular, name='popular'),
     path('tmdb/', views_tmdb.tmdb_data),
     # path('get_youtube/', views.get_youtube),
-    path('api/v1/', views.movie_list),
-    path('<int:movie_pk>/like', views.like, name='like'),
+    path('', views.movie_list),
+    path('detail/<int:movie_pk>/', views.movie_detail),
+    path('like/<int:movie_pk>/', views.like),
+    path('<int:movie_pk>/reviews/', views.get_reviews),
 ]

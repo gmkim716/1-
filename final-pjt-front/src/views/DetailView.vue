@@ -2,6 +2,7 @@
   <div>
     <h1>Detail</h1>
     <p>{{ movie }}</p>
+    <!-- <ReviewList/> -->
     <p>영화id: {{ movie?.id }}</p>
     <p>영화 제목: {{ movie?.title }}</p>
     <p>개봉일: {{ movie?.release_date }}</p>
@@ -19,16 +20,20 @@
   </div>
 </template>
 
+
 <script>
+// import ReviewList from '@/components/ReviewList'
+
 export default {
   name: 'DetailView',
-
+  // components: {
+  //   ReviewList
+  // },
   computed: {
     movie() {
       return this.$store.getters.movie
     },
     isLiked(){
-      console.log(this.$store.getters.isLiked)
       return this.$store.getters.isLiked
     }
   },
@@ -37,19 +42,19 @@ export default {
       this.$store.dispatch('movieInfo', movie_id)
     },
     likeMovie() {
-      if (this.$store.getters.isLogin) {
-        this.$store.dispatch('likeMovie', this.movie)
+      if (this.$store.state.user) {
+      this.$store.dispatch('likeMovie', this.movie)
       } else {
-        this.$router.push('/login')
+        this.$router.push({ name: 'LoginView'})
       }
-      
     },
   },
   created() {
-    this.movieInfo(Number(this.$route.params.id))
+    this.$store.dispatch('getMovieDetail', Number(this.$route.params.id))
   }
 }
 </script>
+
 
 <style>
 
