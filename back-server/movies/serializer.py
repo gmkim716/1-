@@ -13,11 +13,12 @@ class MovieListSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
-    
+    like_users_count = serializers.IntegerField(source='like_users.count', read_only=True)
+
     class Meta:
         model = Review
         fields = '__all__'
-        read_only_fields = ('movie','user')
+        read_only_fields = ('movie','user', 'like_users')
 
 class Movieserializer(serializers.ModelSerializer):
     review_set = ReviewSerializer(many=True, read_only=True)

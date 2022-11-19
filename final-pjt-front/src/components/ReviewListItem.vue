@@ -6,10 +6,9 @@
       <button @click="goProfile">프로필</button>
     </p>
     <p>리뷰내용 : {{ review.content }}</p>
-    <button @click="likeReview">좋아요</button>
-    <!-- <button v-if="review.like_users.includes(like.pk)" @click="likeReview">좋아요 취소</button>
-    <button v-if="!review.like_users.includes(like.pk)" @click="likeReview">좋아요</button>
-    <span>{{review.like_users.length }}개 </span> -->
+    <button v-if="user && review.like_users.includes(user.pk)" @click="likeReview">좋아요 취소</button>
+    <button v-if="user && !review.like_users.includes(user.pk)" @click="likeReview">좋아요</button>
+    <span>{{review.like_users.length }}개 </span>
     <hr>
   </div>
 </template>
@@ -27,21 +26,18 @@ export default {
   },
   methods: {
     goProfile() {
-      // this.$store.dispatch('goProfile', this.review.user)
       const userPk = this.review.user
       this.$router.push({ name: 'ProfileView', params: { userPk }})
     },
     likeReview() {
-      console.log(typeof(this.review.id))
-      this.$store.dispatch('likeReview', this.review.id)
-    }
+        this.$store.dispatch('likeReview', this.review.id)
+    },
   },
-  // computed: {
-  //   like() {
-  //     return this.$store.getters.likeReview
-  //   },
-  // }
-  
+  computed: {
+    user() {
+      return this.$store.getters.user
+    }
+  }
 }
 </script>
 

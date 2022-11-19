@@ -43,7 +43,14 @@ export default {
         content : this.content,
         pk: Number(this.$route.params.id)
       }
-      this.$store.dispatch('createReview', payload)
+      if (this.$store.state.user) {
+        this.$store.dispatch('createReview', payload)
+        this.rating = null
+        this.content = null
+      } else {
+        this.$router.push({ name: 'LoginView'})
+
+      }
     },
   },
   created(){

@@ -62,6 +62,8 @@ export default new Vuex.Store({
     GET_MOVIE_DETAIL: (state, movieInfo) => {
       state.movieDetail = movieInfo
       state.reviews = state.movieDetail.review_set
+      console.log('허허',state.reviews) 
+      state.likeReview = state.reviews.like_users
       console.log(state.movieDetail)
       // 여기서부터 좋아요 누를시에 추가하기
       state.likeCount = movieInfo.like_users_count
@@ -253,12 +255,12 @@ export default new Vuex.Store({
         url: `${API_URL}/movies/${payload.pk}/reviews/`,
         data:{ 
           rating: payload.rating,
-          content: payload.content  
+          content: payload.content,
         },
         headers: getters.authHead,
       })
         .then(res => {
-
+          console.log(res.data)
           dispatch('getMovieDetail', res.data.movie)
           // const id = res.data.movie
           // router.go({ name: 'detail', params: { id }})          
@@ -273,10 +275,9 @@ export default new Vuex.Store({
         headers: getters.authHead,    // post
       })
         .then(res => {
-          console.log(res.data)
-          dispatch('getMovieDetail', getters.movie.id )
-          
+          // console.log(res.data)
           commit('LIKE_REVIEW', res.data)
+          dispatch('getMovieDetail', getters.movie.id )
         })
         .catch(err => console.log('err', err))
     }

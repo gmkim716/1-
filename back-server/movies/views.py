@@ -63,7 +63,10 @@ def get_reviews(request, movie_pk):
 		return Response(serializer.data)
 	else:
 		movie = get_object_or_404(Movie, pk=movie_pk)
+		print('############################', movie)
+		print(request.data)
 		serializer = ReviewSerializer(data=request.data)
+		print(serializer)
 		if serializer.is_valid(raise_exception=True):
 			serializer.save(movie=movie, user=request.user)
 			return Response(serializer.data)
