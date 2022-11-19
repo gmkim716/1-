@@ -24,11 +24,16 @@
 export default {
   data() {
     return {
-      pk : 0
+      pk : 0,
+      userPk: this.$route.params.userPk
     }
   },
   computed: {
     isLogin() { return this.$store.getters.isLogin },
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.userPk = to.params.userPk
+    next()
   },
   methods: {
     logout(){
@@ -36,9 +41,13 @@ export default {
     },
     profile(){
       const userPk = this.$store.getters.user.pk
+      console.log('내프로필로')
       this.$router.push({ name: 'ProfileView', params: { userPk } })
+      this.$store.dispatch('getProfile', Number(this.$route.params.userPk))
+
     }
   },
+
 }
 </script>
 

@@ -221,11 +221,23 @@ export default new Vuex.Store({
     getProfile({ commit }, userPk) {
       axios({
         method: 'get',
-        url: `${API_URL}/accounts/${userPk}`,
+        url: `${API_URL}/accounts/${userPk}/`,
       })
         .then(res =>{
           console.log('유저',res.data)
           commit('GET_PROFILE', res.data)
+        })
+    },
+    follow({ commit, getters }, userPk) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/${userPk}/follow/`,
+        headers: getters.authHead,
+        data: {}
+      })
+        .then(res => {
+          console.log(res)
+          commit
         })
     },
     getMovieDetail({ commit }, movieId) {
@@ -280,7 +292,7 @@ export default new Vuex.Store({
           dispatch('getMovieDetail', getters.movie.id )
         })
         .catch(err => console.log('err', err))
-    }
+    },
 
 
   },

@@ -22,7 +22,8 @@ from django.contrib.auth import get_user_model
 
 class CustomUserSerializer(serializers.ModelSerializer):
     like_movies_count = serializers.IntegerField(source='like_movies.count', read_only=True)
-    
+
+
     class Meta:
         model = get_user_model()
         fields = '__all__'

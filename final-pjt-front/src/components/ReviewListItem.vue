@@ -6,6 +6,7 @@
       <button @click="goProfile">프로필</button>
     </p>
     <p>리뷰내용 : {{ review.content }}</p>
+
     <button v-if="user && review.like_users.includes(user.pk)" @click="likeReview">좋아요 취소</button>
     <button v-if="user && !review.like_users.includes(user.pk)" @click="likeReview">좋아요</button>
     <span>{{review.like_users.length }}개 </span>
