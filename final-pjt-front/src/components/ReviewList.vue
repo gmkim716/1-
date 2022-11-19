@@ -19,9 +19,10 @@ export default {
     },
     computed: {
         reviews() {
-            return this.$store.getters.movie.review_set
+            return this.$store.getters.reveiws
         }
     },
+
 }
 </script>
 

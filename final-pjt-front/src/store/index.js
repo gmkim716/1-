@@ -45,7 +45,7 @@ export default new Vuex.Store({
     movie: (state) => state.movieDetail,
     isLiked: (state) => state.isLiked,
     likeCount: (state) => state.likeCount,
-    // movieReview: (state) => state.movieReview,
+    reveiws: (state) => state.movieDetail.review_set,
   },
   mutations: {
     // 영화 관련 정보
@@ -149,7 +149,6 @@ export default new Vuex.Store({
         headers: getters.authHead,
       })
         .then((res) => {
-          console.log(res)
           dispatch('getMovieDetail', res.data)
           commit
         })
@@ -232,7 +231,7 @@ export default new Vuex.Store({
     //       commit
     //     })
     // },
-    createReview({ commit, getters }, payload) {
+    createReview({ dispatch, getters }, payload) {
       axios({
         method: 'post',
         url: `${API_URL}/movies/${payload.pk}/reviews/`,
@@ -243,8 +242,9 @@ export default new Vuex.Store({
         headers: getters.authHead,
       })
         .then(res => {
-          console.log(1,res.data)
-          commit
+          dispatch('getMovieDetail', res.data.movie)
+          // const id = res.data.movie
+          // router.go({ name: 'detail', params: { id }})          
           // commit('SET_REVIEW', res.data)
         })
     }

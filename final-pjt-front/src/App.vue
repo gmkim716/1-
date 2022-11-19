@@ -35,8 +35,8 @@ export default {
       this.$store.dispatch('logout')
     },
     profile(){
-      const pk = this.$store.getters.user.pk
-      this.$router.push({ name: 'ProfileView', params: { pk } })
+      const userPk = this.$store.getters.user.pk
+      this.$router.push({ name: 'ProfileView', params: { userPk } })
     }
   },
 }

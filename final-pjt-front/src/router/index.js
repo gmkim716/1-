@@ -50,7 +50,7 @@ const routes = [
     component: LoginView,
   },
   {
-    path: '/profile/:userId',
+    path: '/profile/:userPk',
     name: 'ProfileView',
     component: ProfileView,
 
