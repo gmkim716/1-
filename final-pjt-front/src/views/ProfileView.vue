@@ -26,9 +26,16 @@ export default {
       return this.$store.getters.user
     }
   },
-  mounted() {
+  watch: {
+    '$route' (to, from) {
+      console.log(to)
+      console.log(from)
+      this.$store.dispatch('getProfile', Number(to.params.userPk))
+    }
+  },
+  created() {
     this.$store.dispatch('getProfile', Number(this.$route.params.userPk))
-  }
+  },
   
 }
 </script>

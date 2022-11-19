@@ -77,6 +77,13 @@ export default new Vuex.Store({
       state.isLiked = likeInfo.is_liked
       state.likeCount = likeInfo.movie_like_count
     },
+    RESET_DETAIL: (state) => {
+      state.movieDetail = null
+      state.reviews = null
+      state.isLiked = null
+      state.likeCount = null
+      state.profile = null
+    },
     // review정보
     LIKE_REVIEW: (state, likeReview) => state.likeReview = likeReview,
     // SET_REVIEW: (state, review) => state.movieReview = review,

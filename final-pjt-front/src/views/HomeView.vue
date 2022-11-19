@@ -32,6 +32,7 @@ export default {
   },
   created(){
     this.getMovies()
+    this.$store.commit('RESET_DETAIL')
   },
   methods: {
     getMovies() {
