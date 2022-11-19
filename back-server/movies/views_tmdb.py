@@ -95,6 +95,7 @@ def movie_data(page=1):
             if not response.get('poster_path'): continue
             if not response.get('id'): continue
             if response.get('id') in id_list: continue
+            id_list.append(response.get('id'))
                             
             movie = Movie.objects.create(
                 id = response.get('id'),

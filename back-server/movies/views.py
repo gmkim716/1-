@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
-from django.http.response import JsonResponse 		# JsonResponse 불러오기
+# from django.http.response import JsonResponse 		# JsonResponse 불러오기
 from .models import Movie, Review
 from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404
@@ -9,7 +9,7 @@ from .serializer import MovieListSerializer, ReviewSerializer, Movieserializer
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-
+from django.contrib.auth import get_user_model
 
 TMDB_API_KEY = "1894a2923867c8d04cf110591f18e4c0"
 
@@ -38,7 +38,8 @@ def movie_detail(request, movie_pk):
 @api_view(['POST',])
 @permission_classes([IsAuthenticated])
 def like(request, movie_pk):					# 요청한 유저가 권한이 있을 때 (로그인 되어 있을 때)
-	movie = Movie.objects.get(pk=movie_pk)		# 영화 객체 선택
+	movie = get_object_or_404(Movie, pk=movie_pk)  # 영화 객체 선택
+	user = get_object_or_404(get_user_model(), pk=request.user.pk)
 	# 영화의 장르에 대해 좋아요 표기를 원한다면 
 	# genres = movie.genres.all()				
     # for g in genres:
@@ -46,9 +47,11 @@ def like(request, movie_pk):					# 요청한 유저가 권한이 있을 때 (로
     #     genre.like_users.add(request.user)
 	# is_liked 데이터 변화
 	if movie.like_users.filter(pk=request.user.pk).exists():		# 요청한 유저의 pk가 영화를 좋아한 사람들의 pk에 존재할 때: 이미 좋아요를 누른 경우, 클릭
-		movie.like_users.remove(request.user)		
+		movie.like_users.remove(request.user)
+		user.like_movies.remove(movie_pk)
 	else:										# 좋아요를 누른 적이 없는 유저가 좋아요를 누를 경우
 		movie.like_users.add(request.user)
+		user.like_movies.add(movie_pk)
 	return Response(movie.pk)
 
 @api_view(['GET','POST'])

@@ -29,6 +29,7 @@ export default new Vuex.Store({
     likeCount: null,
     token: null,
     user: null,
+    profile:null,
 
   },
   getters: {
@@ -46,6 +47,7 @@ export default new Vuex.Store({
     isLiked: (state) => state.isLiked,
     likeCount: (state) => state.likeCount,
     reveiws: (state) => state.movieDetail.review_set,
+    profile: (state) => state.profile,
   },
   mutations: {
     // 영화 관련 정보
@@ -73,17 +75,14 @@ export default new Vuex.Store({
     // SET_REVIEW: (state, review) => state.movieReview = review,
     // 유저 관련 정보
     SET_TOKEN: (state, token) => state.token = token,
-    SET_USER: (state, user) => {
-      state.user = user 
-      // console.log(state.user, user)
-    },
+    SET_USER: (state, user) => state.user = user,
+    GET_PROFILE: (state, profile) => state.profile = profile
   },
   actions: {
     getMovies({ commit }) {
       axios({
         method: 'get',
         url: `${API_URL}/movies/`,
-
       })
         .then(res => {
           // console.log(res.data)
@@ -114,33 +113,33 @@ export default new Vuex.Store({
           const copy4 = res.data.slice()
           if ([3, 4, 5].includes(month)) {
             const result = copy4.filter((movie) => {
-              return movie.genres.some(genre => [10749, 18, 35, 10402].includes(genre)) || movie.title.includes('봄')
+              return movie.genres.some(genre => [10749, 18, 35, 10402].includes(genre)) || movie.title.includes('봄') || movie.title.includes('꽃') 
             })
             console.log('weather', result)
             commit('GET_WEATHER_MOVIES', result)
           } else if ([6, 7, 8].includes(month)) {
             const result = copy4.filter((movie) => {
-              return movie.genres.some(genre => [12, 14, 28, 35, 27, 53, 80, 9648].includes(genre)) || movie.title.includes('여름')
+              return movie.genres.some(genre => [12, 14, 28, 35, 27, 53, 80, 9648].includes(genre)) || movie.title.includes('여름') || movie.title.includes('바다')
             })
             console.log('weather', result)
             commit('GET_WEATHER_MOVIES', result)
           } else if ([9, 10, 11].includes(month)) {
             const result = copy4.filter((movie) => {
-              return movie.genres.some(genre => [10402, 18, 10749].includes(genre)) || movie.title.includes('가을')
+              return movie.genres.some(genre => [10402, 18, 10749].includes(genre)) || movie.title.includes('가을') || movie.title.includes('낙엽')
             })
             commit('GET_WEATHER_MOVIES', result)
             console.log('weather', result)
           } else if ([12, 1, 2].includes(month)) {
             const result = copy4.filter((movie) => {
-              return movie.genres.some(genre => [10751, 12, 14].includes(genre)) || movie.title.includes('겨울')
+              return movie.genres.some(genre => [10751, 12, 14].includes(genre)) || movie.title.includes('겨울') || movie.title.includes('눈') || movie.title.includes('캐럴')
             })
             console.log('weather', result)
             commit('GET_WEATHER_MOVIES', result)
           }
-          
         })
         .catch(err => console.log(err))
     },
+    // 좋아요 기능
     likeMovie({ commit, dispatch, getters }, movie) {
       axios({
         method: 'post',
@@ -207,10 +206,20 @@ export default new Vuex.Store({
         headers: getters.authHead,
       })
         .then(res => {
-          // console.log(res.data)
+          console.log(res.data)
           commit('SET_USER', res.data)
         })
         .catch(err => console.log(err))
+    },
+    getProfile({ commit }, userPk) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/${userPk}`,
+      })
+        .then(res =>{
+          console.log('유저',res.data)
+          commit('GET_PROFILE', res.data)
+        })
     },
     getMovieDetail({ commit }, movieId) {
       axios({
@@ -218,10 +227,12 @@ export default new Vuex.Store({
         url: `${API_URL}/movies/detail/${movieId}/`
       })
         .then(res => {
+          console.log(res.data)
           commit('GET_MOVIE_DETAIL', res.data)
         })
         .catch(err => console.log(err))
     },
+    // 전체 리뷰를 get하는 list 받아오는 것 => hot한 (댓글 많이 달린 에서 하면 될듯? 확신 업스)
     // getReviews({ commit }, moviePk) {
     //   axios({
     //     url: `${API_URL}/movies/${moviePk}/review/`

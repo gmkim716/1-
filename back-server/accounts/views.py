@@ -1,7 +1,20 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from django.contrib.auth import get_user_model
-from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from rest_framework.decorators import api_view
+from .serializers import CustomUserSerializer 
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
+
+
+@api_view(['GET', ])
+@permission_classes([IsAuthenticatedOrReadOnly])
+def user_detail(request, user_pk):
+    user = get_object_or_404(get_user_model(), pk=user_pk)
+    if request.method == 'GET':
+        serializer = CustomUserSerializer(user)
+        return Response(serializer.data)
 
 
 # 팔로우 기능 - POST 요청만 허용
