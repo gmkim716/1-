@@ -19,7 +19,7 @@ export default {
     },
     computed: {
         reviews() {
-            return this.$store.getters.reveiws
+            return this.$store.getters.reviews
         }
     },
 

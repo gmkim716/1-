@@ -67,3 +67,19 @@ def get_reviews(request, movie_pk):
 		if serializer.is_valid(raise_exception=True):
 			serializer.save(movie=movie, user=request.user)
 			return Response(serializer.data)
+
+
+@api_view(['POST',])
+@permission_classes([IsAuthenticated])
+def like_review(request, review_pk):
+	review = get_object_or_404(Review, pk=review_pk)
+	if review.like_users.filter(pk=request.user.pk).exists():		# 요청한 유저의 pk가 영화를 좋아한 사람들의 pk에 존재할 때: 이미 좋아요를 누른 경우, 클릭
+		review.like_users.remove(request.user)
+	else:										
+		review.like_users.add(request.user)
+	context = {
+		'pk':request.user.pk,
+		'review_pk':review_pk,
+		'like_user_count': review.like_users.count()
+	}
+	return Response(context)

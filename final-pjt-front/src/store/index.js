@@ -24,13 +24,14 @@ export default new Vuex.Store({
     ratedMovies: [],
     weatherMovies: [],
     movieDetail: null,
+    reviews:null,
     // movieReview: null,
     isLiked: null,
     likeCount: null,
     token: null,
     user: null,
     profile:null,
-
+    likeReview: null,
   },
   getters: {
     // test용으로 slice()적용해 놓음
@@ -46,8 +47,9 @@ export default new Vuex.Store({
     movie: (state) => state.movieDetail,
     isLiked: (state) => state.isLiked,
     likeCount: (state) => state.likeCount,
-    reveiws: (state) => state.movieDetail.review_set,
+    reviews: (state) => state.reviews,
     profile: (state) => state.profile,
+    likeReview: (state) => state.likeReview
   },
   mutations: {
     // 영화 관련 정보
@@ -59,6 +61,8 @@ export default new Vuex.Store({
     GET_WEATHER_MOVIES: (state, w_movies) => state.weatherMovies = w_movies,
     GET_MOVIE_DETAIL: (state, movieInfo) => {
       state.movieDetail = movieInfo
+      state.reviews = state.movieDetail.review_set
+      console.log(state.movieDetail)
       // 여기서부터 좋아요 누를시에 추가하기
       state.likeCount = movieInfo.like_users_count
       if (movieInfo.like_users.includes(state.user.pk)) {
@@ -72,6 +76,7 @@ export default new Vuex.Store({
       state.likeCount = likeInfo.movie_like_count
     },
     // review정보
+    LIKE_REVIEW: (state, likeReview) => state.likeReview = likeReview,
     // SET_REVIEW: (state, review) => state.movieReview = review,
     // 유저 관련 정보
     SET_TOKEN: (state, token) => state.token = token,
@@ -253,12 +258,29 @@ export default new Vuex.Store({
         headers: getters.authHead,
       })
         .then(res => {
+
           dispatch('getMovieDetail', res.data.movie)
           // const id = res.data.movie
           // router.go({ name: 'detail', params: { id }})          
           // commit('SET_REVIEW', res.data)
         })
+    },
+    likeReview({ commit, dispatch, getters }, reviewPk) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/review/like/${reviewPk}/`,
+        data: {},
+        headers: getters.authHead,    // post
+      })
+        .then(res => {
+          console.log(res.data)
+          dispatch('getMovieDetail', getters.movie.id )
+          
+          commit('LIKE_REVIEW', res.data)
+        })
+        .catch(err => console.log('err', err))
     }
+
 
   },
   modules: {

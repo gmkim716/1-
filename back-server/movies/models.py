@@ -26,4 +26,4 @@ class Review(models.Model):
 	rating = models.IntegerField()
 	movie = models.ForeignKey(Movie, on_delete=models.CASCADE)		# 영화
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)	# 리뷰 작성자 
-  
+	like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='review_like')
