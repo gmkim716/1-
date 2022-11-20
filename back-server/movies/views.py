@@ -86,3 +86,18 @@ def like_review(request, review_pk):
 		'like_user_count': review.like_users.count()
 	}
 	return Response(context)
+
+@api_view(['POST',])
+@permission_classes([IsAuthenticated])
+def hate_review(request, review_pk):
+	review = get_object_or_404(Review, pk=review_pk)
+	if review.hate_users.filter(pk=request.user.pk).exists():
+		review.hate_users.remove(request.user)
+	else:
+		review.hate_users.add(request.user)
+	context = {
+		'pk': request.user.pk,
+		'review_pk': review_pk,
+		'hate_users_count': review.hate_users.count()
+	}
+	return Response(context)

@@ -20,10 +20,10 @@ class Movie(models.Model):
 	like_users = models.ManyToManyField(settings.AUTH_USER_MODEL)		# 좋아요(?), MtoM
 	actors = models.ManyToManyField(Actor)		    # 배우, Actor와 MtoM
 
- 
 class Review(models.Model):
-	content = models.TextField()		# 리뷰 내용
+	content = models.TextField()
 	rating = models.IntegerField()
-	movie = models.ForeignKey(Movie, on_delete=models.CASCADE)		# 영화
-	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)	# 리뷰 작성자 
+	movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='review_like')
+	hate_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='review_hate')

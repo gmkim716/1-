@@ -81,6 +81,9 @@ REST_FRAMEWORK = {
     ]
 }
 
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAIL_SERIALIZER": "accounts.serializers.CustomUserSerializer"
+}
 
 
 ROOT_URLCONF = 'movie_pjt.urls'

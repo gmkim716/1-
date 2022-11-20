@@ -14,6 +14,7 @@ def user_detail(request, user_pk):
     user = get_object_or_404(get_user_model(), pk=user_pk)
     if request.method == 'GET':
         serializer = CustomUserSerializer(user)
+        print(serializer)
         return Response(serializer.data)
 
 

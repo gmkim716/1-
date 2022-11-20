@@ -32,6 +32,7 @@ export default new Vuex.Store({
     user: null,
     profile:null,
     likeReview: null,
+    hateReview: null,
   },
   getters: {
     // test용으로 slice()적용해 놓음
@@ -49,7 +50,8 @@ export default new Vuex.Store({
     likeCount: (state) => state.likeCount,
     reviews: (state) => state.reviews,
     profile: (state) => state.profile,
-    likeReview: (state) => state.likeReview
+    likeReview: (state) => state.likeReview,
+    hateReview: (state) => state.hateReview,
   },
   mutations: {
     // 영화 관련 정보
@@ -86,6 +88,7 @@ export default new Vuex.Store({
     },
     // review정보
     LIKE_REVIEW: (state, likeReview) => state.likeReview = likeReview,
+    HATE_REVIEW: (state, hateReview) => state.hateReview = hateReview, 
     // SET_REVIEW: (state, review) => state.movieReview = review,
     // 유저 관련 정보
     SET_TOKEN: (state, token) => state.token = token,
@@ -231,7 +234,7 @@ export default new Vuex.Store({
         url: `${API_URL}/accounts/${userPk}/`,
       })
         .then(res =>{
-          console.log('유저',res.data)
+          // console.log('유저',res.data)
           commit('GET_PROFILE', res.data)
         })
     },
@@ -300,7 +303,19 @@ export default new Vuex.Store({
         })
         .catch(err => console.log('err', err))
     },
-
+    hateReview({ commit, dispatch, getters }, reviewPk) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/review/hate/${reviewPk}/`,
+        data: {},
+        headers: getters.authHead,
+      })
+        .then(res => {
+          commit('HATE_REVIEW', res.data)     // 동작1: state의 hateReview 변경
+          dispatch('getMovieDetail', getters.movie.id)  // 동작2: isHated 상태 변화, count()
+        })
+        .catch(err => console.log('err', err))
+    },
 
   },
   modules: {

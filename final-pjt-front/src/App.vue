@@ -41,10 +41,8 @@ export default {
     },
     profile(){
       const userPk = this.$store.getters.user.pk
-      console.log('내프로필로')
+      // this.$store.dispatch('getProfile', Number(this.$route.params.userPk))
       this.$router.push({ name: 'ProfileView', params: { userPk } })
-      this.$store.dispatch('getProfile', Number(this.$route.params.userPk))
-
     }
   },
 

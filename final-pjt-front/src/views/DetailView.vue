@@ -10,7 +10,15 @@
     <p>투표수: {{ movie?.vote_count }}</p>
     <p>평점: {{ movie?.vote_average }}</p>
     <p>포스터: <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" alt="movie.poster_path "></p >
-    <p>youtubeKey: {{ movie?.youtube_key }}</p>
+    <div v-if="movie?.youtube_key !== 'nothing'">
+      <p>youtubeKey: {{ movie?.youtube_key }}</p>
+      <VideoItem
+        :youtubeKey="movie?.youtube_key"
+      />
+    </div>
+    <div v-if="movie?.youtube_key === 'nothing'">
+      <p>유튜브 트레일러가 존재하지 않습니다.</p>
+    </div>
     <p>장르: {{ movie?.genres }}</p>
     <p>개요: {{ movie?.overview }}</p>
     <p>출연 배우: {{ movie?.actors }}</p>
@@ -25,13 +33,15 @@
 
 <script>
 import ReviewList from '@/components/ReviewList'
-import ReviewForm from '@/components/ReviewForm';
+import ReviewForm from '@/components/ReviewForm'
+import VideoItem from '@/components/VideoItem'
 
 export default {
   name: 'DetailView',
   components: {
     ReviewList,
-    ReviewForm
+    ReviewForm,
+    VideoItem,
   },
   computed: {
     movie() {

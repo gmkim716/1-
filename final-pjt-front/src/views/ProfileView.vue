@@ -1,12 +1,12 @@
 <template>
   <div>
     <h4>ProfileView</h4>
-    <p>이름 : {{ profile.username }}</p>
-    <p>좋아하는 영화({{ profile.like_movies_count }} 개) : {{ profile.like_movies }}</p>
-    <p>팔로잉: {{ profile.followings.length }}</p>
-    <p>팔로워: </p>
+    <p>이름 : {{ profile?.username }}</p>
+    <p>좋아하는 영화({{ profile?.like_movies_count }} 개) : {{ profile?.like_movies }}</p>
+    <p>팔로잉: {{ profile?.followings.length }}명 {{ profile?.followings }}</p>
+    <p>팔로워: {{ profile?.followers.length }}명 {{ profile?.followers }}</p>
 
-    <button v-if="user.pk !== profile.id" @click="follow">팔로우</button>
+    <button v-if="user?.pk !== profile?.id" @click="follow">팔로우</button>
   </div>
 </template>
 
@@ -15,7 +15,11 @@ export default {
   name: 'ProfileView',
   methods: {
     follow(){
-      this.$store.dispatch('follow', Number(this.$route.params.userPk))
+      if(this.user) {
+        this.$store.dispatch('follow', Number(this.$route.params.userPk))
+      } else {
+        this.$router.push({ name: 'LoginView' })
+      }
     }
   },
   computed: {
@@ -26,6 +30,9 @@ export default {
       return this.$store.getters.user
     }
   },
+  created() {
+    this.$store.dispatch('getProfile', Number(this.$route.params.userPk))
+  },
   watch: {
     '$route' (to, from) {
       console.log(to)
@@ -33,9 +40,7 @@ export default {
       this.$store.dispatch('getProfile', Number(to.params.userPk))
     }
   },
-  created() {
-    this.$store.dispatch('getProfile', Number(this.$route.params.userPk))
-  },
+
   
 }
 </script>

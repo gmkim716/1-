@@ -10,6 +10,9 @@
     <button v-if="user && review.like_users.includes(user.pk)" @click="likeReview">좋아요 취소</button>
     <button v-if="user && !review.like_users.includes(user.pk)" @click="likeReview">좋아요</button>
     <span>{{review.like_users.length }}개 </span>
+    <button v-if="user && review.hate_users.includes(user.pk)" @click="hateReview">싫어요 취소</button>
+    <button v-if="user && !review.hate_users.includes(user.pk)" @click="hateReview">싫어요</button>
+    <span>{{ review.hate_users.length }}개</span>
     <hr>
   </div>
 </template>
@@ -33,6 +36,9 @@ export default {
     likeReview() {
         this.$store.dispatch('likeReview', this.review.id)
     },
+    hateReview() {
+        this.$store.dispatch('hateReview', this.review.id)
+    }
   },
   computed: {
     user() {
