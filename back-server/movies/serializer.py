@@ -26,7 +26,7 @@ class Movieserializer(serializers.ModelSerializer):
     review_set = ReviewSerializer(many=True, read_only=True)
     review_count = serializers.IntegerField(source='review_set.count', read_only=True)
     like_users_count = serializers.IntegerField(source='like_users.count', read_only=True)
-
+    watched_users_count = serializers.IntegerField(source='watched_users.count', read_only=True)
 
     class Meta:
         model = Movie

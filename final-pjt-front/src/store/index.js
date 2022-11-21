@@ -27,7 +27,9 @@ export default new Vuex.Store({
     reviews:null,
     // movieReview: null,
     isLiked: null,
+    isWatched: null,
     likeCount: null,
+    watchedCount: null,
     token: null,
     user: null,
     profile:null,
@@ -49,6 +51,8 @@ export default new Vuex.Store({
     movie: (state) => state.movieDetail,
     isLiked: (state) => state.isLiked,
     likeCount: (state) => state.likeCount,
+    isWatched: (state) => state.isWatched,
+    watchedCount: (state) => state.watchedCount,
     reviews: (state) => state.reviews,
     profile: (state) => state.profile,
     likeReview: (state) => state.likeReview,
@@ -66,9 +70,7 @@ export default new Vuex.Store({
     GET_MOVIE_DETAIL: (state, movieInfo) => {
       state.movieDetail = movieInfo
       state.reviews = state.movieDetail.review_set
-      console.log('허허',state.reviews) 
       state.likeReview = state.reviews.like_users
-      console.log(state.movieDetail)
       // 여기서부터 좋아요 누를시에 추가하기
       state.likeCount = movieInfo.like_users_count
       if (movieInfo.like_users.includes(state.user.pk)) {
@@ -76,6 +78,12 @@ export default new Vuex.Store({
       } else {
         state.isLiked = false
       }
+      if (movieInfo.watched_users.includes(state.user.pk)) {
+        state.isWatched = true
+      } else {
+        state.isWatched = false
+      }
+      state.watchedCount = movieInfo.watched_users_count
     },
     LIKE_MOVIE: (state, likeInfo) => {
       state.isLiked = likeInfo.is_liked
@@ -172,6 +180,20 @@ export default new Vuex.Store({
           commit
         })
     },
+    watchedMovie({ commit, dispatch, getters }, movie) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/watched/${movie.id}/`,
+        data:{},
+        headers: getters.authHead,
+      })
+        .then(() => {
+          dispatch('getMovieDetail', movie.id)
+          commit
+        })
+        .catch(err => console.log(err))
+
+    },
     signup({ commit, dispatch }, payload) {
       // console.log(payload)
       axios({
@@ -259,7 +281,7 @@ export default new Vuex.Store({
         url: `${API_URL}/movies/detail/${movieId}/`
       })
         .then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           commit('GET_MOVIE_DETAIL', res.data)
         })
         .catch(err => console.log(err))
@@ -321,7 +343,6 @@ export default new Vuex.Store({
     
     },
     searchEnter({ commit }, query) {
-      console.log('serachEnter 실행')
       axios({
         url: `http://127.0.0.1:8000/movies/searchEnter/${query}`,
         method: 'get'

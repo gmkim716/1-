@@ -27,6 +27,8 @@
     <p>출연 배우: {{ movie?.actors }}</p>
     <button v-if="!isLiked" @click="likeMovie">좋아요</button>
     <button v-if="isLiked" @click="likeMovie">좋아요 취소</button>
+    <button v-if="!isWatched" @click="watchedMovie">아직 보지 않은 영화</button>
+    <button v-if="isWatched" @click="watchedMovie">이미 본 영화</button>
     <ReviewForm/>
     <ReviewList/>
     <router-link :to="{name: 'HomeView'}">뒤로가기</router-link>
@@ -54,6 +56,9 @@ export default {
     },
     isLiked(){
       return this.$store.getters.isLiked
+    },
+    isWatched(){
+      return this.$store.getters.isWatched
     }
   },
   methods: {
@@ -62,11 +67,19 @@ export default {
     },
     likeMovie() {
       if (this.$store.state.user) {
-      this.$store.dispatch('likeMovie', this.movie)
+        this.$store.dispatch('likeMovie', this.movie)
+        console.log(this.$store.state.isWatched)
       } else {
         this.$router.push({ name: 'LoginView'})
       }
     },
+    watchedMovie() {
+      if (this.$store.state.user) {
+        this.$store.dispatch('watchedMovie', this.movie)
+      } else {
+        this.$router.push({ name: 'LoginView'})
+      }
+    }
   },
   created() {
     this.$store.dispatch('getMovieDetail', Number(this.$route.params.id))
