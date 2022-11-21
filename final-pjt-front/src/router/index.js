@@ -9,6 +9,7 @@ import SignupView from '@/views/SignupView'
 import LoginView from '@/views/LoginView'
 import DetailView from '@/views/DetailView'
 import ProfileView from '@/views/ProfileView'
+import SearchListView from '@/views/SearchListView'
 
 Vue.use(VueRouter)
 
@@ -59,6 +60,11 @@ const routes = [
     path: '/:id',
     name: 'detail',
     component: DetailView
+  },
+  {
+    path: '/search?query=:query',
+    name: 'search',
+    component: SearchListView
   },
 ]
 

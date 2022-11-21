@@ -33,6 +33,7 @@ export default new Vuex.Store({
     profile:null,
     likeReview: null,
     hateReview: null,
+    results: null,
   },
   getters: {
     // test용으로 slice()적용해 놓음
@@ -52,6 +53,7 @@ export default new Vuex.Store({
     profile: (state) => state.profile,
     likeReview: (state) => state.likeReview,
     hateReview: (state) => state.hateReview,
+    results: (state) => state.results
   },
   mutations: {
     // 영화 관련 정보
@@ -93,7 +95,8 @@ export default new Vuex.Store({
     // 유저 관련 정보
     SET_TOKEN: (state, token) => state.token = token,
     SET_USER: (state, user) => state.user = user,
-    GET_PROFILE: (state, profile) => state.profile = profile
+    GET_PROFILE: (state, profile) => state.profile = profile,
+    SEARCH_ENTER: (state, results) => state.results = results,
   },
   actions: {
     getMovies({ commit }) {
@@ -315,7 +318,37 @@ export default new Vuex.Store({
           dispatch('getMovieDetail', getters.movie.id)  // 동작2: isHated 상태 변화, count()
         })
         .catch(err => console.log('err', err))
+    
     },
+    searchEnter({ commit }, query) {
+      console.log('serachEnter 실행')
+      axios({
+        url: `http://127.0.0.1:8000/movies/searchEnter/${query}`,
+        method: 'get'
+      })
+        .then(res => {
+          commit('SEARCH_ENTER', res.data)
+          router.push({name: 'search', params: {query}})
+        })
+        .catch(err => console.log(err))
+    }
+    // loadList({commit}, query) {
+    //   axios({
+    //     method: 'get',
+    //     url: `${API_URL}/movies/`
+    //   })
+    //     .then(res => {
+    //       console.log('loadList 실행')
+    //       const movieList = res.data
+    //       const lst = movieList.filter(movie => {
+    //         return movie.title.replaceAll(" ", "").includes(query.replaceAll(" ", ""))
+    //       })
+    //       console.log(lst)
+    //       commit
+    //     })
+    //     .catch(err => console.log(err))
+    // }
+
 
   },
   modules: {

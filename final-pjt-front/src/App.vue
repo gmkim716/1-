@@ -10,6 +10,7 @@
         <router-link :to="{ name: 'SignupView' }">Signup</router-link> |
         <router-link :to="{ name: 'LoginView' }">Login</router-link> |
       </span>
+      <SearchBar/>
       <span v-if="isLogin">
         <!-- <router-link :to="{ name: 'ProfileView', params: { pk } }">Profile</router-link> | -->
         <button @click="profile">Profile</button>
@@ -21,11 +22,17 @@
 </template>
 
 <script>
+import SearchBar from '@/components/SearchBar'
+
 export default {
+  components: {
+    SearchBar,
+  },
   data() {
     return {
       pk : 0,
-      userPk: this.$route.params.userPk
+      userPk: this.$route.params.userPk,
+      inputText: '',
     }
   },
   computed: {
@@ -43,7 +50,7 @@ export default {
       const userPk = this.$store.getters.user.pk
       // this.$store.dispatch('getProfile', Number(this.$route.params.userPk))
       this.$router.push({ name: 'ProfileView', params: { userPk } })
-    }
+    },
   },
 
 }

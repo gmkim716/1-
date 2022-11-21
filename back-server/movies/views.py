@@ -101,3 +101,21 @@ def hate_review(request, review_pk):
 		'hate_users_count': review.hate_users.count()
 	}
 	return Response(context)
+
+# 검색어 입력시 아래에 나오는 목록 
+@api_view(['GET',])
+@permission_classes([IsAuthenticatedOrReadOnly])
+def search(request, query):
+	movies = Movie.objects.filter(title__startswith=query)
+	serializer = MovieListSerializer(movies, many=True)
+	return Response(serializer.data)
+
+# 검색어 입력 후 엔터
+@api_view(['GET',])
+@permission_classes([IsAuthenticatedOrReadOnly])
+def searchEnter(request, query):
+	movies = Movie.objects.filter(title__contains=query)
+	serializer = MovieListSerializer(movies, many=True)
+	return Response(serializer.data)
+
+	
