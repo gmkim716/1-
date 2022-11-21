@@ -1,9 +1,16 @@
 from rest_framework import serializers
-from .models import Movie, Review
+from .models import Movie, Review, Genre
+
+class GenreSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model=Genre
+        fields = ('name',)
 
 
 class MovieListSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
+    
 
     class Meta:
         model = Movie
@@ -27,6 +34,7 @@ class Movieserializer(serializers.ModelSerializer):
     review_count = serializers.IntegerField(source='review_set.count', read_only=True)
     like_users_count = serializers.IntegerField(source='like_users.count', read_only=True)
     watched_users_count = serializers.IntegerField(source='watched_users.count', read_only=True)
+    genres = GenreSerializer(many=True)
 
     class Meta:
         model = Movie

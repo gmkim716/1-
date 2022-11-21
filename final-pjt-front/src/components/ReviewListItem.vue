@@ -1,19 +1,27 @@
 <template>
-  <div>
-    <p>평점 : {{ review.rating}} 점</p>
-    <p>
-      작성자 : {{ review.username }} 
-      <button @click="goProfile">프로필</button>
-    </p>
-    <p>리뷰내용 : {{ review.content }}</p>
-
-    <button v-if="user && review.like_users.includes(user.pk)" @click="likeReview">좋아요 취소</button>
-    <button v-if="user && !review.like_users.includes(user.pk)" @click="likeReview">좋아요</button>
-    <span>{{review.like_users.length }}개 </span>
-    <button v-if="user && review.hate_users.includes(user.pk)" @click="hateReview">싫어요 취소</button>
-    <button v-if="user && !review.hate_users.includes(user.pk)" @click="hateReview">싫어요</button>
-    <span>{{ review.hate_users.length }}개</span>
-    <hr>
+  <div class="mx-auto">
+    <div class='d-flex justify-content-between'>
+      <div>
+        <span>평점 : {{ review.rating}}점</span> |  
+        <span @click="goProfile">
+          작성자 : {{ review.username }} 
+          <!-- <button @click="goProfile">프로필</button> -->
+        </span>
+      </div>
+      <div>
+        <i v-if="user && review.like_users.includes(user.pk)" @click="likeReview" class="fa-solid fa-thumbs-up fa-2x"></i>
+        <i v-if="user && !review.like_users.includes(user.pk)" @click="likeReview" class="fa-regular fa-thumbs-up fa-2x"></i>
+        <!-- <button v-if="user && review.like_users.includes(user.pk)" @click="likeReview">좋아요 취소</button>
+        <button v-if="user && !review.like_users.includes(user.pk)" @click="likeReview">좋아요</button> -->
+        <span> {{review.like_users.length }} </span>
+        <i v-if="user && review.hate_users.includes(user.pk)" @click="hateReview" class="fa-solid fa-thumbs-down fa-2x"></i>
+        <i v-if="user && !review.hate_users.includes(user.pk)" @click="hateReview" class="fa-regular fa-thumbs-down fa-2x"></i>
+        <!-- <button v-if="user && review.hate_users.includes(user.pk)" @click="hateReview">싫어요 취소</button>
+        <button v-if="user && !review.hate_users.includes(user.pk)" @click="hateReview">싫어요</button> -->
+        <span> {{ review.hate_users.length }} </span>
+      </div>
+    </div>
+    <p>{{ review.content }}</p>
   </div>
 </template>
 
@@ -48,6 +56,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  i {
+    width: 30px;
+  }
+  * {
+    background: white;
+    width: 800px;
+  }
 </style>

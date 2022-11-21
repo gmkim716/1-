@@ -2,7 +2,7 @@
 <template>
   <div>
     <form @submit.prevent="createReview">
-      <label for="points">별점: </label>
+      <p><label for="points">별점: </label>
       <star-rating 
         id=setstar 
         :star-size="30" 
@@ -13,9 +13,12 @@
         :inline="true"
       >
       </star-rating>
-      <label for="content"> 리뷰 내용: </label>
+      </p>
+      <label for="content"></label>
       <textarea id="content" cols="30" rows="10" v-model.trim="content"></textarea>
-      <input type="submit" value="리뷰등록">
+      <p>
+        <input type="submit" value="리뷰등록">
+      </p>
     </form>
   </div>
 </template>

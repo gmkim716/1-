@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h4>Lastest List</h4>
-    <LastestListItem
-      v-for="movie in latestMovies"
-      :key="movie.id"
-      :movie="movie"
-    />
-  </div>
+    <div id='itemList' class="row mx-auto">
+      <LastestListItem
+        v-for="movie in latestMovies"
+        :key="movie.id"
+        :movie="movie"
+      />
+    </div>
+  </div>  
 </template>
 
 <script>

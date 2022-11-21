@@ -1,7 +1,10 @@
 <template>
-  <div @click="goDetail(movie.id)">
-    {{ movie.title }}
-  </div>
+    <div class='col-3'>
+      <div class="card h-100" id='poster' @click="goDetail(movie.id)">
+        <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" alt="movie.poster_path">
+      </div>
+    </div>
+  
 </template>
 
 <script>
@@ -18,6 +21,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  #itemList {
+    display: inline-block;
+  }
+  * {
+    background: beige;
+  }
 </style>

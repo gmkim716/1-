@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Lastest Movie</h3>
+    <h3>최신 영화 목록</h3>
     <hr>
     <LastestList/>
     <hr>

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 # from django.http.response import JsonResponse 		# JsonResponse 불러오기
-from .models import Movie, Review
+from .models import Movie, Review, Genre
 from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.response import Response
@@ -33,6 +33,30 @@ def movie_detail(request, movie_pk):
 	if request.method == 'GET':
 		serializer = Movieserializer(movie)
 		return Response(serializer.data)
+
+@api_view(['GET',])
+@permission_classes([IsAuthenticatedOrReadOnly])
+def movie_genres(request, movie_pk):
+	movie = get_object_or_404(Movie, pk=movie_pk)
+	
+	# movie.genres
+	# genres = get_list_or_404(Genre)
+	# for movie in movies:
+	# 	if movie.pk == movie_pk:
+
+	print(movie.genres)
+	if request.method == 'GET':
+		serializer = Movieserializer(movie)
+		return Response(serializer.data)
+
+# @api_view(['GET',])
+# @permission_classes([IsAuthenticatedOrReadOnly])
+# def movie_actors(request, movie_pk):
+# 	movies = get_list_or_404(Movie)
+# 	print(movie)
+# 	if request.method == 'GET':
+# 		serializer = Movieserializer(movie)
+# 		return Response(serializer.data)
 
 
 @api_view(['POST',])

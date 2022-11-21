@@ -23,6 +23,7 @@ export default new Vuex.Store({
     latestMovies: [],
     ratedMovies: [],
     weatherMovies: [],
+    genres: null,
     movieDetail: null,
     reviews:null,
     // movieReview: null,
@@ -40,7 +41,7 @@ export default new Vuex.Store({
   getters: {
     // test용으로 slice()적용해 놓음
     popularMovies: (state) => state.popularMovie.slice(0,6),
-    latestMovies: (state) => state.latestMovies.slice(0,6),
+    latestMovies: (state) => state.latestMovies,
     ratedMovies: (state) => state.ratedMovies.slice(0,6),
     weatherMovies: (state) => state.weatherMovies.slice(0,6),
     isLogin(state) {
@@ -57,7 +58,8 @@ export default new Vuex.Store({
     profile: (state) => state.profile,
     likeReview: (state) => state.likeReview,
     hateReview: (state) => state.hateReview,
-    results: (state) => state.results
+    results: (state) => state.results,
+    genres: (state) => state.genres
   },
   mutations: {
     // 영화 관련 정보
@@ -69,6 +71,7 @@ export default new Vuex.Store({
     GET_WEATHER_MOVIES: (state, w_movies) => state.weatherMovies = w_movies,
     GET_MOVIE_DETAIL: (state, movieInfo) => {
       state.movieDetail = movieInfo
+      state.genres = state.movieDetail.genres
       state.reviews = state.movieDetail.review_set
       state.likeReview = state.reviews.like_users
       // 여기서부터 좋아요 누를시에 추가하기
@@ -120,6 +123,7 @@ export default new Vuex.Store({
             return a.popularity > b.popularity ? -1 : a.popularity < b.popularity ? 1 : 0;
           })
           console.log('popular', popular)
+          
           commit('GET_POPULAR_MOVIES', popular)
           // 최신순 (내림차순)
           const copy2 = res.data.slice()
@@ -281,11 +285,37 @@ export default new Vuex.Store({
         url: `${API_URL}/movies/detail/${movieId}/`
       })
         .then(res => {
-          // console.log(res.data)
+          console.log(res.data)
           commit('GET_MOVIE_DETAIL', res.data)
         })
         .catch(err => console.log(err))
     },
+    getMovieGenres({ commit, getters }, movieId) {
+      const genres = getters.genres
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/genres/${movieId}/`,
+        data: {genres}
+      })
+        .then(res => {
+          console.log(res.data)
+          // commit('GET_MOVIE_DETAIL', res.data)
+          commit
+        })
+        .catch(err => console.log(err))
+    },
+    // getMovieActors({ commit }, movieId) {
+    //   axios({
+    //     method: 'get',
+    //     url: `${API_URL}/movies/actors/${movieId}/`
+    //   })
+    //     .then(res => {
+    //       console.log(res.data)
+    //       // commit('GET_MOVIE_DETAIL', res.data)
+    //       commit
+    //     })
+    //     .catch(err => console.log(err))
+    // },
     // 전체 리뷰를 get하는 list 받아오는 것 => hot한 (댓글 많이 달린 에서 하면 될듯? 확신 업스)
     // getReviews({ commit }, moviePk) {
     //   axios({

@@ -1,17 +1,36 @@
 <template>
   <div>
-    <h1>Detail</h1>
-    <p>{{ movie }}</p>
+    <div class='d-flex' id='upside'>
+      <div class='d-flex col col-md-5 justify-content-center'>
+        <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" alt="movie.poster_path" style="height:500px;">
+      </div>
+      <div class='d-flex align-items-center'>
+        <ul>
+          <!-- <li>영화id: {{ movie?.id }}</li> -->
+          <h1>{{ movie?.title }}</h1>
+          <h4>{{ movie?.release_date }}</h4>
+          <p>인기도: {{ movie?.popularity }}</p>
+          <p>투표수: {{ movie?.vote_count }}</p>
+          <p>평점: {{ movie?.vote_average }}</p>
+          <p>장르: {{ movie?.genres }}</p>
+          <span>{{ movie?.overview }}</span>
+          <div>
+            <div class='d-flex align-items-center'>
+              <!-- <button v-if="!isLiked" @click="likeMovie">좋아요</button>
+              <button v-if="isLiked" @click="likeMovie">좋아요 취소</button> -->
+              <button v-if="!isWatched" @click="watchedMovie">아직 보지 않은 영화</button>
+              <button v-if="isWatched" @click="watchedMovie">이미 본 영화</button>
+
+              <i v-if="isLiked" @click="likeMovie" class="fa-solid fa-heart fa-2x" id='like'></i>
+              <i v-if="!isLiked" @click="likeMovie" class="fa-regular fa-heart fa-2x"></i>
+            </div>
+          </div>
+          <p>출연 배우: {{ movie?.actors }}</p>
+        </ul>
+      </div>
+    </div>
     
-    <p>영화id: {{ movie?.id }}</p>
-    <p>영화 제목: {{ movie?.title }}</p>
-    <p>개봉일: {{ movie?.release_date }}</p>
-    <p>popularity: {{ movie?.popularity }}</p>
-    <p>투표수: {{ movie?.vote_count }}</p>
-    <p>평점: {{ movie?.vote_average }}</p>
-    <p>포스터: <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" alt="movie.poster_path "></p >
     <div v-if="movie?.youtube_key !== 'nothing'">
-      <p>youtubeKey: {{ movie?.youtube_key }}</p>
       <VideoItem
         :youtubeKey="movie?.youtube_key"
       />
@@ -22,13 +41,6 @@
     <div v-if="movie?.youtube_key === 'nothing'">
       <p>유튜브 트레일러가 존재하지 않습니다.</p>
     </div>
-    <p>장르: {{ movie?.genres }}</p>
-    <p>개요: {{ movie?.overview }}</p>
-    <p>출연 배우: {{ movie?.actors }}</p>
-    <button v-if="!isLiked" @click="likeMovie">좋아요</button>
-    <button v-if="isLiked" @click="likeMovie">좋아요 취소</button>
-    <button v-if="!isWatched" @click="watchedMovie">아직 보지 않은 영화</button>
-    <button v-if="isWatched" @click="watchedMovie">이미 본 영화</button>
     <ReviewForm/>
     <ReviewList/>
     <router-link :to="{name: 'HomeView'}">뒤로가기</router-link>
@@ -83,11 +95,23 @@ export default {
   },
   created() {
     this.$store.dispatch('getMovieDetail', Number(this.$route.params.id))
-  }
+  },
+
 }
 </script>
 
 
-<style>
-
+<style scoped>
+  #upside{
+    background: lightcyan;
+    display: inline-block;
+    width: 100%;
+    text-align: justify;
+  }
+  #upsideDetail{
+    display: inline-block;
+  }
+  #like  {
+    color: red;
+  }
 </style>

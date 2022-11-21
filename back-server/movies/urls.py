@@ -6,6 +6,8 @@ urlpatterns = [
     # path('get_youtube/', views.get_youtube),
     path('', views.movie_list),
     path('detail/<int:movie_pk>/', views.movie_detail),
+    path('genres/<int:movie_pk>/', views.movie_genres),
+    # path('actors/<int:movie_pk>/', views.movie_actors),
     path('like/<int:movie_pk>/', views.like),
     path('watched/<int:movie_pk>/', views.watched),
     path('<int:movie_pk>/reviews/', views.get_reviews),

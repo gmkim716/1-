@@ -17,7 +17,9 @@
         <button @click="logout">Logout</button>
       </span>
     </nav>
-    <router-view/>
+    <div class="container">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -77,4 +79,9 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.container { 
+  background-color: yellowgreen;
+}
+
 </style>

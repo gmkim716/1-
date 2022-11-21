@@ -1,12 +1,12 @@
 <template>
-    <div>
-        <hr>
-        <ReviewListItem
-            v-for="review in reviews"
-            :key="review.id"
-            :review="review"
-        />
-    </div>
+  <div>
+    <hr>
+    <ReviewListItem
+      v-for="review in reviews"
+      :key="review.id"
+      :review="review"
+    />
+  </div>
 </template>
 
 
@@ -28,5 +28,4 @@ export default {
 
 
 <style>
-
 </style>
