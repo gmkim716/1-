@@ -1,7 +1,6 @@
 <template>
   <div>
     <span @click="goDetail(result.id)">{{ result.title }}</span>
-    
   </div>
 
 </template>

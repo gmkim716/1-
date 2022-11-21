@@ -13,19 +13,14 @@
 <script>
 export default {
   name: 'SearchListView',
-  data() {
-    return {
-      data: '어떤 데이터',
-    }
-  },
   computed: {
     results() {
       return this.$store.getters.results
     },
   },
-  methods: {
-
-  },
+  mounted() {
+    console.log(this.$route.query)
+  }
 
 }
 </script>
