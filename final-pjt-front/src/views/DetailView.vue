@@ -15,6 +15,9 @@
       <VideoItem
         :youtubeKey="movie?.youtube_key"
       />
+      <VideoYoutubeList
+        :movieTitle="movie?.title"
+    />
     </div>
     <div v-if="movie?.youtube_key === 'nothing'">
       <p>유튜브 트레일러가 존재하지 않습니다.</p>
@@ -35,6 +38,7 @@
 import ReviewList from '@/components/ReviewList'
 import ReviewForm from '@/components/ReviewForm'
 import VideoItem from '@/components/VideoItem'
+import VideoYoutubeList from '@/components/VideoYoutubeList'
 
 export default {
   name: 'DetailView',
@@ -42,6 +46,7 @@ export default {
     ReviewList,
     ReviewForm,
     VideoItem,
+    VideoYoutubeList,
   },
   computed: {
     movie() {
