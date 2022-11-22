@@ -134,8 +134,6 @@ export default {
     
   },
   mounted() {
-    // this.$store.dispatch('getMovieGenres', Number(this.$route.params.id))
-    // this.$store.dispatch('getMovieActors', Number(this.$route.params.id))
     window.scrollTo(0,0)
   }
 

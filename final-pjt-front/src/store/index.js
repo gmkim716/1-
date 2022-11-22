@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '@/router/index'
 import createPersistedState from 'vuex-persistedstate'
+import _ from 'lodash'
 
 Vue.use(Vuex)
 
@@ -40,9 +41,9 @@ export default new Vuex.Store({
   },
   getters: {
     // test용으로 slice()적용해 놓음
-    popularMovies: (state) => state.popularMovie.slice(0,31),
+    popularMovies: (state) => state.popularMovie,
     latestMovies: (state) => state.latestMovies,
-    ratedMovies: (state) => state.ratedMovies.slice(0,31),
+    ratedMovies: (state) => state.ratedMovies,
     weatherMovies: (state) => state.weatherMovies,
     isLogin(state) {
       return state.token ? true : false
@@ -118,13 +119,14 @@ export default new Vuex.Store({
         .then(res => {
           // console.log(res.data)
           const copy1 = res.data.slice()
-          // 인기순 (내림차순)
+          // 인기순 (내림차순) - 40개만 내리기
           const popular = copy1.sort(function(a, b) {
             return a.popularity > b.popularity ? -1 : a.popularity < b.popularity ? 1 : 0;
           })
-          console.log('popular', popular)
+          const popularMovies = popular.slice(0,44)
+          console.log('popular', popularMovies)
           
-          commit('GET_POPULAR_MOVIES', popular)
+          commit('GET_POPULAR_MOVIES', popularMovies)
           // 최신순 (내림차순)
           const copy2 = res.data.slice()
           const allLatest = copy2.sort(function(a, b) {
@@ -133,40 +135,52 @@ export default new Vuex.Store({
           const latest = allLatest.filter((movie) => {
             return movie.release_date <= today
           })
-          console.log('latest', latest)
-          commit('GET_LATEST_MOVIES', latest)
+          const latestMovies = latest.slice(0,44)
+          console.log('latest', latestMovies)
+          commit('GET_LATEST_MOVIES', latestMovies)
           // 평점순 (내림차순)
           const copy3 = res.data.slice()
           const rated = copy3.sort(function(a, b) {
             return a.vote_average > b.vote_average ? -1 : a.vote_average < b.vote_average ? 1 : 0;
           })
-          commit('GET_RATED_MOVIES', rated)
+          console.log(rated)
+          const filteredRated = rated.filter(movie => {
+            return movie.vote_count >= 110
+          })
+          const ratedMovies = filteredRated.slice(0,44)
+          console.log('rated', ratedMovies)
+          commit('GET_RATED_MOVIES', ratedMovies)
           // 계절별 추천
           const copy4 = res.data.slice()
           if ([3, 4, 5].includes(month)) {
             const result = copy4.filter((movie) => {
               return movie.genres.some(genre => [10749, 18, 35, 10402].includes(genre)) || movie.title.includes('봄') || movie.title.includes('꽃') 
             })
-            console.log('weather', result)
-            commit('GET_WEATHER_MOVIES', result)
+
+            const weatherMovie = _.sampleSize(result, 12)
+            console.log('weather', weatherMovie)
+            commit('GET_WEATHER_MOVIES', weatherMovie)
           } else if ([6, 7, 8].includes(month)) {
             const result = copy4.filter((movie) => {
-              return movie.genres.some(genre => [12, 14, 28, 35, 27, 53, 80, 9648].includes(genre)) || movie.title.includes('여름') || movie.title.includes('바다')
+              return movie.genres.some(genre => [12, 14, 28, 35, 27, 53, 80, 9648].includes(genre)) || movie.title.includes('여름') || movie.title.includes('바다') || movie.title.includes('귀신')
             })
-            console.log('weather', result)
-            commit('GET_WEATHER_MOVIES', result)
+            const weatherMovie = _.sampleSize(result, 12)
+            console.log('weather', weatherMovie)
+            commit('GET_WEATHER_MOVIES', weatherMovie)
           } else if ([9, 10, 11].includes(month)) {
             const result = copy4.filter((movie) => {
               return movie.genres.some(genre => [10402, 18, 10749].includes(genre)) || movie.title.includes('가을') || movie.title.includes('낙엽')
             })
-            commit('GET_WEATHER_MOVIES', result)
-            console.log('weather', result)
+            const weatherMovie = _.sampleSize(result, 12)
+            console.log('weather', weatherMovie)
+            commit('GET_WEATHER_MOVIES', weatherMovie)
           } else if ([12, 1, 2].includes(month)) {
             const result = copy4.filter((movie) => {
-              return movie.genres.some(genre => [10751, 12, 14].includes(genre)) || movie.title.includes('겨울') || movie.title.includes('눈') || movie.title.includes('캐럴')
+              return movie.genres.some(genre => [10751, 12, 14].includes(genre)) || movie.title.includes('겨울') || movie.title.includes('눈') || movie.title.includes('캐럴') || movie.title.includes('해리포터') || movie.title.includes('나홀로')
             })
-            console.log('weather', result)
-            commit('GET_WEATHER_MOVIES', result)
+            const weatherMovie = _.sampleSize(result, 12)
+            console.log('weather', weatherMovie)
+            commit('GET_WEATHER_MOVIES', weatherMovie)
           }
         })
         .catch(err => console.log(err))
@@ -290,42 +304,6 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
-    getMovieGenres({ commit, getters }, movieId) {
-      const genres = getters.genres
-      axios({
-        method: 'get',
-        url: `${API_URL}/movies/genres/${movieId}/`,
-        data: {genres}
-      })
-        .then(res => {
-          console.log(res.data)
-          // commit('GET_MOVIE_DETAIL', res.data)
-          commit
-        })
-        .catch(err => console.log(err))
-    },
-    // getMovieActors({ commit }, movieId) {
-    //   axios({
-    //     method: 'get',
-    //     url: `${API_URL}/movies/actors/${movieId}/`
-    //   })
-    //     .then(res => {
-    //       console.log(res.data)
-    //       // commit('GET_MOVIE_DETAIL', res.data)
-    //       commit
-    //     })
-    //     .catch(err => console.log(err))
-    // },
-    // 전체 리뷰를 get하는 list 받아오는 것 => hot한 (댓글 많이 달린 에서 하면 될듯? 확신 업스)
-    // getReviews({ commit }, moviePk) {
-    //   axios({
-    //     url: `${API_URL}/movies/${moviePk}/review/`
-    //   })
-    //     .then( res => {
-    //       console.log(2, res.data)
-    //       commit
-    //     })
-    // },
     createReview({ dispatch, getters }, payload) {
       axios({
         method: 'post',
@@ -383,24 +361,6 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     }
-    // loadList({commit}, query) {
-    //   axios({
-    //     method: 'get',
-    //     url: `${API_URL}/movies/`
-    //   })
-    //     .then(res => {
-    //       console.log('loadList 실행')
-    //       const movieList = res.data
-    //       const lst = movieList.filter(movie => {
-    //         return movie.title.replaceAll(" ", "").includes(query.replaceAll(" ", ""))
-    //       })
-    //       console.log(lst)
-    //       commit
-    //     })
-    //     .catch(err => console.log(err))
-    // }
-
-
   },
   modules: {
   }
