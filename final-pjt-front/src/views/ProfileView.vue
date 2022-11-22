@@ -36,7 +36,7 @@ export default {
       }
     },
     bookMarks() {
-      this.bookMarkList = this.profile.like_movies
+      this.bookMarkList = this.profile?.like_movies
     }
   },
   computed: {

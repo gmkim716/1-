@@ -8,7 +8,7 @@
 export default {
 	name: 'BookMarkedListItem',
 	props: {
-		movie: String,
+		movie: Number,
 	}
 }
 </script>

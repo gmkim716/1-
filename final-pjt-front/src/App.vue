@@ -14,21 +14,23 @@
             <li class="nav-item nav-link"><router-link :to="{ name: 'UserLikeView' }">User Like</router-link></li>
           </ul>
         </div>
-        <div id="navbar-right" class="col col-md-4">
+        <div id="navbar-right" class="col col-md-6">
           <div v-if="!isLogin" >
-            <ul class="d-flex navbar-nav">
-              <li class="my-auto">
-                <SearchBar/>
-              </li>
+            <ul class="d-flex justify-content-end navbar-nav">
+              <li class="my-auto"><SearchBar/></li>
               <li class="nav-item nav-link"><router-link :to="{ name: 'LoginView' }">Login</router-link></li>
               <li class="nav-item nav-link"><router-link :to="{ name: 'SignupView' }">Signup</router-link></li>
             </ul>
           </div>
           <div v-if="isLogin">
-            <!-- <router-link :to="{ name: 'ProfileView', params: { pk } }">Profile</router-link> | -->
-            <i @click="profile" class="fa-solid fa-user fa-2x"></i>
-            <!-- <button @click="profile">Profile</button> -->
-            <button @click="logout">Logout</button>
+            <ul class="d-flex justify-content-end navbar-nav">
+              <li v-if="user" class="nav-link false">{{ user }}님</li>
+              <li class="my-auto"><SearchBar/></li> 
+              <!-- <router-link :to="{ name: 'ProfileView', params: { pk } }">Profile</router-link> | -->
+              <!-- <li class="nav-item nav-link"><router-link :to="{ name: 'ProfileView', params:{ userPk } }">My Page</router-link></li> -->
+              <li class="nav-item nav-link" @click="profile">Profile</li>
+              <li class="nav-item nav-link" @click="logout">Logout</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -49,17 +51,21 @@ export default {
     return {
       pk : 0,
       userPk: this.$route.params.userPk,
+      user: null,
       inputText: '',
     }
   },
   computed: {
     isLogin() { return this.$store.getters.isLogin },
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.userPk = to.params.userPk
-    next()
-  },
+    },
+    beforeRouteUpdate(to, from, next) {
+      this.userPk = to.params.userPk
+      next()
+    },
   methods: {
+    username() {
+      this.user = this.$store.getters.user.username
+    },
     logout(){
       this.$store.dispatch('logout')
     },
@@ -69,7 +75,9 @@ export default {
       this.$router.push({ name: 'ProfileView', params: { userPk } })
     },
   },
-
+  mounted(){
+    this.username()
+  }
 }
 </script>
 
@@ -97,6 +105,12 @@ nav a.router-link-exact-active {
 
 .container { 
   background: rgb(193, 194, 196);
+}
+
+.nav-item {
+  color: #2c3e50;
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 </style>
