@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<iframe :src="videoUrl" ></iframe>
+		<iframe :src="videoUrl" allowfullscreen></iframe>
 	</div>
 </template>
 <script>

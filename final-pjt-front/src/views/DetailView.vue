@@ -48,7 +48,7 @@
         <div id='story' class='col col-md-7 mt-5'>
           <h2>개요</h2>
           <div class="col col-md-10 mx-auto">
-            <p v-if="movie.overview && overview.length > 30">{{ overview }}</p>
+            <p v-if="movie.overview && movie.overview.length > 30">{{ overview }}</p>
             <p v-else-if="movie.overview">{{ overview }}</p>
             <p v-else>등록된 줄거리가 없습니다</p>
           </div>
@@ -80,6 +80,7 @@ import ReviewForm from '@/components/ReviewForm'
 import VideoItem from '@/components/VideoItem'
 import VideoYoutubeList from '@/components/VideoYoutubeList'
 
+
 const date = new Date()
 const year = date.getFullYear()
 const month = date.getMonth() + 1
@@ -91,7 +92,7 @@ export default {
   name: 'DetailView',
   data() {
     return {
-      today: today
+      today: today,
     }
   },
   components: {
@@ -117,7 +118,7 @@ export default {
       return this.$store.getters.isWatched
     },
     overview() {
-      const splitList = this.movie.overview.split(' ')
+      const splitList = this.$store.getters.movie.overview.split(' ')
       const lastWord = splitList[splitList.length-1]
       const finalText = lastWord[lastWord.length-1]
       if (finalText == '?' || finalText == '!') {

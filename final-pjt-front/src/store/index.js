@@ -241,7 +241,6 @@ export default new Vuex.Store({
           // console.log(res.data.key)
           commit('SET_TOKEN', res.data.key)
           dispatch('getUserInfo')
-          router.push('/')
         })
         .catch(err => {
           alert(JSON.stringify(err.response.data))
@@ -258,7 +257,6 @@ export default new Vuex.Store({
           // console.log(res.data.key)
           commit('SET_TOKEN', res.data.key)
           dispatch('getUserInfo')
-          router.push('/')
         })
         .catch(err => {
           alert(JSON.stringify(err.response.data))
@@ -297,6 +295,7 @@ export default new Vuex.Store({
         .then(res =>{
           console.log('유저',res.data)
           commit('SET_USER', res.data)
+          router.push('/')
         })
     },
     getProfile({ commit }, userPk) {
