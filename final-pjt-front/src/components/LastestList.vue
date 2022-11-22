@@ -23,10 +23,8 @@ export default {
       return this.$store.getters.latestMovies
     }
   },
-  
 }
 </script>
 
 <style>
-
 </style>

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<iframe :src="videoUrl"></iframe>
+			<iframe :src="videoUrl" ></iframe>
 	</div>
 </template>
 <script>
@@ -21,5 +21,8 @@ export default {
 	iframe {
 		width: 426px;
 		height: 240px;
+	}
+	#video {
+		background-color: black;
 	}
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class='col-3'>
+    <div class='col-3 my-2'>
       <div class="card h-100" id='poster' @click="goDetail(movie.id)">
         <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" alt="movie.poster_path">
       </div>
@@ -25,7 +25,8 @@ export default {
   #itemList {
     display: inline-block;
   }
-  * {
-    background: rgb(17, 22, 47);
+  body {
+    background: yellow;
+    color: green;
   }
 </style>

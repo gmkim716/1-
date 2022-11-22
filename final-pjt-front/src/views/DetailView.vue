@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class='d-flex' id='upside'>
+    <div class='d-flex my-3' id='upside'>
       <div class='d-flex col col-md-5 justify-content-center'>
         <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" alt="movie.poster_path" style="height:500px;">
       </div>
@@ -43,32 +43,31 @@
       </div>
     </div>
 
-    <div class='d-flex'>
-      <div id='story' class='col col-md-7'>
-        <h1>줄거리</h1>
-        <p v-if="movie.overview && overview.length > 30">{{ overview }}</p>
-        <p v-else-if="movie.overview">{{ overview }}</p>
-        <p v-else>등록된 줄거리가 없습니다</p>
+    <div id="content" class='gx-0' >
+      <div class='d-flex'>
+        <div id='story' class='col col-md-7'>
+          <h1>줄거리</h1>
+          <p v-if="movie.overview && overview.length > 30">{{ overview }}</p>
+          <p v-else-if="movie.overview">{{ overview }}</p>
+          <p v-else>등록된 줄거리가 없습니다</p>
+        </div>
+        <div id='video' class='col col-md-4 mx-auto' v-if="movie?.youtube_key !== 'nothing'">
+          <VideoItem
+            :youtubeKey="movie?.youtube_key"
+          />
+        </div>
       </div>
-      <div id='video' class='col col-md-4 mx-auto' v-if="movie?.youtube_key !== 'nothing'">
-        <VideoItem
-          :youtubeKey="movie?.youtube_key"
-        />
-      </div>
-    </div>
-    
-    
-    
 
-    <VideoYoutubeList
-    :movieTitle="movie?.title"
-    />
-    <div v-if="movie?.youtube_key === 'nothing'">
-      <p>유튜브 트레일러가 존재하지 않습니다.</p>
+      <VideoYoutubeList
+      :movieTitle="movie?.title"
+      />
+      <div v-if="movie?.youtube_key === 'nothing'">
+        <p>유튜브 트레일러가 존재하지 않습니다.</p>
+      </div>
+      <ReviewForm/>
+      <ReviewList/>
+      <router-link :to="{name: 'HomeView'}">뒤로가기</router-link>
     </div>
-    <ReviewForm/>
-    <ReviewList/>
-    <router-link :to="{name: 'HomeView'}">뒤로가기</router-link>
   </div>
 </template>
 
@@ -143,7 +142,6 @@ export default {
   mounted() {
     window.scrollTo(0,0)
   }
-
 }
 </script>
 
@@ -170,5 +168,7 @@ export default {
   #video {
     background: black;
   }
-
+  #content {
+    background: #262626;
+  }
 </style>

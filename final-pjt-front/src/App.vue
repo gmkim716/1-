@@ -105,7 +105,7 @@ nav a.router-link-exact-active {
 }
 
 .container { 
-  background: #262626 ;
+  background: #02142b ;
 }
 
 .nav-item {
