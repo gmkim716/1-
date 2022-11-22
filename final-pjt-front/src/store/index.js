@@ -358,7 +358,7 @@ export default new Vuex.Store({
         headers: getters.authHead,    // post
       })
         .then(res => {
-          // console.log(res.data)
+          // console.log('###########################',res.data)
           commit('LIKE_REVIEW', res.data)
           dispatch('getMovieDetail', getters.movie.id )
         })

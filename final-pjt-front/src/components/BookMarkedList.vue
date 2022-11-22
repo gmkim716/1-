@@ -29,7 +29,7 @@ export default {
 			this.likeMovies = this.profile.like_movies
 		}
 	},
-	created() {
+	mounted() {
 		this.likeMovies()
 		console.log('profile.like_movies:', this.profile.like_movies)
 	},
