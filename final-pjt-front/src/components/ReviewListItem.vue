@@ -31,21 +31,24 @@ export default {
   props: {
     review:Object,
   },
-  data() {
-    return {
-      review_likes: 0,
-    }
-  },
   methods: {
     goProfile() {
       const userPk = this.review.user
       this.$router.push({ name: 'ProfileView', params: { userPk }})
     },
     likeReview() {
+      if (this.$store.state.user){
         this.$store.dispatch('likeReview', this.review.id)
+      } else {
+        this.$router.push({ name: 'LoginView'})
+      }
     },
     hateReview() {
-        this.$store.dispatch('hateReview', this.review.id)
+        if (this.$store.state.user) {
+          this.$store.dispatch('hateReview', this.review.id)
+        } else {
+          this.$router.push({ name: 'LoginView'})
+        }
     }
   },
   computed: {

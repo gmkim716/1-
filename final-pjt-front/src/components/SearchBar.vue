@@ -5,6 +5,7 @@
       v-model="query"
       @keyup="searching(query)"
       @keydown.enter="searchEnter(query)"
+      @blur="query = null, searchList=null"
       placeholder="작품명을 검색하세요"
       type="text">
     <div v-if="searchList">

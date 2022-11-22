@@ -11,6 +11,13 @@ import DetailView from '@/views/DetailView'
 import ProfileView from '@/views/ProfileView'
 import SearchListView from '@/views/SearchListView'
 
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(() => {
+        return window.location.reload()
+    })
+};
+
 Vue.use(VueRouter)
 
 
@@ -57,15 +64,16 @@ const routes = [
 
   },
   {
+    path: '/search',
+    name: 'search',
+    component: SearchListView
+  },
+  {
     path: '/:id',
     name: 'detail',
     component: DetailView
   },
-  {
-    path: '/search?query=:query',
-    name: 'search',
-    component: SearchListView
-  },
+
 ]
 
 const router = new VueRouter({
