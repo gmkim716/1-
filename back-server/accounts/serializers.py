@@ -20,13 +20,13 @@ class Movieserializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ('title', 'poster_path', 'genres', 'actors', 'release_date', 'vote_count')
+        fields = '__all__'
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
     like_movies_count = serializers.IntegerField(source='like_movies.count', read_only=True)
     watched_movies_count = serializers.IntegerField(source='watched_movies.count', read_only=True)
-    # like_movies = Movieserializer(many=True)
+    like_movies = Movieserializer(many=True)
 
     class Meta:
         model = get_user_model()

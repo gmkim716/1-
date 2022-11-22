@@ -2,7 +2,7 @@
   <div>
     <hr>
     <ReviewListItem
-      v-for="review in reviews"
+      v-for="review in reviews.reverse()"
       :key="review.id"
       :review="review"
     />

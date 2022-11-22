@@ -23,7 +23,7 @@
           </div>
           <div v-if="isLogin">
             <ul class="d-flex justify-content-end navbar-nav">
-              <li v-if="user" class="nav-link false">{{ user }}님</li>
+              <li v-if="user" class="nav-link false">{{ user?.username }}님</li>
               <li class="my-auto"><SearchBar/></li> 
               <!-- <router-link :to="{ name: 'ProfileView', params: { pk } }">Profile</router-link> | -->
               <!-- <li class="nav-item nav-link"><router-link :to="{ name: 'ProfileView', params:{ userPk } }">My Page</router-link></li> -->
@@ -62,8 +62,8 @@ export default {
     //   next()
     // },
   methods: {
-    username() {
-      this.user = this.$store.getters.user.username
+    getUser() {
+      this.user = this.$store.getters.user
     },
     logout(){
       this.$store.dispatch('logout')
@@ -74,8 +74,8 @@ export default {
       this.$router.push({ name: 'ProfileView', params: { userPk } })
     },
   },
-  mounted(){
-    this.username()
+  created(){
+    this.getUser()
   }
 }
 </script>
