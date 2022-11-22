@@ -42,20 +42,27 @@
         </ul>
       </div>
     </div>
-    <div>
-      <h1>줄거리</h1>
-      <p v-if="movie.overview && overview.length > 30">{{ overview }}</p>
-      <p v-else-if="movie.overview">{{ overview }}</p>
-      <p v-else>등록된 줄거리가 없습니다</p>
+
+    <div class='d-flex'>
+      <div id='story' class='col col-md-7'>
+        <h1>줄거리</h1>
+        <p v-if="movie.overview && overview.length > 30">{{ overview }}</p>
+        <p v-else-if="movie.overview">{{ overview }}</p>
+        <p v-else>등록된 줄거리가 없습니다</p>
+      </div>
+      <div id='video' class='col col-md-4 mx-auto' v-if="movie?.youtube_key !== 'nothing'">
+        <VideoItem
+          :youtubeKey="movie?.youtube_key"
+        />
+      </div>
     </div>
-    <div v-if="movie?.youtube_key !== 'nothing'">
-      <VideoItem
-        :youtubeKey="movie?.youtube_key"
-      />
-      <VideoYoutubeList
-      :movieTitle="movie?.title"
-      />
-    </div>
+    
+    
+    
+
+    <VideoYoutubeList
+    :movieTitle="movie?.title"
+    />
     <div v-if="movie?.youtube_key === 'nothing'">
       <p>유튜브 트레일러가 존재하지 않습니다.</p>
     </div>
@@ -143,7 +150,7 @@ export default {
 
 <style scoped>
   #upside{
-    background: lightcyan;
+    background: #02142b  ;
     display: inline-block;
     width: 100%;
     text-align: justify;
@@ -157,4 +164,11 @@ export default {
   li {
     list-style: none;
   }
+  div {
+    color: #d2d2d2;
+  }
+  #video {
+    background: black;
+  }
+
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input 
+    <input class='form-control'
       @input="typing"
       v-model="query"
       @keyup="searching(query)"

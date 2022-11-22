@@ -19,7 +19,7 @@ export default {
 </script>
 <style>
 	iframe {
-		height: 360px;
-		width: 640px;
+		width: 426px;
+		height: 240px;
 	}
 </style>

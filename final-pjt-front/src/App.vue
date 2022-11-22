@@ -2,7 +2,7 @@
   <div id="app" >
     <div class="container">
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">MUSSAF</a>
 
       <div class="d-flex justify-content-between collapse navbar-collapse">
         <div id='navbar-left' class="col col-md-6">
@@ -92,6 +92,7 @@ export default {
 
 nav {
   padding: 30px;
+  background: d2d2d2;
 }
 
 nav a {
@@ -104,7 +105,7 @@ nav a.router-link-exact-active {
 }
 
 .container { 
-  background: rgb(193, 194, 196);
+  background: #262626 ;
 }
 
 .nav-item {
@@ -113,4 +114,8 @@ nav a.router-link-exact-active {
   font-weight: bold;
 }
 
+body {
+  background: #262626;
+  color: d2d2d2;
+}
 </style>
