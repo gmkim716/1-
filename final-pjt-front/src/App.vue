@@ -1,9 +1,8 @@
 <template>
   <div id="app" >
-    <div class="container">
+    <div class="container gx-0">
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <a class="navbar-brand" href="#">MUSSAF</a>
-
+      <img src="./img/logo2.png" alt="MUSSAF" style="width:200px;">
       <div class="d-flex justify-content-between collapse navbar-collapse">
         <div id='navbar-left' class="col col-md-6">
           <ul class="d-flex justify-content-between navbar-nav">
@@ -92,7 +91,7 @@ export default {
 
 nav {
   padding: 30px;
-  background: d2d2d2;
+  background: #616161;
 }
 
 nav a {
@@ -115,7 +114,7 @@ nav a.router-link-exact-active {
 }
 
 body {
-  background: #262626;
+  background: #171717;
   color: d2d2d2;
 }
 </style>
