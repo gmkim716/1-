@@ -58,10 +58,10 @@ export default {
   computed: {
     isLogin() { return this.$store.getters.isLogin },
     },
-    beforeRouteUpdate(to, from, next) {
-      this.userPk = to.params.userPk
-      next()
-    },
+    // beforeRouteUpdate(to, from, next) {
+    //   this.userPk = to.params.userPk
+    //   next()
+    // },
   methods: {
     username() {
       this.user = this.$store.getters.user.username
@@ -70,7 +70,7 @@ export default {
       this.$store.dispatch('logout')
     },
     profile(){
-      const userPk = this.$store.getters.user.pk
+      const userPk = this.$store.getters.user.id
       // this.$store.dispatch('getProfile', Number(this.$route.params.userPk))
       this.$router.push({ name: 'ProfileView', params: { userPk } })
     },

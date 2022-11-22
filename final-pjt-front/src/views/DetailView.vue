@@ -9,9 +9,9 @@
           <!-- <li>영화id: {{ movie?.id }}</li> -->
           <h1>{{ movie?.title }}</h1>
           <b>개봉일: {{ movie?.release_date }}</b>
-          <li>인기도: {{ movie?.popularity }}</li>
-          <li>투표수: {{ movie?.vote_count }}</li>
-          <li>평점: {{ movie?.vote_average }}</li>
+          <li v-if="(movie?.release_date <= this.today)">인기도: {{ movie?.popularity }}</li>
+          <li v-if="(movie?.release_date <= this.today)">투표수: {{ movie?.vote_count }}</li>
+          <li v-if="(movie?.release_date <= this.today)">평점: {{ movie?.vote_average }}</li>
           <li>
             <span>장르 : </span>
             <span v-for="genre in movie?.genres" :key="genre.id">
@@ -29,8 +29,8 @@
           <div class="col col-md-3">
             <div class='d-flex justify-content-between'>
               <!-- 이미 본 영화 체크 -->
-              <i v-if="isWatched" @click="watchedMovie" class="fa-solid fa-square-check fa-2x true" style="color:green"></i>
-              <i v-if="!isWatched" @click="watchedMovie" class="fa-regular fa-square-check fa-2x"></i>
+              <i v-if="(movie?.release_date <= this.today) && isWatched" @click="watchedMovie" class="fa-solid fa-square-check fa-2x true" style="color:green"></i>
+              <i v-if="(movie?.release_date <= this.today) && !isWatched" @click="watchedMovie" class="fa-regular fa-square-check fa-2x"></i>
               <!-- 영화 좋아요 체크 -->
               <i v-if="isLiked" @click="likeMovie" class="fa-solid fa-heart fa-2x true" id='like'></i>
               <i v-if="!isLiked" @click="likeMovie" class="fa-regular fa-heart fa-2x"></i>
@@ -63,7 +63,7 @@
       <VideoYoutubeList
       :movieTitle="movie?.title"
       />
-      <div v-if="movie?.youtube_key === 'nothing'">
+      <div v-if="(movie?.youtube_key === 'nothing')">
         <p>유튜브 트레일러가 존재하지 않습니다.</p>
       </div>
       <ReviewForm/>
@@ -80,8 +80,20 @@ import ReviewForm from '@/components/ReviewForm'
 import VideoItem from '@/components/VideoItem'
 import VideoYoutubeList from '@/components/VideoYoutubeList'
 
+const date = new Date()
+const year = date.getFullYear()
+const month = date.getMonth() + 1
+const day = date.getDate()
+const today = year +'-'+ month +'-'+ day
+
+
 export default {
   name: 'DetailView',
+  data() {
+    return {
+      today: today
+    }
+  },
   components: {
     ReviewList,
     ReviewForm,
