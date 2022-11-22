@@ -23,6 +23,7 @@ export default new Vuex.Store({
     popularMovie: [],
     latestMovies: [],
     ratedMovies: [],
+    upComingMovies: [],
     weatherMovies: [],
     genres: null,
     movieDetail: null,
@@ -45,6 +46,7 @@ export default new Vuex.Store({
     latestMovies: (state) => state.latestMovies,
     ratedMovies: (state) => state.ratedMovies,
     weatherMovies: (state) => state.weatherMovies,
+    upComingMovies: (state) => state.upComingMovies,
     isLogin(state) {
       return state.token ? true : false
     },
@@ -93,6 +95,7 @@ export default new Vuex.Store({
       state.isLiked = likeInfo.is_liked
       state.likeCount = likeInfo.movie_like_count
     },
+    GET_UPCOMING_MOVIES : (state, upComing) => state.upComingMovies = upComing,
     RESET_DETAIL: (state) => {
       state.movieDetail = null
       state.reviews = null
@@ -136,8 +139,15 @@ export default new Vuex.Store({
             return movie.release_date <= today
           })
           const latestMovies = latest.slice(0,44)
+          // 상영예정 (인기 순)
+          const upComing = allLatest.filter((movie) => {
+            return movie.release_date > today
+          })
+
           console.log('latest', latestMovies)
+          console.log('upcoming', upComing)
           commit('GET_LATEST_MOVIES', latestMovies)
+          commit('GET_UPCOMING_MOVIES', upComing.reverse())
           // 평점순 (내림차순)
           const copy3 = res.data.slice()
           const rated = copy3.sort(function(a, b) {
@@ -150,6 +160,7 @@ export default new Vuex.Store({
           const ratedMovies = filteredRated.slice(0,44)
           console.log('rated', ratedMovies)
           commit('GET_RATED_MOVIES', ratedMovies)
+          
         })
         .catch(err => console.log(err))
     },
@@ -367,7 +378,7 @@ export default new Vuex.Store({
           router.push({name: 'search', params: {query}})
         })
         .catch(err => console.log(err))
-    }
+    },
   },
   modules: {
   }

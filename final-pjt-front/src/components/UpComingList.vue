@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h3>평점순</h3>
+    <h3>상영 예정</h3>
     <swiper
       class="swiper"
       :options="swiperOption"
     >
-      <swiper-slide v-for="movie in ratedMovies" :key="movie.id" style="width: 100%;">
+      <swiper-slide v-for="movie in upComingMovies" :key="movie.id" style="width: 100%;">
         <div class="card" style="width: 100%;" @click="goDetail(movie.id)" > 
-          <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height: 25rem;" alt="#"> 
+          <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height:25rem;" alt="#"> 
           <div class="card-body">
             <div>
               <h5 v-if="movie.title.length <= 14" style="font-size:100%; font-weight: bold;" class="card-title mb-0">{{ movie.title }}</h5>
@@ -22,6 +22,7 @@
                 <i class="fa-solid fa-heart" style="color:#d63e1c"></i> <span class="card-text">{{movie.like_users.length}}</span>
               </div>
             </div>
+            
           </div>
         </div>
       </swiper-slide>     
@@ -43,7 +44,7 @@ import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
 export default {
-  name: 'RatedList',
+  name: 'UpComingList',
   data() {
     return {
       swiperOption: { 
@@ -68,8 +69,8 @@ export default {
     SwiperSlide
   },
   computed: {
-    ratedMovies() {
-      return this.$store.getters.ratedMovies
+    upComingMovies() {
+      return this.$store.getters.upComingMovies
     }
   },
   methods: {

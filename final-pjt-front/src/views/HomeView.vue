@@ -9,7 +9,7 @@
     <hr>
     <RatedList/>
     <hr>
-    <WeatherList/>
+    <UpComingList/>
     <hr>
     <CustomList/>
   </div>
@@ -18,7 +18,7 @@
 <script>
 // import LastestList from '@/components/LastestList'
 import PopularList from '@/components/PopularList'
-import WeatherList from '@/components/WeatherList'
+import UpComingList from '@/components/UpComingList'
 import CustomList from '@/components/CustomList'
 import RatedList from '@/components/RatedList'
 
@@ -27,7 +27,7 @@ export default {
   components: {
     // LastestList,
     PopularList,
-    WeatherList,
+    UpComingList,
     CustomList,
     RatedList,
   },
