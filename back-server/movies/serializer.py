@@ -15,6 +15,8 @@ class ActorSerializer(serializers.ModelSerializer):
 
 class MovieListSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
+    genres = GenreSerializer(many=True)
+    actors = ActorSerializer(many=True)
 
     class Meta:
         model = Movie

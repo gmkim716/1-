@@ -150,41 +150,48 @@ export default new Vuex.Store({
           const ratedMovies = filteredRated.slice(0,44)
           console.log('rated', ratedMovies)
           commit('GET_RATED_MOVIES', ratedMovies)
+        })
+        .catch(err => console.log(err))
+    },
+    getWeatherMovies({ commit }) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/`,
+      })
+        .then(res => {
           // 계절별 추천
           const copy4 = res.data.slice()
           if ([3, 4, 5].includes(month)) {
             const result = copy4.filter((movie) => {
-              return movie.genres.some(genre => [10749, 18, 35, 10402].includes(genre)) || movie.title.includes('봄') || movie.title.includes('꽃') 
+              return movie.genres.some(genre => ['로맨스', '드라마', '코미디', '음악'].includes(genre.name)) || movie.title.includes('봄') || movie.title.includes('꽃') 
             })
-
             const weatherMovie = _.sampleSize(result, 12)
             console.log('weather', weatherMovie)
             commit('GET_WEATHER_MOVIES', weatherMovie)
           } else if ([6, 7, 8].includes(month)) {
             const result = copy4.filter((movie) => {
-              return movie.genres.some(genre => [12, 14, 28, 35, 27, 53, 80, 9648].includes(genre)) || movie.title.includes('여름') || movie.title.includes('바다') || movie.title.includes('귀신')
+              return movie.genres.some(genre => ['모험', '판타지', '액션', '코미디', '공포', '스릴러', '범죄', '미스터리'].includes(genre.name)) || movie.title.includes('여름') || movie.title.includes('바다') || movie.title.includes('귀신')|| movie.title.includes('해변')
             })
             const weatherMovie = _.sampleSize(result, 12)
             console.log('weather', weatherMovie)
             commit('GET_WEATHER_MOVIES', weatherMovie)
           } else if ([9, 10, 11].includes(month)) {
             const result = copy4.filter((movie) => {
-              return movie.genres.some(genre => [10402, 18, 10749].includes(genre)) || movie.title.includes('가을') || movie.title.includes('낙엽')
+              return movie.genres.some(genre => ['가족' ,'음악', '드라마', '로맨스'].includes(genre.name)) || movie.title.includes('가을') || movie.title.includes('낙엽') || movie.title.includes('이별')
             })
             const weatherMovie = _.sampleSize(result, 12)
             console.log('weather', weatherMovie)
             commit('GET_WEATHER_MOVIES', weatherMovie)
           } else if ([12, 1, 2].includes(month)) {
             const result = copy4.filter((movie) => {
-              return movie.genres.some(genre => [10751, 12, 14].includes(genre)) || movie.title.includes('겨울') || movie.title.includes('눈') || movie.title.includes('캐럴') || movie.title.includes('해리포터') || movie.title.includes('나홀로')
+              return movie.genres.some(genre => ['가족', '모험', '판타지'].includes(genre.name)) || movie.title.includes('겨울') || movie.title.includes('눈') || movie.title.includes('캐럴') || movie.title.includes('해리 포터') || movie.title.includes('나홀로')
             })
             const weatherMovie = _.sampleSize(result, 12)
             console.log('weather', weatherMovie)
             commit('GET_WEATHER_MOVIES', weatherMovie)
-          }
+          }          
         })
-        .catch(err => console.log(err))
-    },
+      },
     // 좋아요 기능
     likeMovie({ commit, dispatch, getters }, movie) {
       axios({
