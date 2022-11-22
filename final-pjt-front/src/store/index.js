@@ -40,10 +40,10 @@ export default new Vuex.Store({
   },
   getters: {
     // test용으로 slice()적용해 놓음
-    popularMovies: (state) => state.popularMovie.slice(0,6),
+    popularMovies: (state) => state.popularMovie.slice(0,31),
     latestMovies: (state) => state.latestMovies,
-    ratedMovies: (state) => state.ratedMovies.slice(0,6),
-    weatherMovies: (state) => state.weatherMovies.slice(0,6),
+    ratedMovies: (state) => state.ratedMovies.slice(0,31),
+    weatherMovies: (state) => state.weatherMovies,
     isLogin(state) {
       return state.token ? true : false
     },
