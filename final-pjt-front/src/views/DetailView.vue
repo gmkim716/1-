@@ -45,13 +45,15 @@
 
     <div id="content" class='gx-0' >
       <div class='d-flex'>
-        <div id='story' class='col col-md-7'>
-          <h1>줄거리</h1>
-          <p v-if="movie.overview && overview.length > 30">{{ overview }}</p>
-          <p v-else-if="movie.overview">{{ overview }}</p>
-          <p v-else>등록된 줄거리가 없습니다</p>
+        <div id='story' class='col col-md-7 mt-5'>
+          <h2>개요</h2>
+          <div class="col col-md-10 mx-auto">
+            <p v-if="movie.overview && overview.length > 30">{{ overview }}</p>
+            <p v-else-if="movie.overview">{{ overview }}</p>
+            <p v-else>등록된 줄거리가 없습니다</p>
+          </div>
         </div>
-        <div id='video' class='col col-md-4 mx-auto' v-if="movie?.youtube_key !== 'nothing'">
+        <div id='video' class='col col-md-4 gx-0' v-if="movie?.youtube_key !== 'nothing'">
           <VideoItem
             :youtubeKey="movie?.youtube_key"
           />
@@ -166,7 +168,7 @@ export default {
     color: #d2d2d2;
   }
   #video {
-    background: black;
+    margin: 50px;
   }
   #content {
     background: #262626;
