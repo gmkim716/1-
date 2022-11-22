@@ -17,7 +17,9 @@
         <div id="navbar-right" class="col col-md-4">
           <div v-if="!isLogin" >
             <ul class="d-flex navbar-nav">
+              <li class="my-auto">
                 <SearchBar/>
+              </li>
               <li class="nav-item nav-link"><router-link :to="{ name: 'LoginView' }">Login</router-link></li>
               <li class="nav-item nav-link"><router-link :to="{ name: 'SignupView' }">Signup</router-link></li>
             </ul>
