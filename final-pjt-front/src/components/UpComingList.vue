@@ -14,10 +14,7 @@
               <h5 v-if="movie.title.length > 14" style="font-size:100%; font-weight: bold;" class="card-title mb-0">{{ movie.title.slice(0, 13)}}..</h5>
             </div>
             <p class="card-text mb-0" style="font-size:80%;">{{movie.release_date}}</p>
-            <div class="d-flex justify-content-between align-items-center px-2">
-              <div>
-                <i class="fa-solid fa-star" style="color:#d63e1c"></i> <span class="card-text">{{movie.vote_average}}</span>
-              </div>
+            <div class="d-flex justify-content-end align-items-center px-2">
               <div>
                 <i class="fa-solid fa-heart" style="color:#d63e1c"></i> <span class="card-text">{{movie.like_users.length}}</span>
               </div>

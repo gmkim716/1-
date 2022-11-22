@@ -138,7 +138,7 @@ export default new Vuex.Store({
           const latest = allLatest.filter((movie) => {
             return movie.release_date <= today
           })
-          const latestMovies = latest.slice(0,44)
+          const latestMovies = latest.slice(0,60)
           // 상영예정 (인기 순)
           const upComing = allLatest.filter((movie) => {
             return movie.release_date > today
@@ -277,17 +277,27 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
-    getUserInfo({ commit, getters }) {
+    getUserInfo({ dispatch, getters }) {
       axios({
         url: `${API_URL}/accounts/user/`,
         method: 'get',
         headers: getters.authHead,
       })
         .then(res => {
-          console.log(res.data)
-          commit('SET_USER', res.data)
+          // console.log('유저정보',res.data)
+          dispatch('getUserDetail', res.data.pk)
         })
         .catch(err => console.log(err))
+    },
+    getUserDetail({ commit }, userPk) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/${userPk}/`,
+      })
+        .then(res =>{
+          console.log('유저',res.data)
+          commit('SET_USER', res.data)
+        })
     },
     getProfile({ commit }, userPk) {
       axios({
@@ -295,7 +305,7 @@ export default new Vuex.Store({
         url: `${API_URL}/accounts/${userPk}/`,
       })
         .then(res =>{
-          // console.log('유저',res.data)
+          console.log('유저',res.data)
           commit('GET_PROFILE', res.data)
         })
     },
