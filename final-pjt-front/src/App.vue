@@ -13,7 +13,8 @@
       <SearchBar/>
       <span v-if="isLogin">
         <!-- <router-link :to="{ name: 'ProfileView', params: { pk } }">Profile</router-link> | -->
-        <button @click="profile">Profile</button>
+        <i @click="profile" class="fa-solid fa-user fa-2x"></i>
+        <!-- <button @click="profile">Profile</button> -->
         <button @click="logout">Logout</button>
       </span>
     </nav>
@@ -81,7 +82,7 @@ nav a.router-link-exact-active {
 }
 
 .container { 
-  background-color: yellowgreen;
+  background: rgb(193, 194, 196);
 }
 
 </style>

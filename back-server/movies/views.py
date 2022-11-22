@@ -38,25 +38,19 @@ def movie_detail(request, movie_pk):
 @permission_classes([IsAuthenticatedOrReadOnly])
 def movie_genres(request, movie_pk):
 	movie = get_object_or_404(Movie, pk=movie_pk)
-	
-	# movie.genres
-	# genres = get_list_or_404(Genre)
-	# for movie in movies:
-	# 	if movie.pk == movie_pk:
 
-	print(movie.genres)
 	if request.method == 'GET':
 		serializer = Movieserializer(movie)
 		return Response(serializer.data)
 
-# @api_view(['GET',])
-# @permission_classes([IsAuthenticatedOrReadOnly])
-# def movie_actors(request, movie_pk):
-# 	movies = get_list_or_404(Movie)
-# 	print(movie)
-# 	if request.method == 'GET':
-# 		serializer = Movieserializer(movie)
-# 		return Response(serializer.data)
+@api_view(['GET',])
+@permission_classes([IsAuthenticatedOrReadOnly])
+def movie_actors(request, movie_pk):
+	movie = get_list_or_404(Movie, pk=movie_pk)
+
+	if request.method == 'GET':
+		serializer = Movieserializer(movie)
+		return Response(serializer.data)
 
 
 @api_view(['POST',])
@@ -105,10 +99,7 @@ def get_reviews(request, movie_pk):
 		return Response(serializer.data)
 	else:
 		movie = get_object_or_404(Movie, pk=movie_pk)
-		print('############################', movie)
-		print(request.data)
 		serializer = ReviewSerializer(data=request.data)
-		print(serializer)
 		if serializer.is_valid(raise_exception=True):
 			serializer.save(movie=movie, user=request.user)
 			return Response(serializer.data)

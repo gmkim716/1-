@@ -5,7 +5,7 @@ class Genre(models.Model):
 	name = models.CharField(max_length=50)          # 장르 명
 
 class Actor(models.Model):
-    name = models.CharField(max_length=50)          # 배우 명 
+	name = models.CharField(max_length=50)          # 배우 명 
 	
 class Movie(models.Model):
 	title = models.CharField(max_length=100)		# 제목
@@ -16,9 +16,9 @@ class Movie(models.Model):
 	overview = models.TextField()					# 개요
 	poster_path = models.CharField(max_length=200)	# 포스터 url 경로
 	youtube_key = models.CharField(max_length=200)	# 유투브 키
-	genres = models.ManyToManyField(Genre)		                         # 장르, Genre와 MtoM
 	like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='movie_like')		# 좋아요(?), MtoM
 	watched_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='movie_watched')		# 좋아요(?), MtoM
+	genres = models.ManyToManyField(Genre)		                         # 장르, Genre와 MtoM
 	actors = models.ManyToManyField(Actor)		    # 배우, Actor와 MtoM
 
 

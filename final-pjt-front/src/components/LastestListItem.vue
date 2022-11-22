@@ -26,6 +26,6 @@ export default {
     display: inline-block;
   }
   * {
-    background: beige;
+    background: rgb(17, 22, 47);
   }
 </style>
