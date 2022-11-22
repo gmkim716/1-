@@ -1,24 +1,27 @@
 
 <template>
   <div>
-    <form @submit.prevent="createReview">
-      <p><label for="points">별점: </label>
-      <star-rating 
-        id=setstar 
-        :star-size="30" 
-        v-model.trim="rating" 
-        :border-width="5" 
-        border-color="#d8d8d8" 
-        :rounded-corners="true"
-        :inline="true"
-      >
-      </star-rating>
-      </p>
+    <hr>
+    <h2>리뷰 등록</h2>
+    <form @submit.prevent="createReview" class="col col-md-7 mx-auto justify-content-between">
+      <div class='d-flex justify-content-between'>
+        <div class='col-md-6 d-flex my-auto'>
+          <star-rating 
+            id=setstar 
+            :star-size="30" 
+            v-model.trim="rating" 
+            :border-width="5" 
+            border-color="#d8d8d8" 
+            :rounded-corners="true"
+            :inline="true"
+          >
+          </star-rating>
+        </div>
+        <button type='submit' class="btn btn-secondary">리뷰 등록</button>
+      </div>
       <label for="content"></label>
-      <textarea id="content" cols="30" rows="10" v-model.trim="content"></textarea>
-      <p>
-        <input type="submit" value="리뷰등록">
-      </p>
+      <!-- <input class='form-control' type="text" v-model.trim="content"> -->
+      <textarea v-model.trim="content" class='form-control' name="" id="" cols="15" rows="5"></textarea>
     </form>
   </div>
 </template>

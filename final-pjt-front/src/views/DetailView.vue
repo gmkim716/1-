@@ -35,8 +35,8 @@
               <i v-if="isLiked" @click="likeMovie" class="fa-solid fa-heart fa-2x true" id='like'></i>
               <i v-if="!isLiked" @click="likeMovie" class="fa-regular fa-heart fa-2x"></i>
               <!-- 보고싶은 영화 체크 --><!-- 구현 안됬음 !!-->
-              <i v-if="isBookmarked" class="fa-solid fa-bookmark fa-2x true" style="color: yellow"></i>
-              <i v-if="!isBookmarked" class="fa-regular fa-bookmark fa-2x"></i>
+              <!-- <i v-if="isBookmarked" class="fa-solid fa-bookmark fa-2x true" style="color: yellow"></i>
+              <i v-if="!isBookmarked" class="fa-regular fa-bookmark fa-2x"></i> -->
             </div>
           </div>
         </ul>
