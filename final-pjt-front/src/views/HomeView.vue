@@ -33,11 +33,15 @@ export default {
   },
   created(){
     this.getMovies()
+    this.getWeatherMovies()
     this.$store.commit('RESET_DETAIL')
   },
   methods: {
     getMovies() {
       this.$store.dispatch('getMovies')
+    },
+    getWeatherMovies() {
+      this.$store.dispatch('getWeatherMovies')
     }
   },
 }

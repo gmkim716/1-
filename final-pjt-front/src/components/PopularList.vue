@@ -5,15 +5,15 @@
       class="swiper"
       :options="swiperOption"
     >
-      <swiper-slide v-for="movie in popularMovies" :key="movie.id">
-        <div class="card" style="width: 18rem;" @click="goDetail(movie.id)"> 
-          <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="height: 25rem" alt="#"> 
+      <swiper-slide v-for="movie in popularMovies" :key="movie.id" style="width: 100%;">
+        <div class="card" style="width: 100%;" @click="goDetail(movie.id)"> 
+          <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height: 25rem;" alt="#"> 
           <div class="card-body">
             <div>
-              <h5 v-if="movie.title.length <= 15" style="font-size: 100%" class="card-title mb-0">{{ movie.title }}</h5>
-              <h5 v-if="movie.title.length > 15" style="font-size: 100%" class="card-title mb-0">{{ movie.title.slice(0, 12)}}..</h5>
+              <h5 v-if="movie.title.length <= 14" style="font-size:100%; font-weight: bold;" class="card-title mb-0">{{ movie.title }}</h5>
+              <h5 v-if="movie.title.length > 14" style="font-size:100%; font-weight: bold;" class="card-title mb-0">{{ movie.title.slice(0, 13)}}..</h5>
             </div>
-            <p class="card-text mb-0">{{movie.release_date}}</p>
+            <p class="card-text mb-0" style="font-size:80%;">{{movie.release_date}}</p>
             <div class="d-flex justify-content-between align-items-center px-2">
               <div>
                 <i class="fa-solid fa-star" style="color:#d63e1c"></i> <span class="card-text">{{movie.vote_average}}</span>
