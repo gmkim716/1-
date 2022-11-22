@@ -1,5 +1,5 @@
 <template>
-  <div @click="goDetail(movie.id)">
+  <div class="d-flex" @click="goDetail(movie.id)>
     {{ movie.title }}
   </div>
 </template>

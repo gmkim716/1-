@@ -6,11 +6,14 @@
 			:key="video.etag"
 			:video="video"
 		/> -->
+		<!-- 여기에 트레일러 적용하기 -->
+		<div class="d-flex">
     <VideoYoutubeItem
       v-for="video in videos"
       :key="video.etag"
       :video="video"
     />
+		</div>
 	</div>
 </template>
 
