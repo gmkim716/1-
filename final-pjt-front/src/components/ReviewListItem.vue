@@ -1,24 +1,21 @@
 <template>
-  <div class="mx-auto">
+  <div id='listItem' class="mx-auto">
     <div class='d-flex justify-content-between'>
-      <div>
-        <span>평점 : {{ review.rating}}점</span> |  
+      <div class='my-auto'>
         <span @click="goProfile">
-          작성자 : {{ review.username }} 
+          {{ review.username }} 
           <!-- <button @click="goProfile">프로필</button> -->
-        </span>
+        </span> |
+        <span>평점 : {{ review.rating}}점</span>
       </div>
-      <div>
+      <div class='my-auto'>
         <i v-if="user && review.like_users.includes(user.pk)" @click="likeReview" class="fa-solid fa-thumbs-up fa-2x"></i>
         <i v-if="user && !review.like_users.includes(user.pk)" @click="likeReview" class="fa-regular fa-thumbs-up fa-2x"></i>
-        <!-- <button v-if="user && review.like_users.includes(user.pk)" @click="likeReview">좋아요 취소</button>
-        <button v-if="user && !review.like_users.includes(user.pk)" @click="likeReview">좋아요</button> -->
-        <span> {{review.like_users.length }} </span>
+        &nbsp; <span> {{ review.like_users.length }} </span> &nbsp;
         <i v-if="user && review.hate_users.includes(user.pk)" @click="hateReview" class="fa-solid fa-thumbs-down fa-2x"></i>
         <i v-if="user && !review.hate_users.includes(user.pk)" @click="hateReview" class="fa-regular fa-thumbs-down fa-2x"></i>
-        <!-- <button v-if="user && review.hate_users.includes(user.pk)" @click="hateReview">싫어요 취소</button>
-        <button v-if="user && !review.hate_users.includes(user.pk)" @click="hateReview">싫어요</button> -->
-        <span> {{ review.hate_users.length }} </span>
+        &nbsp; <span> {{ review.hate_users.length }} </span>
+        &nbsp; <span>수정</span> | <span>삭제</span>
       </div>
     </div>
     <p>{{ review.content }}</p>
@@ -54,7 +51,7 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user
-    }
+    },
   }
 }
 </script>
@@ -66,5 +63,8 @@ export default {
   * {
     background: white;
     width: 800px;
+  }
+  #listItem {
+    word-break: break-all;
   }
 </style>
