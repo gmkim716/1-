@@ -8,13 +8,14 @@
       @blur="query = null, searchList=null"
       placeholder="작품명을 검색하세요"
       type="text">
-    <div v-if="searchList">
+    <div class="abs" v-if="searchList">
       <SearchBarListItem
         v-for="result in searchList"
         :key="result.id"
         :result="result"
       />
     </div>
+
   </div>
 </template>
 
@@ -57,5 +58,10 @@ export default {
 </script>
 
 <style>
-
+  .abs {
+    position: absolute;
+    background: white;
+    border: solid #262626 1px;
+    width:275px;
+  }
 </style>

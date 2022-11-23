@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span @click="goDetail(result.id)">{{ result.title }}</span>
+    <span id="searchedList" @click="goDetail(result.id)">{{ result.title }}</span>
   </div>
 
 </template>
@@ -20,4 +20,7 @@ export default {
 </script>
 
 <style scorped>
+  #searchedList {
+    color: black;
+  }
 </style>
