@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h3>계절 추천</h3>
+    <div class='col-md-3 my-4' style='background-color:#D4964A'>
+      <h3>계절 추천</h3>
+    </div>
     <swiper
       class="swiper"
       :options="swiperOption"
@@ -81,6 +83,14 @@ export default {
 }
 </script>
 
+<style scoped>
+  h3 {
+    color: white;
+  }
+  .card, h5, span{
+    color: black;
+  }
+</style>
 <style>
 .swiper {
   width: 100%;

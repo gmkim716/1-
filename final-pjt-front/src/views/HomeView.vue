@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>HomeView</h3>
+    <h2>HomeView</h2>
     <hr>
     <h3>lastestMovie</h3>
     <h4>내용은 가져온 최신영화에서 몇개씩 끊어서 쓰기</h4>

@@ -6,7 +6,6 @@
       </div>
       <div class='d-flex align-items-center'>
         <ul>
-          <!-- <li>영화id: {{ movie?.id }}</li> -->
           <h1>{{ movie?.title }}</h1>
           <b>개봉일: {{ movie?.release_date }}</b>
           <li v-if="(movie?.release_date <= this.today)">인기도: {{ movie?.popularity }}</li>

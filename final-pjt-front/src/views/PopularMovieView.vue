@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Popular Movie</h3>
+    <h2>Popular Movie</h2>
     <hr>
     <PopularList/>
     <hr>

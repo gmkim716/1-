@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h4>Signup</h4>
+    <h2>Signup</h2>
     <form @submit.prevent="signup">
-      <label for="username">username:</label>
-      <input type="text" id="username" v-model="username" required> <br>
+      <label for="username">username</label>
+      <input class='form-control mx-auto' style="width:300px;" type="text" id="username" v-model="username" required> <br>
 
-      <label for="password1">password1:</label>
-      <input type="password" id="password1" v-model="password1" required> <br>
+      <label for="password1">password1</label>
+      <input class='form-control mx-auto' style="width:300px;" type="password" id="password1" v-model="password1" required> <br>
 
-      <label for="password2">password2:</label>
-      <input type="password" id="password2" v-model="password2" required> <br>
+      <label for="password2">password2</label>
+      <input class='form-control mx-auto' style="width:300px;" type="password" id="password2" v-model="password2" required> <br>
 
-      <input type="submit" value="submit">
+      <input class='btn btn-secondary my-5' type="submit" value="회원가입">
     </form>
   </div>
 </template>
@@ -43,6 +43,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  div {
+    color : #969393;
+  }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>User Like View</h3>
+    <h2>User Like View</h2>
   </div>
 </template>
 

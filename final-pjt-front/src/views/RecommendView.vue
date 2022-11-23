@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Recommend View</h3>
+    <h2>Recommend View</h2>
     <hr>
     <CustomList/>
     <hr>
