@@ -154,7 +154,14 @@ export default {
   },
   mounted() {
     window.scrollTo(0,0)
-  }
+  },
+  watch: {
+    '$route' (to, from) {
+      console.log(to)
+      console.log(from)
+      this.$store.dispatch('getMovieDetail', Number(this.$route.params.id))
+    }
+  },
 }
 </script>
 

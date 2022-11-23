@@ -5,7 +5,7 @@
       v-model="query"
       @keyup="searching(query)"
       @keydown.enter="searchEnter(query)"
-      @blur="query = null, searchList=null"
+      @blur="query = null"
       placeholder="작품명을 검색하세요"
       type="text">
     <div class="abs" v-if="searchList">
@@ -53,15 +53,24 @@ export default {
     searchEnter(query) {
       this.$store.dispatch('searchEnter', query)
     }
-  }
+  },
+  watch: {
+    '$route' (to, from) {
+      to
+      from
+      this.searchList = null
+    }
+  },
 }
 </script>
 
 <style>
   .abs {
     position: absolute;
+    top: 4.5rem;
     background: white;
-    border: solid #262626 1px;
-    width:275px;
+    border: solid lightgrey 0.5px;
+    border-radius: 1%;
+    width: 14rem;
   }
 </style>

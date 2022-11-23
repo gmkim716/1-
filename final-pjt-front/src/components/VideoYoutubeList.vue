@@ -12,7 +12,7 @@
       :options="swiperOption"
       id="youtubes"
     >
-      <swiper-slide v-for="(video, index) in this.videos?.items" :key="index">
+      <swiper-slide v-for="(video, index) in videos.items" :key="index">
         <iframe :src="`https:/www.youtube.com/embed/${video.id.videoId}`" ></iframe>
       </swiper-slide>     
       <div

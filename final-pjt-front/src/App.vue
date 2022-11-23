@@ -1,7 +1,7 @@
 <template>
   <div id="app" >
     <div class="container gx-0">
-    <nav class="navbar navbar-expand-md navbar-light bg-light mb-5 fixed-top">
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
       <img src="./img/logo2.png" alt="MUSSAF" style="width:200px;">
       <div class="d-flex justify-content-between collapse navbar-collapse">
         <div id='navbar-left' class="col col-md-6">
@@ -127,7 +127,7 @@ div {
 }
 
 #router {
-  padding-top: 200px;
+  padding-top: 8rem;
 }
 
 </style>

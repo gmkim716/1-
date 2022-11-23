@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span id="searchedList" @click="goDetail(result.id)">{{ result.title }}</span>
+    <p id="searchedList" @click="goDetail(result.id)" style="font-size:100%">{{ result.title }}</p>
   </div>
 
 </template>
@@ -22,5 +22,8 @@ export default {
 <style scorped>
   #searchedList {
     color: black;
+  }
+  #searchedList:hover {
+    background-color: lightgray;
   }
 </style>

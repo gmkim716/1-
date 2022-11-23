@@ -49,11 +49,12 @@ export default {
   name: 'PopularList',
   data() {
     return {
-      swiperOption: { 
+      swiperOption: {
+        
         slidesPerView: 4, 
         spaceBetween: 30,
         slidesPerGroup: 4,
-        loop: true, 
+        loop: true,
         loopFillGroupWithBlank: true,
         pagination: { 
           el: '.swiper-pagination', 
@@ -92,7 +93,7 @@ export default {
   }
 </style>
 
-<style>
+<style >
 .swiper {
   width: 100%;
   height: 100%;
