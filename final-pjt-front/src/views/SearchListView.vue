@@ -4,8 +4,8 @@
       v-for="result in results"
       :key="result.id"
     >
-    <!-- 사진, 포스터, 개봉일, 평점, 등.. -->
-      {{ result.title }} 
+    <img :src="`https://image.tmdb.org/t/p/w500/${result?.poster_path}`" class="card-img-top" style="width:100px; height:200px;" alt="#"> 
+    <span>{{ result.title }}</span>
     </div>
   </div>
 </template>

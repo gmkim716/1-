@@ -15,23 +15,16 @@
         <h5>Likes</h5> <span>{{ profile?.like_movies_count }}개</span>
       </div>
     </div>
-      <br>
-      <br>
-    <div>
-      <div class='col-md-5 mx-auto'>
-        <h3>좋아하는 영화목록</h3>
-            <div v-for="movie in profile?.like_movies" :key="movie.id">{{ movie.title }}</div>
-      </div>
-    </div>
-    <br>
-    <br>
-    <div>
-      <div>
-        <h3>시청한 영화목록</h3>
-          <div v-for="movie in profile?.watched_movies" :key="movie.id">{{ movie.title }}</div>
-      </div>
-    </div>
     <button class='btn btn-secondary' v-if="user?.pk !== profile?.id" @click="follow">팔로우</button>
+    <button class='btn btn-secondary' v-if="user?.pk !== profile?.id" @click="follow">팔로우 취소</button>
+    <div class='mt-5'>
+      <h3>좋아하는 영화목록</h3>
+        <div v-for="movie in profile?.like_movies" :key="movie.id">{{ movie.title }}</div>
+    </div>
+    <div class='mt-5'>
+      <h3>시청한 영화목록</h3>
+        <div v-for="movie in profile?.watched_movies" :key="movie.id">{{ movie.title }}</div>
+    </div>
   </div>
 </template>
 
