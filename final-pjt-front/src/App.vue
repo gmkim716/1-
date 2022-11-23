@@ -10,7 +10,7 @@
             <li class="nav-item nav-link"><router-link :to="{ name: 'LastestMovieView' }">Lastest</router-link></li>
             <li class="nav-item nav-link"><router-link :to="{ name: 'PopularMovieView' }">Popular</router-link></li>
             <li class="nav-item nav-link"><router-link :to="{ name: 'RecommendView' }">Recommend</router-link></li>
-            <li class="nav-item nav-link"><router-link :to="{ name: 'UserLikeView' }">User Like</router-link></li>
+            <li class="nav-item nav-link"><router-link :to="{ name: 'LibraryView' }">Library</router-link></li>
           </ul>
         </div>
         <div id="navbar-right" class="col col-md-6">
