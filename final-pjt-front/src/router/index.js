@@ -4,7 +4,7 @@ import HomeView from '@/views/HomeView'
 import LastestMovieView from '@/views/LastestMovieView'
 import PopularMovieView from '@/views/PopularMovieView'
 import RecommendView from '@/views/RecommendView'
-import UserLikeView from '@/views/UserLikeView'
+import LibraryView from '@/views/LibraryView'
 import SignupView from '@/views/SignupView'
 import LoginView from '@/views/LoginView'
 import DetailView from '@/views/DetailView'
@@ -43,9 +43,9 @@ const routes = [
     component: RecommendView
   },
   {
-    path: '/userlike',
-    name: 'UserLikeView',
-    component: UserLikeView
+    path: '/library',
+    name: 'LibraryView',
+    component: LibraryView
   },
   {
     path: '/signup',

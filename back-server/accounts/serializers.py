@@ -27,6 +27,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     like_movies_count = serializers.IntegerField(source='like_movies.count', read_only=True)
     watched_movies_count = serializers.IntegerField(source='watched_movies.count', read_only=True)
     like_movies = Movieserializer(many=True)
+    watched_movies = Movieserializer(many=True)
 
     class Meta:
         model = get_user_model()
