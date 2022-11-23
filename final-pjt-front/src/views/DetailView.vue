@@ -30,17 +30,14 @@
           <div class="col col-md-4">
             <div class='d-flex justify-content-between'>
               <!-- 이미 본 영화 체크 -->
-              <i id='watched' v-if="(movie?.release_date <= this.today) && isWatched" @click="watchedMovie" class="fa-solid fa-square-check fa-2x true" style="color:green"></i>
-              <i id='watched' v-if="(movie?.release_date <= this.today) && !isWatched" @click="watchedMovie" class="fa-regular fa-square-check fa-2x"></i>
-              <p class='arrow_box arrow_box_check'>이미 본 영화</p>
+              <i title="시청한 영화" id='watched' v-if="(movie?.release_date <= this.today) && isWatched" @click="watchedMovie" class="fa-solid fa-square-check fa-2x true" style="color:green"></i>
+              <i title="시청한 영화" id='watched' v-if="(movie?.release_date <= this.today) && !isWatched" @click="watchedMovie" class="fa-regular fa-square-check fa-2x"></i>
               <!-- 영화 좋아요 체크 -->
-              <i id='like' v-if="isLiked" @click="likeMovie" class="fa-solid fa-heart fa-2x true"></i>
-              <i id='like' v-if="!isLiked" @click="likeMovie" class="fa-regular fa-heart fa-2x"></i>
-              <p class='arrow_box arrow_box_like'>영화 좋아요</p>
-              <!-- 보고싶은 영화 체크 --><!-- 구현 안됬음 !!-->
-              <i id='bookmark' v-if="isBookmarked" @click="bookmarkedMovie" class="fa-solid fa-bookmark fa-2x true"></i>
-              <i id='bookmark' v-if="!isBookmarked" @click="bookmarkedMovie" class="fa-regular fa-bookmark fa-2x"></i>
-              <p class='arrow_box arrow_box_bookmark'>영화 북마크</p>
+              <i title="좋아요" id='like' v-if="isLiked" @click="likeMovie" class="fa-solid fa-heart fa-2x true"></i>
+              <i title="좋아요" id='like' v-if="!isLiked" @click="likeMovie" class="fa-regular fa-heart fa-2x"></i>
+              <!-- 보고싶은 영화 체크 -->
+              <i title="북마크" id='bookmark' v-if="isBookmarked" @click="bookmarkedMovie" class="fa-solid fa-bookmark fa-2x true"></i>
+              <i title="북마크" id='bookmark' v-if="!isBookmarked" @click="bookmarkedMovie" class="fa-regular fa-bookmark fa-2x"></i>
             </div>
           </div>
         </ul>
@@ -50,7 +47,6 @@
     <div id="content" class='gx-0' >
       <div class='d-flex'>
         <div id='story' class='col col-md-7 mt-5'>
-          <h2>개요</h2>
           <div class="col col-md-10 mx-auto">
             <p v-if="movie.overview && movie.overview.length > 30">{{ overview }}</p>
             <p v-else-if="movie.overview">{{ overview }}</p>
@@ -67,9 +63,8 @@
       <VideoYoutubeList
       :movieTitle="movie?.title"
       />
-      <div v-if="(movie?.youtube_key === 'nothing')">
-        <p>유튜브 트레일러가 존재하지 않습니다.</p>
-      </div>
+      <span v-if="(movie?.youtube_key === 'nothing')">
+      </span>
       <ReviewForm/>
       <ReviewList/>
       <router-link :to="{name: 'HomeView'}">뒤로가기</router-link>
@@ -244,12 +239,11 @@ export default {
 }
 
 .arrow_box {
-  display: none;
+  /* display: none; */
   position: absolute;
+  /* top:130px; */
   width: 100px;
   padding: 8px;
-  top: 500px;
-  left: 585px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;  
   border-radius: 8px;
@@ -257,23 +251,31 @@ export default {
   color: #fff;
   font-size: 14px;
 }
+  .arrow_box:after {
+    position: absolute;
+  }
 
 .arrow_box_check {
-  top: 500px;
-  left: 585px;
+  left: 500px;
 }
 .arrow_box_like {
-  top: 500px;
-  left: 667px;
+  top: 550px;
+}
+.arrow_box_checked {
+  top: 550px;
 }
 .arrow_box_bookmark {
-  top: 500px;
-  left: 750px;
+  top: 550px;
 }
 
-
-#watched:hover+.arrow_box_check, #like:hover+.arrow_box_like, #bookmark:hover+.arrow_box_bookmark {
+#watched:hover+.arrow_box {
+  display:block;
+  color: skyblue;
+}
+/* #watched:hover+.arrow_box_checked, #like:hover+.arrow_box_like, #bookmark:hover+.arrow_box_bookmark {
   display: block;
-}
+  background: skyblue;
+  color: skyblue;
+} */
 
 </style>

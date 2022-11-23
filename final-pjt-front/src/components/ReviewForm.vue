@@ -2,7 +2,6 @@
 <template>
   <div>
     <hr>
-    <h2>리뷰 등록</h2>
     <form @submit.prevent="createReview" class="col col-md-7 mx-auto justify-content-between">
       <div class='d-flex justify-content-between'>
         <div class='col-md-6 d-flex my-auto'>

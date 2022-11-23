@@ -326,6 +326,7 @@ export default new Vuex.Store({
           console.log('유저',res.data)
           commit('SET_USER', res.data)
         })
+        .catch(err => console.log('getuserdetailerr:', err))
     },
     getProfile({ commit }, userPk) {
       axios({
