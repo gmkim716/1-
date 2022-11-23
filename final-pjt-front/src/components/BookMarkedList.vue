@@ -1,16 +1,16 @@
 <template>
 	<div>
 		<h1>BookMarkedList</h1>
-		<BookMarkedListItem
+		<!-- <BookMarkedListItem
 			v-for="movie in profile.like_movies"
 			:key="movie.id"
 			:movie="movie"
-		/>
+		/> -->
 	</div>
 </template>
 
 <script>
-import BookMarkedListItem from '@/components/BookMarkedListItem';
+// import BookMarkedListItem from '@/components/BookMarkedListItem';
 export default {
 	name: 'BookMarkedList',
 	props: {
@@ -22,7 +22,7 @@ export default {
 		}
 	},
 	components: {
-		BookMarkedListItem
+		// BookMarkedListItem
 	},
 	methods: {
 		likeMovies() {
