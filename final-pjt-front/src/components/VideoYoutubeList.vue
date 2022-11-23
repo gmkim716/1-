@@ -1,17 +1,21 @@
 <template>
   <div>
 		<h2>관련 영상</h2>
-		<!-- 여기에 트레일러 적용하기 -->
+    <!-- 여기에 트레일러 적용하기 -->
+    {{ relatedYoutubes }} 
+    <div v-for="video in this.videos?.items" :key="video.etag">
+      <div>
+        {{ video.snippet.title}}
+      </div>
+    </div>
     <swiper
       class="swiper"
       :options="swiperOption"
+      id="youtubes"
     >
-      <swiper-slide v-for="(video, index) in videos" :key="index">
-				<div>
-					<p>{{video.snippet.title}} {{index}}</p>
-					<iframe :src="`https:/www.youtube.com/embed/${video.id.videoId}`" allowfullscreen></iframe>
-				</div>
-      </swiper-slide>
+      <swiper-slide v-for="(video, index) in this.videos?.items" :key="index">
+        <iframe :src="`https:/www.youtube.com/embed/${video.id.videoId}`" ></iframe>
+      </swiper-slide>     
       <div
           class="swiper-pagination"
           slot="pagination"
@@ -19,8 +23,7 @@
       </div>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
-    </swiper>		
-
+    </swiper>
 	</div>
 </template>
 
@@ -33,7 +36,6 @@ import "swiper/css/swiper.css";
 // const API_KEY = process.env.VUE_APP_YOUTUBE_KEY
 // console.log('API_KEY', API_KEY)
 
-
 export default {
   name: 'VideoYoutubeList',
 	data() {
@@ -41,10 +43,8 @@ export default {
 			videos: null,
       swiperOption: { 
         slidesPerView: 2, 
-        spaceBetween: 30,
+        spaceBetween: 0,
         slidesPerGroup: 2,
-        loop: true, 
-        loopFillGroupWithBlank: true,
         pagination: { 
           el: '.swiper-pagination', 
           clickable: true 
@@ -65,19 +65,20 @@ export default {
 	},
 	methods: {
     loadYoutubeList() {
+      // if (this.videos) return
 			axios({
 				url: 'https://www.googleapis.com/youtube/v3/search',
 				method: 'get',
 				params: {
-					key: 'AIzaSyB0JlyR-N0MiqIMJDtRoQOdjkVtLGCWeMI',
+					key: 'AIzaSyB_IRXndunp4GqMPrv8n7MRAk3hgpv6HR8',
 					part: 'snippet',
 					q: `${this.movieTitle}`,
+          maxResults: 10,
 					type: 'video'
 				}
 			})
 				.then( res => {
-					console.log('유튭유튭', res.data.items)
-					this.videos = res.data.items
+					this.videos = res.data
 				})
 				.catch( err => {
 					console.log('err:', err)
@@ -92,15 +93,15 @@ export default {
     }
   },
 	mounted() {
-		this.loadYoutubeList()
+    this.loadYoutubeList()
 	},
 }
 </script>
 
 <style>
-.swiper {
+.swiper #youtubes {
   width: 100%;
-  height: 100%;
+  height: 18rem;
 }
 
 .swiper-slide {
@@ -123,9 +124,9 @@ export default {
   overflow: hidden;
 }
 
-.swiper-slide img {
+.swiper-slide iframe {
   display: block;
-  width: 100%;
+  width: 90%;
   height: 100%;
   object-fit: cover;
   -webkit-transform:scale(1);

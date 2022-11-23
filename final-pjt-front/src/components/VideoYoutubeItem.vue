@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<iframe :src="videoUrl"></iframe>
+		
 	</div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
 	},
 	computed:{
 		videoUrl () {
-			return `https:/www.youtube.com/embed/${this.video?.id.videoId}`
+			return 
 		},
 	},
 }

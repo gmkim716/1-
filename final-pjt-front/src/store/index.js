@@ -28,6 +28,7 @@ export default new Vuex.Store({
     genres: null,
     movieDetail: null,
     reviews:null,
+    relatedYoutebe: null,
     // movieReview: null,
     isLiked: null,
     isWatched: null,
@@ -50,6 +51,7 @@ export default new Vuex.Store({
     isLogin(state) {
       return state.token ? true : false
     },
+    relatedYoutebe: (state) => state.relatedYoutebe,
     authHead: (state) => ({ Authorization: `Token ${state.token}`}),
     user: (state) => state.user,
     movie: (state) => state.movieDetail,
@@ -79,12 +81,12 @@ export default new Vuex.Store({
       state.likeReview = state.reviews.like_users
       // 여기서부터 좋아요 누를시에 추가하기
       state.likeCount = movieInfo.like_users_count
-      if (movieInfo.like_users.includes(state.user.pk)) {
+      if (movieInfo.like_users.includes(state.user.id)) {
         state.isLiked = true
       } else {
         state.isLiked = false
       }
-      if (movieInfo.watched_users.includes(state.user.pk)) {
+      if (movieInfo.watched_users.includes(state.user.id)) {
         state.isWatched = true
       } else {
         state.isWatched = false
@@ -96,6 +98,10 @@ export default new Vuex.Store({
       state.likeCount = likeInfo.movie_like_count
     },
     GET_UPCOMING_MOVIES : (state, upComing) => state.upComingMovies = upComing,
+    SET_YOUTUBE_LIST: (state, relatedYoutebe) => {
+      state.relatedYoutebe = relatedYoutebe
+      console.log('tlktjltkjtlkjtlktj', state.relatedYoutebe)
+    },
     RESET_DETAIL: (state) => {
       state.movieDetail = null
       state.reviews = null

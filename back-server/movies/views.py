@@ -70,6 +70,8 @@ def like(request, movie_pk):					# 요청한 유저가 권한이 있을 때 (로
 	else:										# 좋아요를 누른 적이 없는 유저가 좋아요를 누를 경우
 		movie.like_users.add(request.user)
 		user.like_movies.add(movie_pk)
+	movie = get_object_or_404(Movie, pk=movie_pk)
+	# serializer = Movieserializer(movie)
 	return Response(movie.pk)
 
 @api_view(['POST',])
