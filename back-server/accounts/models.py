@@ -9,3 +9,4 @@ class User(AbstractUser):
     ## 이부분 매니투매니가 여러개 되나? => 된다!
     like_movies = models.ManyToManyField(Movie, related_name='like_user')
     watched_movies = models.ManyToManyField(Movie, related_name='watched_user')
+    bookmarked_movies = models.ManyToManyField(Movie, related_name='bookmarked_user')

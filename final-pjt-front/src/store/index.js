@@ -56,9 +56,11 @@ export default new Vuex.Store({
     user: (state) => state.user,
     movie: (state) => state.movieDetail,
     isLiked: (state) => state.isLiked,
-    likeCount: (state) => state.likeCount,
     isWatched: (state) => state.isWatched,
+    isBookmarked: (state) => state.isBookmarked,
+    likeCount: (state) => state.likeCount,
     watchedCount: (state) => state.watchedCount,
+    bookmarkedCount: (state) => state.likeCount,
     reviews: (state) => state.reviews,
     profile: (state) => state.profile,
     likeReview: (state) => state.likeReview,
@@ -80,18 +82,26 @@ export default new Vuex.Store({
       state.reviews = state.movieDetail.review_set
       state.likeReview = state.reviews.like_users
       // 여기서부터 좋아요 누를시에 추가하기
-      state.likeCount = movieInfo.like_users_count
       if (movieInfo.like_users.includes(state.user.id)) {
         state.isLiked = true
       } else {
         state.isLiked = false
       }
+      state.likeCount = movieInfo.like_users_count
+      // 시청 표시를 누를시
       if (movieInfo.watched_users.includes(state.user.id)) {
         state.isWatched = true
       } else {
         state.isWatched = false
       }
       state.watchedCount = movieInfo.watched_users_count
+      // 북마크를 누를시
+      if (movieInfo.bookmarked_users.includes(state.user.id)) {
+        state.isBookmarked = true
+      } else {
+        state.isBookmarked = false
+      }
+      state.bookmarkedCount = movieInfo.bookmarked_users_count
     },
     LIKE_MOVIE: (state, likeInfo) => {
       state.isLiked = likeInfo.is_liked
@@ -234,7 +244,19 @@ export default new Vuex.Store({
           commit
         })
         .catch(err => console.log(err))
-
+    },
+    bookmarkedMovie({ commit, dispatch, getters }, movie) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/bookmarked/${movie.id}/`,
+        data:{},
+        headers: getters.authHead,
+      })
+        .then(() => {
+          dispatch('getMovieDetail', movie.id)
+          commit
+        })
+        .catch(err => console.log('에러발생', err))
     },
     signup({ commit, dispatch }, payload) {
       // console.log(payload)
@@ -364,7 +386,6 @@ export default new Vuex.Store({
         headers: getters.authHead,    // post
       })
         .then(res => {
-          // console.log('###########################',res.data)
           commit('LIKE_REVIEW', res.data)
           dispatch('getMovieDetail', getters.movie.id )
         })

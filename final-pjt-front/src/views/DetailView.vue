@@ -38,8 +38,8 @@
               <i id='like' v-if="!isLiked" @click="likeMovie" class="fa-regular fa-heart fa-2x"></i>
               <p class='arrow_box arrow_box_like'>영화 좋아요</p>
               <!-- 보고싶은 영화 체크 --><!-- 구현 안됬음 !!-->
-              <i id='bookmark' v-if="isBookmarked" class="fa-solid fa-bookmark fa-2x true" style="color: yellow"></i>
-              <i id='bookmark' v-if="!isBookmarked" class="fa-regular fa-bookmark fa-2x"></i>
+              <i id='bookmark' v-if="isBookmarked" @click="bookmarkedMovie" class="fa-solid fa-bookmark fa-2x true"></i>
+              <i id='bookmark' v-if="!isBookmarked" @click="bookmarkedMovie" class="fa-regular fa-bookmark fa-2x"></i>
               <p class='arrow_box arrow_box_bookmark'>영화 북마크</p>
             </div>
           </div>
@@ -121,6 +121,9 @@ export default {
     isWatched(){
       return this.$store.getters.isWatched
     },
+    isBookmarked(){
+      return this.$store.getters.isBookmarked
+    },
     overview() {
       const splitList = this.$store.getters.movie.overview.split(' ')
       const lastWord = splitList[splitList.length-1]
@@ -152,7 +155,14 @@ export default {
       } else {
         this.$router.push({ name: 'LoginView'})
       }
-    }
+    },
+    bookmarkedMovie() {
+      if (this.$store.state.user) {
+        this.$store.dispatch('bookmarkedMovie', this.movie)
+      } else {
+        this.$router.push({ name: 'LoginView'})
+      }
+    },
   },
   created() {
     this.$store.dispatch('getMovieDetail', Number(this.$route.params.id))
@@ -181,8 +191,17 @@ export default {
   #upsideDetail{
     display: inline-block;
   }
-  #like  {
+  #like.true  {
     color: red;
+  }
+  #like {
+    color: white;
+  }
+  #bookmark.true {
+    color: yellow;
+  }
+  #bookmark {
+    color: white;
   }
   li {
     list-style: none;

@@ -18,6 +18,7 @@ class Movie(models.Model):
 	youtube_key = models.CharField(max_length=200)	# 유투브 키
 	like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='movie_like')		# 좋아요(?), MtoM
 	watched_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='movie_watched')		# 좋아요(?), MtoM
+	bookmarked_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='movie_bookmarked')		# 좋아요(?), MtoM
 	genres = models.ManyToManyField(Genre)		                         # 장르, Genre와 MtoM
 	actors = models.ManyToManyField(Actor)		    # 배우, Actor와 MtoM
 

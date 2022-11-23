@@ -82,13 +82,28 @@ def watched(request, movie_pk):					# 요청한 유저가 권한이 있을 때 (
 	if movie.watched_users.filter(pk=request.user.pk).exists():		# 요청한 유저의 pk가 영화를 좋아한 사람들의 pk에 존재할 때: 이미 좋아요를 누른 경우, 클릭
 		movie.watched_users.remove(request.user)
 		user.watched_movies.remove(movie_pk)
-	else:										# 좋아요를 누른 적이 없는 유저가 좋아요를 누를 경우
+
+	else:										# 시청 여부를 누른 적이 없는 유저가 좋아요를 누를 경우
 		movie.watched_users.add(request.user)
 		user.watched_movies.add(movie_pk)
 	movie = get_object_or_404(Movie, pk=movie_pk)
 	serializer = Movieserializer(movie)
 	return Response(serializer.data)
 
+@api_view(['POST',])
+@permission_classes([IsAuthenticated])
+def bookmarked(request, movie_pk):					# 요청한 유저가 권한이 있을 때 (로그인 되어 있을 때)
+	movie = get_object_or_404(Movie, pk=movie_pk)  # 영화 객체 선택
+	user = get_object_or_404(get_user_model(), pk=request.user.pk)
+	if movie.bookmarked_users.filter(pk=request.user.pk).exists():		# 요청한 유저의 pk가 영화를 좋아한 사람들의 pk에 존재할 때: 이미 좋아요를 누른 경우, 클릭
+		movie.bookmarked_users.remove(request.user)
+		user.watched_movies.remove(movie_pk)
+	else:										# 북마크를 누른 적이 없는 유저가 좋아요를 누를 경우
+		movie.bookmarked_users.add(request.user)
+		user.watched_movies.add(movie_pk)
+	movie = get_object_or_404(Movie, pk=movie_pk)
+	serializer = Movieserializer(movie)
+	return Response(serializer.data)
 
 
 
