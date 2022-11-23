@@ -6,12 +6,14 @@
     <hr>
     <RatedList/>
     <hr>
+    <UpComingList/>
   </div>
 </template>
 
 <script>
 import PopularList from '@/components/PopularList'
 import RatedList from '@/components/RatedList'
+import UpComingList from '@/components/UpComingList'
 
 
 export default {
@@ -19,6 +21,7 @@ export default {
   components: {
     PopularList,
     RatedList,
+    UpComingList,
   }
 }
 </script>

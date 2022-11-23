@@ -2,7 +2,6 @@
   <div>
 		<h2>관련 영상</h2>
     <!-- 여기에 트레일러 적용하기 -->
-    {{ relatedYoutubes }} 
     <div v-for="video in this.videos?.items" :key="video.etag">
       <div>
         {{ video.snippet.title}}
