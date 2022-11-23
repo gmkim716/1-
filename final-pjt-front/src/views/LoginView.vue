@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h4>Login</h4>
-    <form @submit.prevent="login">
-      <label for="username">username:</label>
-      <input type="text" id="username" v-model="username" required> <br>
+    <h2>Login</h2>
+    <form @submit.prevent="login"> 
+      <label for="username">username</label>
+      <input class='form-control mx-auto' style='width:300px;' type="text" id="username" v-model="username" required> <br>
 
-      <label for="password1">password:</label>
-      <input type="password" id="password" v-model="password" required> <br>
+      <label for="password1">password</label>
+      <input class='form-control mx-auto' style='width:300px;' type="password" id="password" v-model="password" required> <br>
 
-      <input type="submit" value="submit">
+      <input class='btn btn-secondary my-5' type="submit" value="로그인">
     </form>
   </div>
 </template>
@@ -38,6 +38,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  div { 
+    color: #969393
+  }
 </style>
