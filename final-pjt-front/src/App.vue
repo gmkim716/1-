@@ -1,7 +1,7 @@
 <template>
   <div id="app" >
     <div class="container gx-0">
-    <nav class="navbar navbar-expand-md navbar-light bg-light mb-5">
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-5 fixed-top">
       <img src="./img/logo2.png" alt="MUSSAF" style="width:200px;">
       <div class="d-flex justify-content-between collapse navbar-collapse">
         <div id='navbar-left' class="col col-md-6">
@@ -34,7 +34,9 @@
         </div>
       </div>
     </nav>
+    <div id='router'>
       <router-view/>
+    </div>
     </div>
   </div>
 </template>
@@ -92,6 +94,8 @@ export default {
 nav {
   padding: 30px;
   background: #616161;
+  position: sticky;
+  top: 0px;
 }
 
 nav a {
@@ -120,6 +124,10 @@ body {
 
 div {
   color: #969393;
+}
+
+#router {
+  padding-top: 200px;
 }
 
 </style>
