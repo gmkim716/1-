@@ -44,6 +44,15 @@ export default {
         this.user = this.$store.state.user
     },
     createReview() {
+      if (this.rating == null) {
+        alert('평점을 입력해주세요')
+        return
+      }
+      if (this.content == null) {
+        alert('리뷰 내용을 입력해주세요')
+        return
+      }
+      
       const payload = {
         rating : this.rating,
         content : this.content,
