@@ -27,8 +27,8 @@
               <li class="my-auto"><SearchBar/></li> 
               <!-- <router-link :to="{ name: 'ProfileView', params: { pk } }">Profile</router-link> | -->
               <!-- <li class="nav-item nav-link"><router-link :to="{ name: 'ProfileView', params:{ userPk } }">My Page</router-link></li> -->
-              <li class="nav-item nav-link" @click="profile">Profile</li>
-              <li class="nav-item nav-link" @click="logout">Logout</li>
+              <li id='profile' class="nav-item nav-link" @click="profile">Profile</li>
+              <li id='logout' class="nav-item nav-link" @click="logout">Logout</li>
             </ul>
           </div>
         </div>
@@ -128,6 +128,9 @@ div {
 
 #router {
   padding-top: 8rem;
+}
+#profile, #logout:hover {
+  cursor: pointer;
 }
 
 </style>

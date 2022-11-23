@@ -1,13 +1,15 @@
 <template>
   <div>
-    <div class='d-flex my-3' id='upside'>
+    <div class='d-flex mt-1 mb-5' id='upside'>
       <div class='d-flex col col-md-5 justify-content-center'>
         <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" alt="movie.poster_path" style="height:500px;">
       </div>
-      <div class='d-flex align-items-center'>
+      <div id="upper" class='d-flex align-items-center'>
         <ul>
-          <h1>{{ movie?.title }}</h1>
-          <b>개봉일: {{ movie?.release_date }}</b>
+          <h1 class='mb-3'>{{ movie?.title }}</h1>
+          <div class='mb-5'>
+            <p>개봉일: {{ movie?.release_date }}</p>
+          </div>
           <li v-if="(movie?.release_date <= this.today)">인기도: {{ movie?.popularity }}</li>
           <li v-if="(movie?.release_date <= this.today)">투표수: {{ movie?.vote_count }}</li>
           <li v-if="(movie?.release_date <= this.today)">평점: {{ movie?.vote_average }}</li>
@@ -25,17 +27,20 @@
             </span>
           </li>
           <br>
-          <div class="col col-md-3">
+          <div class="col col-md-4">
             <div class='d-flex justify-content-between'>
               <!-- 이미 본 영화 체크 -->
-              <i v-if="(movie?.release_date <= this.today) && isWatched" @click="watchedMovie" class="fa-solid fa-square-check fa-2x true" style="color:green"></i>
-              <i v-if="(movie?.release_date <= this.today) && !isWatched" @click="watchedMovie" class="fa-regular fa-square-check fa-2x"></i>
+              <i id='watched' v-if="(movie?.release_date <= this.today) && isWatched" @click="watchedMovie" class="fa-solid fa-square-check fa-2x true" style="color:green"></i>
+              <i id='watched' v-if="(movie?.release_date <= this.today) && !isWatched" @click="watchedMovie" class="fa-regular fa-square-check fa-2x"></i>
+              <p class='arrow_box arrow_box_check'>이미 본 영화</p>
               <!-- 영화 좋아요 체크 -->
-              <i v-if="isLiked" @click="likeMovie" class="fa-solid fa-heart fa-2x true" id='like'></i>
-              <i v-if="!isLiked" @click="likeMovie" class="fa-regular fa-heart fa-2x"></i>
+              <i id='like' v-if="isLiked" @click="likeMovie" class="fa-solid fa-heart fa-2x true"></i>
+              <i id='like' v-if="!isLiked" @click="likeMovie" class="fa-regular fa-heart fa-2x"></i>
+              <p class='arrow_box arrow_box_like'>영화 좋아요</p>
               <!-- 보고싶은 영화 체크 --><!-- 구현 안됬음 !!-->
-              <!-- <i v-if="isBookmarked" class="fa-solid fa-bookmark fa-2x true" style="color: yellow"></i>
-              <i v-if="!isBookmarked" class="fa-regular fa-bookmark fa-2x"></i> -->
+              <i id='bookmark' v-if="isBookmarked" class="fa-solid fa-bookmark fa-2x true" style="color: yellow"></i>
+              <i id='bookmark' v-if="!isBookmarked" class="fa-regular fa-bookmark fa-2x"></i>
+              <p class='arrow_box arrow_box_bookmark'>영화 북마크</p>
             </div>
           </div>
         </ul>
@@ -191,4 +196,65 @@ export default {
   #content {
     background: #262626;
   }
+  #watched:hover {
+    color: white;
+  }
+  #upper {
+    color: whilte;
+    font-size: 120%;
+  }
+  .speech-bubble {
+	position: relative;
+	background: #b5dade;
+	border-radius: .4em;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 41px solid transparent;
+	border-top-color: #b5dade;
+	border-bottom: 0;
+	border-left: 0;
+	margin-left: -20.5px;
+	margin-bottom: -41px;
+}
+
+.arrow_box {
+  display: none;
+  position: absolute;
+  width: 100px;
+  padding: 8px;
+  top: 500px;
+  left: 585px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;  
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+}
+
+.arrow_box_check {
+  top: 500px;
+  left: 585px;
+}
+.arrow_box_like {
+  top: 500px;
+  left: 667px;
+}
+.arrow_box_bookmark {
+  top: 500px;
+  left: 750px;
+}
+
+
+#watched:hover+.arrow_box_check, #like:hover+.arrow_box_like, #bookmark:hover+.arrow_box_bookmark {
+  display: block;
+}
+
 </style>

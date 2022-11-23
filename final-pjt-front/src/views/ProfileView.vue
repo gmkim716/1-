@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>ProfileView</h2>
+    <h2>Profile</h2>
     <div class='col-md-5 mx-auto'>
       <div class="d-flex justify-content-around">
         <h5>이름</h5> <span>{{ profile?.username }}명</span>
