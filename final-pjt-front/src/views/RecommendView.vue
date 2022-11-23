@@ -18,6 +18,13 @@ export default {
   components: {
     CustomList,
     WeatherList,
+  },
+  mounted() {
+    if (this.$store.state.user) {
+      this.$store.dispatch('getUserDetail', this.user.id)
+    } else {
+      this.$router.push({ name: 'LoginView' })
+    }
   }
 }
 </script>
