@@ -35,6 +35,7 @@ export default {
   methods: {
     goProfile() {
       const userPk = this.review.user
+      this.$store.dispatch('getProfile',userPk),
       this.$router.push({ name: 'ProfileView', params: { userPk }})
     },
     likeReview() {

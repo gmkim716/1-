@@ -28,13 +28,13 @@
           </div>
         </div>
       </div>
-      <button @click="add" >더보기</button>
+      <button @click="add" v-if="4*page < latestMovies?.length">더보기</button>
     </div>
     
     <div id='itemList' v-show="this.upcoming">
       <h3>상영예정 영화</h3>
       <div class="row mx-auto" >
-        <div class='col-3 my-2' v-for="movie in upComingMovies" :key="movie.id" :movie="movie">
+        <div class='col-3 my-2' v-for="movie in upComingMovies.slice(0, 4*page)" :key="movie.id" :movie="movie">
           <div class="card" style="width: 100%;" @click="goDetail(movie.id)" > 
             <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height: 25rem;" alt="#"> 
             <div class="card-body">
@@ -55,6 +55,7 @@
           </div>
         </div>
       </div>
+      <button @click="add" v-if="4*page < upComingMovies?.length">더보기</button>
     </div>
   </div>
 </template>
@@ -66,7 +67,7 @@ export default {
   name: 'LastestMovieView',
   data() {
     return {
-      page:4,
+      page:3,
       latest: true,
       upcoming: false,
     }
@@ -77,14 +78,16 @@ export default {
     },
     selectLatest(){
       this.latest = true,
-      this.upcoming = false
+      this.upcoming = false,
+      this.page = 3
     },
     selectUpcoming(){
       this.latest = false,
-      this.upcoming = true
+      this.upcoming = true,
+      this.page = 3
     },
     add(){
-      this.page += 4
+      this.page += 3
     } 
   },
   computed: {
@@ -109,11 +112,24 @@ export default {
 </style>
 
 <style>
+
 .button {
   border-radius: 30%;
   background-color: white;
 }
 .clicked {
   background-color: grey;
+}
+.card {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.card img {
+  object-fit: fill;
+  transition:.3s;
+}
+.card img:hover {
+	transform:scale(1.05);
 }
 </style>

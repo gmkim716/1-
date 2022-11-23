@@ -7,7 +7,7 @@
     <div id='itemList' v-show="this.popular">
       <h3>인기순</h3>
       <div class="row mx-auto" >
-        <div class='col-3 my-2' v-for="movie in popularMovies" :key="movie.id" :movie="movie">
+        <div class='col-3 my-2' v-for="movie in popularMovies.slice(0, 4*page)" :key="movie.id" :movie="movie">
           <div class="card" style="width: 100%;" @click="goDetail(movie.id)" > 
             <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height: 25rem;" alt="#"> 
             <div class="card-body">
@@ -28,11 +28,12 @@
           </div>
         </div>
       </div>
+      <button @click="add" v-if="4*page < popularMovies?.length">더보기</button>
     </div>
     <div id='itemList' v-show="this.rate">
       <h3>평점순</h3>
       <div class="row mx-auto" >
-        <div class='col-3 my-2' v-for="movie in ratedMovies" :key="movie.id" :movie="movie">
+        <div class='col-3 my-2' v-for="movie in ratedMovies.slice(0, 4*page)" :key="movie.id" :movie="movie">
           <div class="card" style="width: 100%;" @click="goDetail(movie.id)" > 
             <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height: 25rem;" alt="#"> 
             <div class="card-body">
@@ -53,6 +54,7 @@
           </div>
         </div>
       </div>
+      <button @click="add" v-if="4*page < ratedMovies?.length">더보기</button>
     </div>
   </div>
 </template>
@@ -63,6 +65,7 @@ export default {
   name: 'PopularList',
   data() {
     return {
+      page:3,
       popular: true,
       rate: false,
     }
@@ -81,12 +84,17 @@ export default {
     },
     selectPopular(){
       this.popular = true,
-      this.rate = false
+      this.rate = false,
+      this.page = 3    
     },
     selectRate(){
       this.popular = false,
       this.rate = true
+      this.page = 3
     },
+    add(){
+      this.page += 3
+    } 
   },
 }
 </script>
