@@ -28,13 +28,7 @@ def follow(request, user_pk):
         if person != user:                                          # 가져온 사용자와 요청한 사용자가 다를 때
             if person.followers.filter(pk=user.pk).exists():   
                 person.followers.remove(user)
-                is_followed = False
             else:
                 person.followers.add(user)
-                is_followed = True
-            context = {
-                'is_followed': is_followed,
-                'followers_count': person.followers.count(),
-                'following_count': person.followings.count(),
-            }
-            return Response(context)
+            serializer = CustomUserSerializer(person)
+            return Response(serializer.data)

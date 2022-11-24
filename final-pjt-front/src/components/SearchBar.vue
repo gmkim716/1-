@@ -1,6 +1,7 @@
 <template>
   <div>
     <input class='form-control'
+      name = "search"
       @input="typing"
       v-model="query"
       @keyup="searching(query)"
@@ -8,6 +9,7 @@
       @blur="query = null"
       placeholder="작품명을 검색하세요"
       type="text">
+
     <div class="abs" v-if="searchList">
       <SearchBarListItem
         v-for="result in searchList"
@@ -59,7 +61,8 @@ export default {
       to
       from
       this.searchList = null
-    }
+    },
+
   },
 }
 </script>

@@ -57,11 +57,9 @@ export default {
     this.likeGenres = Object.keys(ordered).slice(0,3)
     console.log(this.likeGenres)
     // 허허허 안되네... 내일 다시
-    const recommend = this.movies.filter((movie) => {
-      const sameGenre = movie.genres.filter(genre => {
-        return ['액션',].includes(genre.name)
-      })
-      return sameGenre
+    console.log(this.movies)
+    const recommend =this.movies.filter((movie) => {
+      return movie.genres.some(genre => this.likeGenres.includes(genre.name))
     })
     console.log('추천', recommend)
   },

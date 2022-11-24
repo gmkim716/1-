@@ -48,7 +48,7 @@
       <div class='d-flex'>
         <div id='story' class='col col-md-7 mt-5'>
           <div class="col col-md-10 mx-auto">
-            <p v-if="movie.overview && movie.overview.length > 30">{{ overview }}</p>
+            <p v-if="movie?.overview && movie?.overview.length > 30">{{ overview }}</p>
             <p v-else-if="movie.overview">{{ overview }}</p>
             <p v-else>등록된 줄거리가 없습니다</p>
           </div>
@@ -120,7 +120,7 @@ export default {
       return this.$store.getters.isBookmarked
     },
     overview() {
-      const splitList = this.$store.getters.movie.overview.split(' ')
+      const splitList = this.$store.getters.movie?.overview.split(' ')
       const lastWord = splitList[splitList.length-1]
       const finalText = lastWord[lastWord.length-1]
       if (finalText == '?' || finalText == '!') {

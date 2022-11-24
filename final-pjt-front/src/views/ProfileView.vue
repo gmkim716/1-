@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Profile</h2>
+    <h2>{{ profile?.username }}님의 Profile</h2>
     <div class='col-md-5 mx-auto'>
       <div class="d-flex justify-content-around">
         <h5>이름</h5> <span>{{ profile?.username }}명</span>
@@ -9,19 +9,26 @@
         <h5>팔로워</h5> <span>{{ profile?.followers.length }}명</span>
       </div>
       <div class="d-flex justify-content-around">
-        <h5>팔로워</h5> <span>{{ profile?.followers.length }}명</span>
+        <h5>팔로잉</h5> <span>{{ profile?.followings.length }}명</span>
       </div>
       <div class="d-flex justify-content-around">
         <h5>Likes</h5> <span>{{ profile?.like_movies_count }}개</span>
       </div>
     </div>
-    <button class='btn btn-secondary' v-if="user?.pk !== profile?.id" @click="follow">팔로우</button>
-    <button class='btn btn-secondary' v-if="user?.pk !== profile?.id" @click="follow">팔로우 취소</button>
+    <button class='btn btn-secondary' v-if="user?.id !== profile?.id && !profile?.followers.includes(user?.id)" @click="follow">팔로우</button>
+    <button class='btn btn-secondary' v-if="user?.id !== profile?.id && profile?.followers.includes(user?.id)" @click="follow">팔로우 취소</button>
     <div class='mt-5'>
       <h3>좋아하는 영화목록</h3>
         <div v-for="movie in profile?.like_movies" :key="movie.id">{{ movie.title }}</div>
     </div>
-    <div class="bargraph p-3" v-if="user.id === profile.id">
+    <div class="bargraph p-3" v-if="user?.id === profile?.id">
+      <h5 >좋아하는 장르그래프</h5>
+      <LikeGenreBar
+      :likeGenres="likeGenres"
+      />
+    </div>
+    <button @click="updateGraph" v-if="user?.id !== profile?.id">{{profile?.username}}님이 좋아하는 장르 그래프 보기</button>
+    <div class="bargraph p-3" v-if="porfileUserGraph && user?.id !== profile?.id">
       <h5 >좋아하는 장르그래프</h5>
       <LikeGenreBar
       :likeGenres="likeGenres"
@@ -47,6 +54,7 @@ export default {
     return {
       likeGenres: {},
       bookMarkList: null,
+      porfileUserGraph: null,
     }
   },
   methods: {
@@ -59,7 +67,23 @@ export default {
     },
     bookMarks() {
       this.bookMarkList = this.profile?.like_movies
-    }
+    },
+    updateGraph() {
+      const temp = {}
+      this.profile?.like_movies.forEach(movie => {
+        movie.genres.forEach(genre => {
+          if (temp[genre.name]) {
+            temp[genre.name] = temp[genre.name] + 1
+          } else {
+            temp[genre.name] = 1
+          }
+        })
+      })
+      this.likeGenres = Object.fromEntries(
+        Object.entries(temp).sort(([,a], [,b]) => a > b? -1: 1)
+      );
+      this.porfileUserGraph = !this.porfileUserGraph
+    },
   },
   computed: {
     profile() {
@@ -72,7 +96,7 @@ export default {
   created() {
     this.$store.dispatch('getProfile', Number(this.$route.params.userPk)),
     this.bookMarks()
-    console.log('ti',this.profile)
+    this.porfileUserGraph = null
     const temp = {}
     this.user?.like_movies.forEach(movie => {
       movie.genres.forEach(genre => {
@@ -92,9 +116,12 @@ export default {
     '$route' (to, from) {
       console.log(to)
       console.log(from)
+      this.porfileUserGraph = null
       this.$store.dispatch('getProfile', Number(to.params.userPk))
     }
   },
+  
+  
 
   
 }
