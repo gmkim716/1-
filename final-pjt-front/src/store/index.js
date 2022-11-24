@@ -142,7 +142,7 @@ export default new Vuex.Store({
           const popular = copy1.sort(function(a, b) {
             return a.popularity > b.popularity ? -1 : a.popularity < b.popularity ? 1 : 0;
           })
-          const popularMovies = popular.slice(0,44)
+          const popularMovies = popular.slice(0,100)
           console.log('popular', popularMovies)
           
           commit('GET_POPULAR_MOVIES', popularMovies)
@@ -154,7 +154,7 @@ export default new Vuex.Store({
           const latest = allLatest.filter((movie) => {
             return movie.release_date <= today
           })
-          const latestMovies = latest.slice(0,60)
+          const latestMovies = latest.slice(0,100)
           // 상영예정 (인기 순)
           const upComing = allLatest.filter((movie) => {
             return movie.release_date > today
@@ -173,7 +173,7 @@ export default new Vuex.Store({
           const filteredRated = rated.filter(movie => {
             return movie.vote_count >= 110
           })
-          const ratedMovies = filteredRated.slice(0,44)
+          const ratedMovies = filteredRated.slice(0,100)
           console.log('rated', ratedMovies)
           commit('GET_RATED_MOVIES', ratedMovies)
           
@@ -192,28 +192,28 @@ export default new Vuex.Store({
             const result = copy4.filter((movie) => {
               return movie.genres.some(genre => ['로맨스', '드라마', '코미디', '음악'].includes(genre.name)) || movie.title.includes('봄') || movie.title.includes('꽃') 
             })
-            const weatherMovie = _.sampleSize(result, 12)
+            const weatherMovie = _.sampleSize(result, 100)
             console.log('weather', weatherMovie)
             commit('GET_WEATHER_MOVIES', weatherMovie)
           } else if ([6, 7, 8].includes(month)) {
             const result = copy4.filter((movie) => {
               return movie.genres.some(genre => ['모험', '판타지', '액션', '코미디', '공포', '스릴러', '범죄', '미스터리'].includes(genre.name)) || movie.title.includes('여름') || movie.title.includes('바다') || movie.title.includes('귀신')|| movie.title.includes('해변')
             })
-            const weatherMovie = _.sampleSize(result, 12)
+            const weatherMovie = _.sampleSize(result, 100)
             console.log('weather', weatherMovie)
             commit('GET_WEATHER_MOVIES', weatherMovie)
           } else if ([9, 10, 11].includes(month)) {
             const result = copy4.filter((movie) => {
               return movie.genres.some(genre => ['가족' ,'음악', '드라마', '로맨스'].includes(genre.name)) || movie.title.includes('가을') || movie.title.includes('낙엽') || movie.title.includes('이별')
             })
-            const weatherMovie = _.sampleSize(result, 12)
+            const weatherMovie = _.sampleSize(result, 100)
             console.log('weather', weatherMovie)
             commit('GET_WEATHER_MOVIES', weatherMovie)
           } else if ([12, 1, 2].includes(month)) {
             const result = copy4.filter((movie) => {
               return movie.genres.some(genre => ['가족', '모험', '판타지'].includes(genre.name)) || movie.title.includes('겨울') || movie.title.includes('눈') || movie.title.includes('캐럴') || movie.title.includes('해리 포터') || movie.title.includes('나홀로')
             })
-            const weatherMovie = _.sampleSize(result, 12)
+            const weatherMovie = _.sampleSize(result, 100)
             console.log('weather', weatherMovie)
             commit('GET_WEATHER_MOVIES', weatherMovie)
           }          

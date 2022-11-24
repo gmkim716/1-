@@ -94,6 +94,7 @@ def movie_data(page=1):
             if not response.get('release_date'): continue   # 없는 필드 skip
             if not response.get('poster_path'): continue
             if not response.get('id'): continue
+            if not response.get('overview'): continue
             if response.get('id') in id_list: continue
             id_list.append(response.get('id'))
                             
@@ -122,6 +123,7 @@ def movie_data(page=1):
                 if not movie_dict.get('poster_path'): continue
                 if not movie_dict.get('id'): continue
                 if movie_dict.get('id') in id_list: continue
+                if not movie_dict.get('overview'): continue
                 id_list.append(movie_dict.get('id'))
                 print(id_list)  # 확인
                 
@@ -200,7 +202,7 @@ def tmdb_data(requests):
 
     tmdb_genres()
     global id_list          # 전역변수로 선언: 리스트- 영화 id를 담는 곳 
-    for i in range(1, 6):       # 페이지 1~5 페이지 
+    for i in range(1, 35):       # 페이지 1~5 페이지 
         movie_data(i)
 
     return HttpResponse('OK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')

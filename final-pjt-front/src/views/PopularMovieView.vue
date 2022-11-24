@@ -96,6 +96,9 @@ export default {
       this.page += 3
     } 
   },
+  mounted() {
+    window.scrollTo(0,0)
+  },  
 }
 </script>
 

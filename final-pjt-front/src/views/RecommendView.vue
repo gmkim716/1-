@@ -2,12 +2,12 @@
   <div>
     <h2>{{ user?.username }}님을 위한 추천</h2>
     <hr>
+    <WeatherList/>
+    <hr>
     <CustomList 
       :user="user"
       :movies="movies"
     />
-    <hr>
-    <WeatherList/>
     <hr>
   </div>
 </template>
@@ -49,6 +49,7 @@ export default {
     }
   },
   created() {
+    //영화 업데이트 시 바꿔야 할 수도
     this.movies = [
       ...this.popularMovies,
       ...this.ratedMovies,

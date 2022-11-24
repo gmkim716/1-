@@ -120,10 +120,9 @@ export default {
       this.$store.dispatch('getProfile', Number(to.params.userPk))
     }
   },
-  
-  
-
-  
+  mounted() {
+    window.scrollTo(0,0)
+  },
 }
 </script>
 

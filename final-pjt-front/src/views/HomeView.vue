@@ -7,7 +7,7 @@
       class="swiper"
       :options="swiperOption"
     >
-      <swiper-slide v-for="movie in latest.slice(0,16)" :key="movie.id" style="width: 100%;">
+      <swiper-slide v-for="movie in latest.slice(0,40)" :key="movie.id" style="width: 100%;">
         <div class="card" style="width: 100%;" @click="goDetail(movie.id)"> 
           <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height: 25rem;" alt="#"> 
           <div class="card-body">
@@ -42,7 +42,7 @@
       class="swiper"
       :options="swiperOption"
     >
-      <swiper-slide v-for="movie in popularMovies.slice(0,16)" :key="movie.id" style="width: 100%;">
+      <swiper-slide v-for="movie in popularMovies.slice(0,40)" :key="movie.id" style="width: 100%;">
         <div class="card" style="width: 100%;" @click="goDetail(movie.id)"> 
           <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height: 25rem;" alt="#"> 
           <div class="card-body">
@@ -77,7 +77,7 @@
       class="swiper"
       :options="swiperOption"
     >
-      <swiper-slide v-for="movie in ratedMovies.slice(0,16)" :key="movie.id" style="width: 100%;">
+      <swiper-slide v-for="movie in ratedMovies.slice(0,40)" :key="movie.id" style="width: 100%;">
         <div class="card" style="width: 100%;" @click="goDetail(movie.id)" > 
           <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height: 25rem;" alt="#"> 
           <div class="card-body">
@@ -111,7 +111,7 @@
       class="swiper"
       :options="swiperOption"
     >
-      <swiper-slide v-for="movie in upComingMovies.slice(0,12)" :key="movie.id" style="width: 100%;">
+      <swiper-slide v-for="movie in upComingMovies.slice(0,40)" :key="movie.id" style="width: 100%;">
         <div class="card" style="width: 100%;" @click="goDetail(movie.id)" > 
           <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height:25rem;" alt="#"> 
           <div class="card-body">

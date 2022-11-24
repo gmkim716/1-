@@ -36,7 +36,8 @@ export default {
   },
   mounted() {
     console.log(this.$route.query)
-  }
+    window.scrollTo(0,0)
+  },
 
 }
 </script>

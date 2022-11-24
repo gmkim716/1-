@@ -7,7 +7,7 @@
     <div id='itemList' v-show="this.latest">
       <h3>최신 영화</h3>
       <div class="row mx-auto" >
-        <div class='col-3 my-2' v-for="movie in latestMovies.slice(0,4*page)" :key="movie.id" :movie="movie">
+        <div class='col-3 my-2' v-for="movie in latestMovies.slice(0,4*page)" :key="movie.id">
           <div class="card" style="width: 100%;" @click="goDetail(movie.id)" > 
             <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height: 25rem;" alt="#"> 
             <div class="card-body">
@@ -34,7 +34,7 @@
     <div id='itemList' v-show="this.upcoming">
       <h3>상영예정 영화</h3>
       <div class="row mx-auto" >
-        <div class='col-3 my-2' v-for="movie in upComingMovies.slice(0, 4*page)" :key="movie.id" :movie="movie">
+        <div class='col-3 my-2' v-for="movie in upComingMovies.slice(0, 4*page)" :key="movie.id">
           <div class="card" style="width: 100%;" @click="goDetail(movie.id)" > 
             <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height: 25rem;" alt="#"> 
             <div class="card-body">
@@ -97,7 +97,10 @@ export default {
     upComingMovies() {
       return this.$store.getters.upComingMovies
     }    
-  },  
+  },
+  mounted() {
+    window.scrollTo(0,0)
+  },
 }
 </script>
 

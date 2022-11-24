@@ -90,7 +90,8 @@ export default {
     } else {
       this.$router.push({ name: 'LoginView' })
     }
-  }
+    window.scrollTo(0,0)
+  },
   
 }
 </script>

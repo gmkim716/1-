@@ -161,8 +161,6 @@ export default {
   },
   created() {
     this.$store.dispatch('getMovieDetail', Number(this.$route.params.id))
-  },
-  mounted() {
     window.scrollTo(0,0)
   },
   watch: {
