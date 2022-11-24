@@ -48,12 +48,14 @@
       <div class='d-flex'>
         <div id='story' class='col col-md-7 mt-5'>
           <div class="col col-md-10 mx-auto">
+            <h2>줄거리</h2>
             <p v-if="movie.overview && movie.overview.length > 30">{{ overview }}</p>
             <p v-else-if="movie.overview">{{ overview }}</p>
             <p v-else>등록된 줄거리가 없습니다</p>
           </div>
         </div>
         <div id='video' class='col col-md-4 gx-0' v-if="movie?.youtube_key !== 'nothing'">
+          <h2 class='mb-3'>공식 트레일러</h2>
           <VideoItem
             :youtubeKey="movie?.youtube_key"
           />

@@ -381,6 +381,27 @@ export default new Vuex.Store({
           // commit('SET_REVIEW', res.data)
         })
     },
+
+    deleteReview({ dispatch, getters }, payload) {
+      const reviewId = payload.reviewId
+      const movieId = payload.movieId
+      // console.log(`${API_URL}/movies/${movieId}/reviews/${reviewId}/delete/`)
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/${movieId}/reviews/${reviewId}/delete/`,
+        data: {},
+        headers: getters.authHead
+      })
+        .then(res => {
+          console.log('good', res)
+          dispatch('getMovieDetail', res.data.id)
+        })
+        .catch(err => console.log('deleteReviewErr:', err))
+    },
+
+
+
+
     likeReview({ commit, dispatch, getters }, reviewPk) {
       axios({
         method: 'post',
