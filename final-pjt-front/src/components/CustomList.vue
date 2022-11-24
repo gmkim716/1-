@@ -8,7 +8,7 @@
       <button @click="selectActor" :class="{'clicked': actor}">배우별 추천</button>
     </div>
     <div id='itemList' v-show="this.genre">
-      <h3>~~~님이 좋아하는 장르로 추천</h3>
+      <h3>{{user?.username}}님이 좋아하는 장르로 추천</h3>
       <div class="row mx-auto" >
         <div class='col-3 my-2' v-for="movie in likeGenreMovies?.slice(0,4*page)" :key="movie.id" >
           <div class="card" style="width: 100%;" @click="goDetail(movie.id)" > 
@@ -35,7 +35,7 @@
     </div>
     
     <div id='itemList' v-show="this.actor">
-      <h3>~~~님이 좋아하는 배우로 추천</h3>
+      <h3>{{user?.username}}님이 좋아하는 배우로 추천</h3>
       <div class="row mx-auto" >
         <div class='col-3 my-2' v-for="movie in likeActorMovies?.slice(0, 4*page)" :key="movie.id" >
           <div class="card" style="width: 100%;" @click="goDetail(movie.id)" > 

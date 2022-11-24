@@ -6,7 +6,8 @@
           <span @click="goProfile">
             {{ review.username }} 
           </span> |
-          <span>평점 : {{ review.rating }}점</span>
+          <span>평점 : {{ review.rating }}점</span> |
+          <button @click="goProfile">프로필</button>
         </div>
         <div class='my-auto'>
           <i v-if="user && review.like_users.includes(user.id)" @click="likeReview" class="fa-solid fa-thumbs-up fa-2x"></i>

@@ -85,7 +85,7 @@ export default new Vuex.Store({
     GET_MOVIE_DETAIL: (state, movieInfo) => {
       state.movieDetail = movieInfo
       state.genres = state.movieDetail.genres
-      state.reviews = state.movieDetail.review_set
+      state.reviews = state.movieDetail.review_set.reverse()
       state.likeReview = state.reviews.like_users
       // 여기서부터 좋아요 누를시에 추가하기
       if (movieInfo.like_users.includes(state.user.id)) {
@@ -180,14 +180,12 @@ export default new Vuex.Store({
           const rated = copy3.sort(function(a, b) {
             return a.vote_average > b.vote_average ? -1 : a.vote_average < b.vote_average ? 1 : 0;
           })
-          console.log(rated)
           const filteredRated = rated.filter(movie => {
             return movie.vote_count >= 110
           })
           const ratedMovies = filteredRated.slice(0,100)
           console.log('rated', ratedMovies)
           commit('GET_RATED_MOVIES', ratedMovies)
-          
         })
         .catch(err => console.log(err))
     },

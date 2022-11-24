@@ -15,6 +15,11 @@
         <div class="d-flex justify-content-around">
           <h5>Likes</h5> <span>{{ profile?.like_movies_count }}개</span>
         </div>
+        <div class="mb-4">
+        <button class='btn btn-secondary' v-if="user?.id !== profile?.id && !profile?.followers.includes(user?.id)" @click="follow">팔로우</button>
+        <button class='btn btn-secondary' v-if="user?.id !== profile?.id && profile?.followers.includes(user?.id)" @click="follow">팔로우 취소</button>
+        </div>
+        <button class='btn btn-secondary' @click="updateGraph" v-if="user?.id !== profile?.id">{{profile?.username}}님이 좋아하는 장르 그래프 보기</button>
       </div>
       <div class="col-5 bargraph p-3" v-if="user?.id === profile?.id">
         <h5 >좋아하는 장르그래프</h5>
@@ -22,9 +27,15 @@
         :likeGenres="likeGenres"
         />
       </div>
+      <div class="col-5 bargraph p-3" v-if="porfileUserGraph && user?.id !== profile?.id">
+        <h5 >좋아하는 장르그래프</h5>
+        <LikeGenreBar
+        :likeGenres="likeGenres"
+        />
+      </div>
+      
     </div>
-    <button class='btn btn-secondary' v-if="user?.id !== profile?.id && !profile?.followers.includes(user?.id)" @click="follow">팔로우</button>
-    <button class='btn btn-secondary' v-if="user?.id !== profile?.id && profile?.followers.includes(user?.id)" @click="follow">팔로우 취소</button>
+    
     <div class='mt-5'>
       <h3>좋아하는 영화목록</h3>
         <swiper
@@ -60,13 +71,6 @@
           <div class="swiper-button-prev" slot="button-prev"></div>
           <div class="swiper-button-next" slot="button-next"></div>
         </swiper>      
-    </div>
-    <button @click="updateGraph" v-if="user?.id !== profile?.id">{{profile?.username}}님이 좋아하는 장르 그래프 보기</button>
-    <div class="bargraph p-3" v-if="porfileUserGraph && user?.id !== profile?.id">
-      <h5 >좋아하는 장르그래프</h5>
-      <LikeGenreBar
-      :likeGenres="likeGenres"
-      />
     </div>
     <div class='mt-5'>
       <h3>시청한 영화목록</h3>

@@ -20,7 +20,7 @@ export default {
   name: 'RecommendView',
   data() {
     return {
-      movies: null
+      movies: null,
     }
   },
   components: {
