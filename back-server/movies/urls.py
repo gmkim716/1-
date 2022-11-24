@@ -14,6 +14,7 @@ urlpatterns = [
     path('<int:movie_pk>/reviews/', views.get_reviews),
     path('review/like/<int:review_pk>/', views.like_review),
     path('review/hate/<int:review_pk>/', views.hate_review),
+    path('<int:movie_id>/reviews/<int:review_id>/delete/', views.delete_review),
     path('search/<str:query>/', views.search),
     path('searchEnter/<str:query>/', views.searchEnter ),
 ]

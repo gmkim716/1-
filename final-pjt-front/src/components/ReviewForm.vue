@@ -19,7 +19,6 @@
         <button type='submit' class="btn btn-secondary">리뷰 등록</button>
       </div>
       <label for="content"></label>
-      <!-- <input class='form-control' type="text" v-model.trim="content"> -->
       <textarea v-model.trim="content" class='form-control' name="" id="" cols="15" rows="5"></textarea>
     </form>
   </div>
@@ -63,7 +62,6 @@ export default {
         this.content = null
       } else {
         this.$router.push({ name: 'LoginView'})
-
       }
     },
   },

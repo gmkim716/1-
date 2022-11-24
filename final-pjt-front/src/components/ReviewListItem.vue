@@ -6,16 +6,16 @@
           <span @click="goProfile">
             {{ review.username }} 
           </span> |
-          <span>평점 : {{ review.rating}}점</span>
+          <span>평점 : {{ review.rating }}점</span>
         </div>
         <div class='my-auto'>
-          <i v-if="user && review.like_users.includes(user.pk)" @click="likeReview" class="fa-solid fa-thumbs-up fa-2x"></i>
-          <i v-if="user && !review.like_users.includes(user.pk)" @click="likeReview" class="fa-regular fa-thumbs-up fa-2x"></i>
+          <i v-if="user && review.like_users.includes(user.id)" @click="likeReview" class="fa-solid fa-thumbs-up fa-2x"></i>
+          <i v-if="user && !review.like_users.includes(user.id)" @click="likeReview" class="fa-regular fa-thumbs-up fa-2x"></i>
           &nbsp; <span> {{ review.like_users.length }} </span> &nbsp;
-          <i v-if="user && review.hate_users.includes(user.pk)" @click="hateReview" class="fa-solid fa-thumbs-down fa-2x"></i>
-          <i v-if="user && !review.hate_users.includes(user.pk)" @click="hateReview" class="fa-regular fa-thumbs-down fa-2x"></i>
+          <i v-if="user && review.hate_users.includes(user.id)" @click="hateReview" class="fa-solid fa-thumbs-down fa-2x"></i>
+          <i v-if="user && !review.hate_users.includes(user.id)" @click="hateReview" class="fa-regular fa-thumbs-down fa-2x"></i>
           &nbsp; <span> {{ review.hate_users.length }} </span>
-          &nbsp; <span>수정</span> | <span>삭제</span>
+          &nbsp; <a @click="deleteReview(review.id, review.movie)">삭제</a>
         </div>
       </div>
       <p class='mt-3' align='left'>
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+// import axios from 'axios'
+
 export default {
   name: 'ReviewListItem',
   props: {
@@ -35,7 +37,6 @@ export default {
   methods: {
     goProfile() {
       const userPk = this.review.user
-      this.$store.dispatch('getProfile',userPk),
       this.$router.push({ name: 'ProfileView', params: { userPk }})
     },
     likeReview() {
@@ -51,6 +52,13 @@ export default {
         } else {
           this.$router.push({ name: 'LoginView'})
         }
+    },
+    deleteReview(reviewId, movieId) {
+      const payload = {
+        reviewId : reviewId,
+        movieId : movieId,
+      }
+      this.$store.dispatch('deleteReview', payload)
     }
   },
   computed: {
@@ -71,5 +79,8 @@ export default {
   .container {
     background: #262626;
     width: 800px;
+  }
+  a {
+    cursor: pointer;
   }
 </style>

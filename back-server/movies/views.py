@@ -18,11 +18,7 @@ TMDB_API_KEY = "1894a2923867c8d04cf110591f18e4c0"
 def movie_list(request):
 	if request.method == 'GET':
 		movies = get_list_or_404(Movie)
-		print('movies')
-		print(movies)
 		serializer = MovieListSerializer(movies, many=True)
-		print('serializer')
-		print(serializer)
 		return Response(serializer.data)
 
 @api_view(['GET',])
@@ -151,6 +147,15 @@ def hate_review(request, review_pk):
 		'hate_users_count': review.hate_users.count()
 	}
 	return Response(context)
+
+@api_view(['POST',])
+@permission_classes([IsAuthenticated])
+def delete_review(request, movie_id, review_id):
+	review = get_object_or_404(Review, pk=review_id)
+	review.delete()
+	movie = get_object_or_404(Movie, pk=movie_id)
+	serializer = Movieserializer(movie)
+	return Response(serializer.data)
 
 # 검색어 입력시 아래에 나오는 목록 
 @api_view(['GET',])
