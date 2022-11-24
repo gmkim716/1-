@@ -2,7 +2,7 @@
   <div id="app" >
     <div class="container gx-0">
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-      <img src="./img/logo2.png" alt="MUSSAF" style="width:200px;">
+      <img src="./img/logo.png" alt="MUSSAF" style="width:200px;">
       <div class="d-flex justify-content-between collapse navbar-collapse">
         <div id='navbar-left' class="col col-md-6">
           <ul class="d-flex justify-content-between navbar-nav">
