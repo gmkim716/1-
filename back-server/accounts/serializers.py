@@ -29,7 +29,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     bookmarked_movies_count = serializers.IntegerField(source='bookmarked_movies.count', read_only=True)
     like_movies = Movieserializer(many=True)
     watched_movies = Movieserializer(many=True)
-    bookmakred_movies = Movieserializer(many=True)
+    bookmarked_movies = Movieserializer(many=True)
 
     class Meta:
         model = get_user_model()

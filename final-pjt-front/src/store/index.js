@@ -283,6 +283,7 @@ export default new Vuex.Store({
         data: {...payload}
       })
         .then((res) => {
+          console.log('성공')
           // console.log(res.data.key)
           commit('SET_TOKEN', res.data.key)
           dispatch('getUserInfo')
@@ -312,23 +313,20 @@ export default new Vuex.Store({
         headers: getters.authHead,
       })
         .then(res => {
-          // console.log('유저정보',res.data)
+          console.log('유저정보',res.data)
           dispatch('getUserDetail', res.data.pk)
         })
         .catch(err => console.log(err))
     },
-    getUserDetail({ commit,state }, userPk) {
+    getUserDetail({ commit }, userPk) {
       axios({
         method: 'get',
         url: `${API_URL}/accounts/${userPk}/`,
       })
         .then(res =>{
           console.log('유저',res.data)
-          
-          if(!state.user) {
-            router.push('/')
-          }
           commit('SET_USER', res.data)
+          router.push('/')
         })
         .catch(err => console.log('getuserdetailerr:', err))
     },
