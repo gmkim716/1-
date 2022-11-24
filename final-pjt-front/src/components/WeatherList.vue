@@ -9,11 +9,11 @@
     >
       <swiper-slide v-for="movie in weatherMovies" :key="movie.id" style="width: 100%;">
         <div class="card" style="width: 100%;" @click="goDetail(movie.id)" > 
-          <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height:25rem;" alt="#"> 
+          <img :src="`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`" class="card-img-top" style="width:100%; height:15rem;" alt="#"> 
           <div class="card-body">
             <div>
-              <h5 v-if="movie.title.length <= 14" style="font-size:100%; font-weight: bold;" class="card-title mb-0">{{ movie.title }}</h5>
-              <h5 v-if="movie.title.length > 14" style="font-size:100%; font-weight: bold;" class="card-title mb-0">{{ movie.title.slice(0, 13)}}..</h5>
+              <h5 v-if="movie.title.length <= 10" style="font-size:100%; font-weight: bold;" class="card-title mb-0">{{ movie.title }}</h5>
+              <h5 v-if="movie.title.length > 10" style="font-size:100%; font-weight: bold;" class="card-title mb-0">{{ movie.title.slice(0, 8)}}..</h5>
             </div>
             <p class="card-text mb-0" style="font-size:80%;">{{movie.release_date}}</p>
             <div class="d-flex justify-content-between align-items-center px-2">
@@ -50,9 +50,9 @@ export default {
   data() {
     return {
       swiperOption: { 
-        slidesPerView: 4, 
-        spaceBetween: 30,
-        slidesPerGroup: 4,
+        slidesPerView: 6, 
+        spaceBetween: 20,
+        slidesPerGroup: 6,
         loop: true, 
         loopFillGroupWithBlank: true,
         pagination: { 
@@ -91,10 +91,10 @@ export default {
     color: black;
   }
 </style>
-<style>
+<style scoped>
 .swiper {
   width: 100%;
-  height: 100%;
+  height: 80%;
 }
 
 .swiper-slide {

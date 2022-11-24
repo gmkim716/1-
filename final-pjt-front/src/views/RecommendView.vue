@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ user?.username }}님을 위한 추천</h2>
+    <h2>{{ user?.username }}님을 위한 맞춤 추천</h2>
     <hr>
     <WeatherList/>
     <hr>

@@ -29,7 +29,7 @@
     <div id='itemList' v-show="this.bookmarked">
       <div class="row mx-auto">
         <LibraryBookMarked 
-          v-for="movie in user?.like_movies" 
+          v-for="movie in user?.bookmarked_movies" 
           :key="movie.id"
           :movie="movie"
         />
