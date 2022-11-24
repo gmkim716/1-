@@ -32,8 +32,10 @@ export default new Vuex.Store({
     // movieReview: null,
     isLiked: null,
     isWatched: null,
+    isBookmarked: null,
     likeCount: null,
     watchedCount: null,
+    bookmarkedCount: null,
     token: null,
     user: null,
     profile:null,
@@ -110,7 +112,6 @@ export default new Vuex.Store({
     GET_UPCOMING_MOVIES : (state, upComing) => state.upComingMovies = upComing,
     SET_YOUTUBE_LIST: (state, relatedYoutebe) => {
       state.relatedYoutebe = relatedYoutebe
-      console.log('tlktjltkjtlkjtlktj', state.relatedYoutebe)
     },
     RESET_DETAIL: (state) => {
       state.movieDetail = null
@@ -400,9 +401,6 @@ export default new Vuex.Store({
         })
         .catch(err => console.log('deleteReviewErr:', err))
     },
-
-
-
 
     likeReview({ commit, dispatch, getters }, reviewPk) {
       axios({

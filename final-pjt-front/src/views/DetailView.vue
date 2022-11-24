@@ -49,7 +49,7 @@
         <div id='story' class='col col-md-7 mt-5'>
           <div class="col col-md-10 mx-auto">
             <p v-if="movie?.overview && movie?.overview.length > 30">{{ overview }}</p>
-            <p v-else-if="movie.overview">{{ overview }}</p>
+            <p v-else-if="movie?.overview">{{ overview }}</p>
             <p v-else>등록된 줄거리가 없습니다</p>
           </div>
         </div>
