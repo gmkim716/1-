@@ -27,17 +27,39 @@
             </span>
           </li>
           <br>
-          <div class="col col-md-4">
+          <div class="col col-md-6">
             <div class='d-flex justify-content-between'>
               <!-- 이미 본 영화 체크 -->
-              <i title="시청한 영화" id='watched' v-if="(movie?.release_date <= this.today) && isWatched" @click="watchedMovie" class="fa-solid fa-square-check fa-2x true" style="color:green"></i>
-              <i title="시청한 영화" id='watched' v-if="(movie?.release_date <= this.today) && !isWatched" @click="watchedMovie" class="fa-regular fa-square-check fa-2x"></i>
+              <div>
+                <i title="시청한 영화" id='watched' v-if="(movie?.release_date <= this.today) && isWatched" @click="watchedMovie" class="fa-solid fa-square-check fa-2x true mx-1" style="color:green"></i>
+                <i title="시청한 영화" id='watched' v-if="(movie?.release_date <= this.today) && !isWatched" @click="watchedMovie" class="fa-regular fa-square-check fa-2x mx-1"></i>
+              </div>
               <!-- 영화 좋아요 체크 -->
-              <i title="좋아요" id='like' v-if="isLiked" @click="likeMovie" class="fa-solid fa-heart fa-2x true"></i>
-              <i title="좋아요" id='like' v-if="!isLiked" @click="likeMovie" class="fa-regular fa-heart fa-2x"></i>
+              <div>
+                <i title="좋아요" id='like' v-if="isLiked" @click="likeMovie" class="fa-solid fa-heart fa-2x true"></i>
+                <i title="좋아요" id='like' v-if="!isLiked" @click="likeMovie" class="fa-regular fa-heart fa-2x"></i>
+              </div>
               <!-- 보고싶은 영화 체크 -->
-              <i title="북마크" id='bookmark' v-if="isBookmarked" @click="bookmarkedMovie" class="fa-solid fa-bookmark fa-2x true"></i>
-              <i title="북마크" id='bookmark' v-if="!isBookmarked" @click="bookmarkedMovie" class="fa-regular fa-bookmark fa-2x"></i>
+              <div>
+                <i title="북마크" id='bookmark' v-if="isBookmarked" @click="bookmarkedMovie" class="fa-solid fa-bookmark fa-2x true"></i>
+                <i title="북마크" id='bookmark' v-if="!isBookmarked" @click="bookmarkedMovie" class="fa-regular fa-bookmark fa-2x"></i>
+              </div>
+            </div>
+          </div>
+          <div style="width:55%">
+            <div class='d-flex justify-content-between'>
+              <div class="d-flex flex-column justify-content-center">
+                <p class="mb-0" style="font-size:80%">이미 본</p>
+                <p class="mb-0" style="font-size:80%">&nbsp;&nbsp;영화</p>
+              </div>
+              <div>
+                <p class="mb-0" style="font-size:80%">좋아하는</p>
+                <p class="mb-0" style="font-size:80%">&nbsp;&nbsp;영화</p>
+              </div>
+              <div>
+                <p class="mb-0" style="font-size:80%">나중에 볼</p>
+                <p class="mb-0" style="font-size:80%">&nbsp;&nbsp;  영화</p>
+              </div>                            
             </div>
           </div>
         </ul>
@@ -48,9 +70,8 @@
       <div class='d-flex'>
         <div id='story' class='col col-md-7 mt-5'>
           <div class="col col-md-10 mx-auto">
-            <p v-if="movie?.overview && movie?.overview.length > 30">{{ overview }}</p>
-            <p v-else-if="movie?.overview">{{ overview }}</p>
-            <p v-else>등록된 줄거리가 없습니다</p>
+            <h3>줄거리</h3>
+            <p>{{ movie?.overview}}</p>
           </div>
         </div>
         <div id='video' class='col col-md-4 gx-0' v-if="movie?.youtube_key !== 'nothing'">
@@ -61,7 +82,8 @@
       </div>
 
       <VideoYoutubeList
-      :movieTitle="movie?.title"
+      :spoiler="movie?.title.concat('영화 결말포함')"
+      :ost="movie?.title.concat('영화 soundTrack OST')"
       />
       <span v-if="(movie?.youtube_key === 'nothing')">
       </span>
@@ -160,6 +182,7 @@ export default {
     },
   },
   created() {
+    this.$store.commit('RESET_DETAIL')
     this.$store.dispatch('getMovieDetail', Number(this.$route.params.id))
     window.scrollTo(0,0)
   },
@@ -167,6 +190,7 @@ export default {
     '$route' (to, from) {
       console.log(to)
       console.log(from)
+      this.$store.commit('RESET_DETAIL')
       this.$store.dispatch('getMovieDetail', Number(this.$route.params.id))
     }
   },

@@ -74,7 +74,7 @@ export default {
   },
   data() {
     return {
-      page: 3,
+      page:3,
       likeGenres: null,
       likeActors: null,
       likeGenreMovies: null,

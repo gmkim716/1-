@@ -185,7 +185,7 @@ export default {
   created(){
     this.getMovies()
     this.getWeatherMovies()
-    this.$store.commit('RESET_DETAIL')
+    // this.$store.commit('RESET_DETAIL')
   },
   methods: {
     goDetail(id) {

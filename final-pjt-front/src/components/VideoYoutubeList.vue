@@ -1,18 +1,37 @@
 <template>
   <div>
-		<h2>관련 영상</h2>
-    <!-- 여기에 트레일러 적용하기 -->
-    <div v-for="video in this.videos?.items" :key="video.etag">
-      <div>
-        {{ video.snippet.title}}
-      </div>
-    </div>
+    <h2>OST 영상</h2>
+    <button @click="loadOst" v-if="!showOst">OST 불러오기</button>
+    <button @click="loadOst" v-if="showOst">OST 숨기기</button>
     <swiper
       class="swiper"
       :options="swiperOption"
       id="youtubes"
+      v-if="showOst"
     >
-      <swiper-slide v-for="(video, index) in videos?.items" :key="index">
+      <swiper-slide v-for="(video, index) in ostVideos?.items" :key="index">
+        <iframe :src="`https:/www.youtube.com/embed/${video.id.videoId}`" ></iframe>
+      </swiper-slide>     
+      <div
+          class="swiper-pagination"
+          slot="pagination"
+          >
+      </div>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
+
+		<h2>결말포함 영상</h2>
+    <button @click="loadYoutubeList" v-if="!showSpoiler">결말포함 영상 보기</button>
+    <button @click="loadYoutubeList" v-if="showSpoiler">결말포함 영상 숨기기</button>
+    <!-- 여기에 트레일러 적용하기 -->
+    <swiper
+      class="swiper"
+      :options="swiperOption"
+      id="youtubes"
+      v-if="showSpoiler"
+    >
+      <swiper-slide v-for="(video, index) in spoilerVideos?.items" :key="index">
         <iframe :src="`https:/www.youtube.com/embed/${video.id.videoId}`" ></iframe>
       </swiper-slide>     
       <div
@@ -32,14 +51,21 @@ import axios from 'axios';
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
-// const API_KEY = process.env.VUE_APP_YOUTUBE_KEY
+const API_KEY = 'AIzaSyA7AXY29GFVsmTUuP0_FsG0OFZVgQOltQQ'
 // console.log('API_KEY', API_KEY)
 
 export default {
   name: 'VideoYoutubeList',
+  props: {
+    spoiler: String,
+    ost: String,
+  },
 	data() {
 		return {
-			videos: null,
+      showOst:false,
+      showSpoiler:false,
+			spoilerVideos: null,
+      ostVideos: null,
       swiperOption: { 
         slidesPerView: 2, 
         spaceBetween: 0,
@@ -55,34 +81,52 @@ export default {
       },			
 		}
 	},
-	props: {
-		movieTitle: String
-	},
 	components: {
 		Swiper,
     SwiperSlide
 	},
 	methods: {
     loadYoutubeList() {
-      // if (this.videos) return
+      this.showSpoiler = !this.showSpoiler
 			axios({
 				url: 'https://www.googleapis.com/youtube/v3/search',
 				method: 'get',
 				params: {
-					key: 'AIzaSyB_IRXndunp4GqMPrv8n7MRAk3hgpv6HR8',
+					key: API_KEY,
 					part: 'snippet',
-					q: `${this.movieTitle}`,
+					q: `${this.spoiler}`,
           maxResults: 10,
 					type: 'video'
 				}
 			})
-				.then( res => {
-					this.videos = res.data
+				.then(res => {
+          console.log('결말포함영상',res)
+					this.spoilerVideos = res.data
 				})
 				.catch( err => {
 					console.log('err:', err)
 				})
-		}
+		},
+    loadOst() {
+      this.showOst = !this.showOst
+      axios({
+        method: 'get',
+        url: 'https://www.googleapis.com/youtube/v3/search',
+        // params에 필수 + 추가 옵션들이 들어가야함 (api키, 내용,...) => api배포 페이지 확인
+        params: {
+          key: API_KEY,
+          part: 'snippet',
+          q: `${this.ost}`,
+          maxResults: 10,
+          type: 'video',
+        },
+      })
+        .then((res) => {
+          console.log('OST',res)
+          this.ostVideos = res.data
+        })
+        .catch(err => console.log(err))
+    },
 	},
 	watch: {
     '$route' (to, from) {
@@ -91,16 +135,13 @@ export default {
       this.videos = null
     }
   },
-	mounted() {
-    this.loadYoutubeList()
-	},
 }
 </script>
 
-<style>
-.swiper #youtubes {
+<style scoped>
+.swiper{
   width: 100%;
-  height: 18rem;
+  height: 20rem;
 }
 
 .swiper-slide {

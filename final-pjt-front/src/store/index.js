@@ -42,6 +42,8 @@ export default new Vuex.Store({
     likeReview: null,
     hateReview: null,
     results: null,
+    ostquery: null,
+    spoilerquery: null,
   },
   getters: {
     // test용으로 slice()적용해 놓음
@@ -68,7 +70,9 @@ export default new Vuex.Store({
     likeReview: (state) => state.likeReview,
     hateReview: (state) => state.hateReview,
     results: (state) => state.results,
-    genres: (state) => state.genres
+    genres: (state) => state.genres,
+    ostquery: (state) => state.ostquery,
+    spoilerquery: (state) => state.spoilerquery,
   },
   mutations: {
     // 영화 관련 정보
@@ -104,6 +108,10 @@ export default new Vuex.Store({
         state.isBookmarked = false
       }
       state.bookmarkedCount = movieInfo.bookmarked_users_count
+      // 유튜브 검색 쿼리 저장
+      state.ostquery = state.movieDetail.title.concat(' 영화 soundTrack OST')
+      state.spoilerquery = state.movieDetail.title.concat(' 영화 결말포함')
+      
     },
     LIKE_MOVIE: (state, likeInfo) => {
       state.isLiked = likeInfo.is_liked
@@ -119,6 +127,8 @@ export default new Vuex.Store({
       state.isLiked = null
       state.likeCount = null
       state.profile = null
+      state.ostquery = null
+      state.spoilerquery = null
     },
     // review정보
     LIKE_REVIEW: (state, likeReview) => state.likeReview = likeReview,
